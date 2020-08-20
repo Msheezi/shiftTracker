@@ -1,27 +1,24 @@
 const express = require("express")
 const router = express.Router()
 const Shift = require("../models/shift")
-const { restart } = require("nodemon")
+
 
 const excluded = {"__v": 0 }
 
   const updateObject = (shift, updatedShift) =>{
 
          for (const key in updatedShift){
-             
-             if (key==="endMiles"){
-                 if (updatedShift[key] != "0") {
-                     
-                     totalMiles = parseInt(updatedShift[key]) - parseInt(shift.startMiles)
-                     shift.ttlMiles = totalMiles
-                     shift.endMiles = updatedShift[key]
-                     
-                    }
-                } 
-                shift[key] = updatedShift[key]
+            shift[key] = updatedShift[key]
             }
-            
-            return shift
+
+            if (shift.endMiles > 0) {
+             
+            totalMiles = parseInt(shift.endMiles) - parseInt(shift.startMiles);
+            shift.ttlMiles = totalMiles;
+
+          }
+  
+          return shift
         }
 
 router.get("/shifts", (req,res)=>{
@@ -58,9 +55,11 @@ router.post("/newShift", (req,res)=> {
 
  router.patch("/close/:id", async (req,res)=>{
      let  shiftId = req.params.id 
-     const [shift] = await Shift.find({"_id": shiftId})
+     const updatedShift = req.body;
+     const [retrievedshift] = await Shift.find({"_id": shiftId})
+     const shift = await updateObject(retrievedshift, updatedShift);
      shift.endDateTime = Date.now()
-     let start = new Date(shift.startDatetime)
+     let start = new Date(shift.startDateTime)
      let end = new Date(shift.endDateTime)
 
      shift.shiftDuration = ((end.getTime() - start.getTime()) / (60*60*1000)).toFixed(2)
@@ -83,3 +82,6 @@ router.post("/newShift", (req,res)=> {
  })
 
  module.exports = router
+
+
+  

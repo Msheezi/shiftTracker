@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const ShiftSchema = new Schema({
-  startDatetime: {
+  startDateTime: {
     type: Date,
     default: Date.now,
     required: true,
