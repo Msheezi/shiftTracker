@@ -5,7 +5,7 @@ const { restart } = require("nodemon")
 
 const excluded = {"__v": 0 }
 
-  const updateObject = (shift, updatedShift, shiftId) =>{
+  const updateObject = (shift, updatedShift) =>{
 
          for (const key in updatedShift){
              
@@ -39,7 +39,7 @@ router.post("/newShift", (req,res)=> {
      let shiftId = req.params.id 
      const updatedShift = req.body
      const [shift] = await Shift.find({"_id": shiftId})
-     const updates = await updateObject(shift, updatedShift, shiftId)
+     const updates = await updateObject(shift, updatedShift)
 
      Shift.findOneAndUpdate(
        { "_id": shiftId },
@@ -64,14 +64,12 @@ router.post("/newShift", (req,res)=> {
      let end = new Date(shift.endDateTime)
 
      shift.shiftDuration = ((end.getTime() - start.getTime()) / (60*60*1000)).toFixed(2)
-     console.log((shift.endDateTime.getTime() - shift.startDatetime.getTime()) / (60 * 60 * 1000));
-     console.log(start, )
-    shift.ttlComp = ((16 * shift.shiftDuration) + (shift.ttlMiles * 0.57) + shift.tips).toFixed(2)
+     shift.ttlComp = ((16 * shift.shiftDuration) + (shift.ttlMiles * 0.57) + shift.tips).toFixed(2)
 
      shift.closed = true 
 
      Shift.findOneAndUpdate(
-       { _id: shiftId },
+       { "_id": shiftId },
        shift,
        { new: true, fields: excluded },
 
