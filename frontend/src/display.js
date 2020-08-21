@@ -1,19 +1,15 @@
 import React, {useContext} from 'react'
 import { ShiftContext } from './shiftContext'
+import {ShiftItem} from './shiftItem'
 
 
 export const Display = () => {
+    //read the context value stored in provider
      const data =  useContext(ShiftContext)
-  // add in the user call here in context, now you have the user Id and can pull from context
-  // do i put the shifts in here too?  and maybe some theming?
-  // let values = data.map(shift =>(
-  //   <div>{shift.startDateTime}</div>
-  // ))
-  console.log(data)
-  // let values = 
+ 
   let values
   if (data){
-       values = data.map(shiftObj => (<div>{shiftObj.startDateTime}</div>))
+      values = data.map(shiftObj => (<ShiftItem key={shiftObj._id} shift={shiftObj}/>))
 
   } else {
       values = null
