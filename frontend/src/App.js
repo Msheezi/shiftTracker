@@ -1,25 +1,26 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import {Display} from './display'
+
+
+function  App() {
+  
+//  const data =  useContext(ShiftContext)
+  // add in the user call here in context, now you have the user Id and can pull from context
+  // do i put the shifts in here too?  and maybe some theming?
+  // let values = data.map(shift =>(
+  //   <div>{shift.startDateTime}</div>
+  // ))
+  // console.log(data)
+  // let values = data.map(shiftObj => (<div>{shiftObj.startDateTime}</div>))
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // {values}
+  //  null
+  <Display/>
   );
 }
 

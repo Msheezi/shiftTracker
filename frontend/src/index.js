@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { ShiftProvider } from './shiftContext'
 
 ReactDOM.render(
+
   <React.StrictMode>
+    <ShiftProvider>
     <App />
+    </ShiftProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
