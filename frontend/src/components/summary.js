@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import { ShiftContext } from './shiftContext'
+import { ShiftContext } from '../shiftContext'
 import {ShiftItem} from './shiftItem'
 import styled from 'styled-components'
 
@@ -8,7 +8,7 @@ const Container = styled.div`
    
 `
 
-export const Display = () => {
+export const Summary = () => {
     //read the context value stored in provider
      const data =  useContext(ShiftContext)
  

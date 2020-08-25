@@ -1,15 +1,31 @@
 import React from 'react';
 
-import './App.css';
-
-import {Display} from './display'
+import './css/App.css';
+import { Switch, Route,BrowserRouter as Router } from "react-router-dom";
+import {Summary} from './components/summary'
+import {MainPage } from './components/mainpage'
+import ShiftDetail from './components/shiftDetail'
 
 
 function  App() {
 
   return (
- 
-      <Display/>
+    <Router>
+      <div>
+      
+        <Switch>
+          <Route path="/summary">
+            <Summary />
+          </Route>
+          <Route path="/shift/:shiftId">
+            <ShiftDetail  />
+          </Route>
+          <Route path="/">
+            <MainPage />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

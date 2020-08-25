@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import {Link} from 'react-router-dom'
 
 const Container = styled.ul`
     /*
@@ -12,7 +13,7 @@ const Container = styled.ul`
     line-height: 50px;
     height: 50px;
      /* width: 90%;  */
-    background-color: ${props => props.number % 2 == 0 ? "white" : "#D5E8EB"} ;
+    background-color: ${props => props.number % 2 === 0 ? "white" : "#D5E8EB"} ;
     overflow: hidden;
     border: 0.5px solid black;
     border-radius: 50px;
@@ -80,31 +81,30 @@ const converDateString = (dateString) => {
 
 
 
-export const ShiftItem = ({number, shift: {startDateTime, endDateTime, startMiles, endMiles, ttlMiles, tips = "0.00", ttlComp = "0.00", closed}}) => {
+export const ShiftItem = ({number, shift: {_id, startDateTime, endDateTime, startMiles, endMiles, ttlMiles, tips = 0, ttlComp = 0, closed}}) => {
     
 let start = converDateString(startDateTime)
-let end = converDateString(endDateTime)
+let end = endDateTime ?  converDateString(endDateTime) : "00:00"
 let shiftStatus = closed ? <Button status={closed}>Closed</Button> : <Button status={closed}>Edit</Button>
 
     return (
-        <>
-        <Container number={number}>
-            <MyDiv> {number}.  </MyDiv>
+       <Link style={{textDecoration: "none", color: "black"}} to={`shift/${_id}`}>
+
+        <Container number={number} >
+            <MyDiv> {number + 1}.  </MyDiv>
             
                 
             <Value>{`Shift Start: ${start}`}</Value>
-            {/* <Value>{`Shift End: ${end}`}</Value> */}
+            <Value>{`Shift End: ${end}`}</Value>
             <Value>Starting Miles: {startMiles}</Value>
             <Value>Ending Miles: {endMiles}</Value>
             <Value>Total Miles: {ttlMiles}</Value>
-            <Value>Tips: ${tips}</Value>
+            <Value>{`Tips: $${tips.toFixed(2)}`}</Value>
             <Value >Total Comp: ${ttlComp}</Value>
-            {/* <Button>Shift Closed?: {closed.toString()}</Button> */}
-            
-           
-                {shiftStatus}
+            {shiftStatus}
         </Container>
-                </>
+       </Link>
+                
 
     )
 
