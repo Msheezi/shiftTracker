@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom';
 // import './index.css';
 import App from './App';
 import { ShiftProvider } from './shiftContext'
+import {StoreProvider} from './store'
 
 ReactDOM.render(
 
   <React.StrictMode>
-    <ShiftProvider>
+    {/* <ShiftProvider> */}
+    <StoreProvider>
+
     <App />
-    </ShiftProvider>
+    </StoreProvider>
+    {/* </ShiftProvider> */}
   </React.StrictMode>,
   document.getElementById('root')
 );

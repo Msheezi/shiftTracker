@@ -8,7 +8,7 @@ export const ShiftContext = createContext()
 
 export const ShiftProvider = ({children}) => {
  
-    const [data, setData] = useState(null)
+    const [data, setData] = useState()
     useEffect(  () => {
         
          axios.get('/shifts/shifts').then(res => setData(res.data))

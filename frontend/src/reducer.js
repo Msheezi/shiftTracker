@@ -1,15 +1,19 @@
 import React, {useReducer, useContext} from 'react'
 import { ShiftContext } from "./shiftContext";
 
-const initialState = useContext(ShiftContext)
+const initialState = {shifts: []}
 
-const Reducer = (state, action) => {
+const reducer = (state ={}, action) => {
+    let newState
    switch (action.type){
        case "new":
-       
-       case "update":
+        newState = {...state}
+        newState.shifts.push(action.payload)
+        console.log(state)
+        return newState
+    //    case "update":
 
-       case "close":
+    //    case "close":
 
        default:
            return state
@@ -17,4 +21,4 @@ const Reducer = (state, action) => {
    }
 }
 
-export default Reducer
+export default reducer
