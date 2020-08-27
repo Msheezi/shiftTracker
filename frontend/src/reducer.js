@@ -11,8 +11,11 @@ const reducer = (state ={}, action) => {
         newState.shifts.push(action.payload)
         console.log(state)
         return newState
-    //    case "update":
-
+       case "update":
+        let intermediateState = {...state}
+        newState = intermediateState.filter(shiftObj=> shiftObj._id != action.payload._id)
+        newState.push(action.payload)
+       return newState
     //    case "close":
 
        default:

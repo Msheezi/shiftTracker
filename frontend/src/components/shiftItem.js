@@ -2,17 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 
-const Container = styled.ul`
-    /*
-    display: flex;
-    z-index: 1;
-    margin: 10px;
-    box-sizing: border-box;
-    
-    */
+const Container = styled.div`
+    width: 90%;
     line-height: 50px;
     height: 50px;
-     /* width: 90%;  */
     background-color: ${props => props.number % 2 === 0 ? "white" : "#D5E8EB"} ;
     overflow: hidden;
     border: 0.5px solid black;
@@ -20,61 +13,59 @@ const Container = styled.ul`
     list-style-type: none;
     padding: 0;
     position:relative;
+    margin: 10px auto;
+    
 
     &:hover {
     border-color: #1e7e34;
     background-color: #FCDDBC;
 }
-    /* justify-content: space-around; */
 
-/*  */
 
 `
-const MyDiv = styled.li`
-/* text-align: center; */
-/* line-height: 50px; */
-/* height:50px; */
-/* width: 100%; */
+const MyDiv = styled.div`
 margin-left: 20px;
-/* float: left; */
-display: inline;
+/* display: inline; */
 
 
 `
 
 
-const Value = styled.li`
+const Value = styled.div`
 
     margin-right: 10px;
-    /* min-width: 200px; */
-    /* width:80px; */
-    /* line-height: 50px; */
-    /* height:50px; */
-/* float: left; */
     display: inline;
     
-    
-
 
 `
 const Button = styled.div`
-    border: none;
+    border: 0.5px solid black;
     background-color: ${props => props.status ? "#E23C4A" : "#A3CCA6"};
     border-radius: 5px;
-    padding: 2px;
+    padding: 5px;
     /* width: 25px; */
     text-align:center;
-    justify-self: flex-end;
+    margin: 0 auto;
+    /* justify-self: flex-end; */
     /* display: inline; */
-    float: right;
-    width: 90px;
+    /* float: right; */
+    width: 60px;
+    /* z-index: 1; */
+    /* overflow: hidden; */
+    box-sizing: border-box;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    height: 25px;
+    line-height: 20px;
+    
     
 
 `
 
 const converDateString = (dateString) => {
      let [month, date, year] = (new Date(dateString).toLocaleDateString().split("/"))
-    let [hour, minute, second] = (new Date(dateString).toLocaleTimeString().slice(0,7).split(":"))
+    let [hour, minute, ] = (new Date(dateString).toLocaleTimeString().slice(0,7).split(":"))
 
      return `${month}/${date}/${year} ${hour}:${minute}`
 }
@@ -91,16 +82,15 @@ let shiftStatus = closed ? <Button status={closed}>Closed</Button> : <Button sta
        <Link style={{textDecoration: "none", color: "black"}} to={`shift/${_id}`}>
 
         <Container number={number} >
-            <MyDiv> {number + 1}.  </MyDiv>
-            
-                
+            <MyDiv> {`${number + 1}. `}  
             <Value>{`Shift Start: ${start}`}</Value>
             <Value>{`Shift End: ${end}`}</Value>
-            <Value>Starting Miles: {startMiles}</Value>
-            <Value>Ending Miles: {endMiles}</Value>
+            {/* <Value>Starting Miles: {startMiles}</Value>
+            <Value>Ending Miles: {endMiles}</Value> */}
             <Value>Total Miles: {ttlMiles}</Value>
             <Value>{`Tips: $${tips.toFixed(2)}`}</Value>
             <Value >Total Comp: ${ttlComp}</Value>
+            </MyDiv>
             {shiftStatus}
         </Container>
        </Link>

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const ShiftSchema = new Schema({
   startDateTime: {
     type: Date,
-    default: Date.now,
+    
     required: true,
   },
   endDateTime: {
@@ -13,11 +13,11 @@ const ShiftSchema = new Schema({
   },
   startingUrl: {
     type: String,
-    default: "",
+    default: undefined,
   },
   endingUrl: {
     type: String,
-    default: "",
+    default: undefined
   },
   shiftDuration: {
     type: String,

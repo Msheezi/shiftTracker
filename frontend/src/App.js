@@ -7,24 +7,12 @@ import {MainPage } from './components/mainpage'
 import ShiftDetail from './components/shiftDetail'
 import {Store} from './store'
 import Axios from "axios";
+import {Navbar} from './components/nav'
 
 function  App() {
-//   const {state, dispatch} = useContext(Store)
-
-// const fetchShifts = async () => {
-//   const data = await Axios.get("/shifts/shifts");
-//   return dispatch({ type: "fetch", payload: data.data });
-// };
-// //  const [state, dispatch] = useReducer(reducer, data)
-// // const { state, dispatch } = useContext(ShiftContext);
-// // console.log(state)
-// // const data = state
-
-// useEffect(() => {
-//   state.shifts.length === 0 && fetchShifts();
-// });
   return (
     <Router>
+      <Navbar/>
       <div>
       
         <Switch>

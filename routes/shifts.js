@@ -21,13 +21,31 @@ const excluded = {"__v": 0 }
           return shift
         }
 
-router.get("/shifts", (req,res)=>{
-    Shift.find({}, excluded)
-    .then(shifts => res.json(shifts))
-})
+
+router.get("/shifts", (req, res) => {
+  Shift.find({}, excluded).then((shifts) => res.json(shifts));
+});
+
+
+  router.get("/:id",(req, res) => {
+    const shiftId = req.params.id;
+      // console.log("testid");
+      Shift.findById(shiftId, excluded).then((shift) => {
+        // console.log(shift);
+        return res.json(shift);
+      });
+    });
+
+
+
+
+
+
+
 
 router.post("/newShift", (req,res)=> {
-    let newShift = new Shift()
+    let date = new Date
+    let newShift = new Shift({startDateTime: date})
     newShift.save()
     .then((shift) => res.json(shift))
  } )
@@ -58,7 +76,7 @@ router.post("/newShift", (req,res)=> {
      const updatedShift = req.body;
      const [retrievedshift] = await Shift.find({"_id": shiftId})
      const shift = await updateObject(retrievedshift, updatedShift);
-     shift.endDateTime = Date.now()
+     shift.endDateTime = new Date
      let start = new Date(shift.startDateTime)
      let end = new Date(shift.endDateTime)
 

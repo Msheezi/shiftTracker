@@ -1,35 +1,81 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {withRouter} from 'react-router-dom'
 import styled from 'styled-components'
 import axios from 'axios'
+import {Store} from '../store'
 
-const postUpdate = (shiftId, shift) => axios.patch(`/shifts/${shiftId}`, shift);
-const closeShift = (shiftId, shift) => axios.patch(`/shifts/close/${shiftId}`, shift);
+
 
 
 const ShiftDetail =  (props) => {
     const shiftId = props.match.params.shiftId
+    const { dispatch} = useContext(Store)
     const [shift, updateShift] = useState();
+    const [status, updateStatus] = useState(false)
+   
     const handleChange = (e) => {
-        let newState = {...shift,[e.target.name]: e.target.value }
+      let newState = { ...shift,[e.target.name]: e.target.value }
         return updateShift(newState)
     }
 
+    const postShift = async (shiftId, shift) =>{
+      const data = await axios.patch(`/shifts/${shiftId}`, shift)
+      console.log(data.data)
+      return dispatch({type: "update", payload: data.data})
+    }
+
+    const postUpdate = (shiftId, shift) => {
+      postShift(shiftId, shift)
+      .then(()=> updateStatus(true))
+    };
+
+
+    const closeShift = (shiftId, shift) => axios.patch(`/shifts/close/${shiftId}`, shift);
+
+    
+  let displayUpdate  = status ? "Operation Successful" : null
+
+const getShift = (shiftId) => {
+  return (
+  axios
+    .get(`/shifts/${shiftId}`)
+    .then((res) => updateShift(res.data))
+    .catch(err => {
+      console.log(`error:` + err)
+    }))
+}
+
     useEffect(()=>{
+      if (!shift){
         //  axios.get(`/shifts/${shiftId}`).then(res => updateShift(res.data))
-         axios
-           .get(`/shifts/${shiftId}`)
-           .then((res) => updateShift(res.data))
-           .catch(err => {
-               console.log(`error:` + err)
-           })
-    }, [])
+        getShift(shiftId)
+      }
+      console.log("am i running 1")
+    },[shiftId])
+
+
+    useEffect(()=> {
+      if (status){
+        getShift(shiftId)
+        
+        updateStatus(false)
+        console.log("am i running")
+      }
+
+    },[status])
+
+    let disabled 
+      if (shift) {
+      disabled = shift.closed ? true: false 
+      }
 
     return shift ? (
+      <>
+        <div>{displayUpdate}</div>
       <div style={{ display: "flex" }}>
         <label>
           Start Time:
-          <input
+          <input disabled={disabled}
             type="text"
             value={shift.startDateTime}
             name="startDateTime"
@@ -38,7 +84,7 @@ const ShiftDetail =  (props) => {
         </label>
         <label>
           Starting Miles
-          <input
+          <input disabled={disabled}
             type="text"
             name="startMiles"
             value={shift.startMiles}
@@ -47,7 +93,7 @@ const ShiftDetail =  (props) => {
         </label>
         <label>
           Ending Miles
-          <input
+          <input disabled={disabled}
             type="text"
             name="endMiles"
             value={shift.endMiles}
@@ -56,7 +102,7 @@ const ShiftDetail =  (props) => {
         </label>
         <label>
           Tips
-          <input
+          <input disabled={disabled}
             type="text"
             name="tips"
             value={shift.tips}
@@ -66,6 +112,7 @@ const ShiftDetail =  (props) => {
         <button onClick={(e) => postUpdate(shiftId, shift)}>Submit</button>
         <button onClick={(e) => closeShift(shiftId, shift)}>Close</button>
       </div>
+      </>
     ) : null;
   
     

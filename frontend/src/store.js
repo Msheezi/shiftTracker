@@ -11,14 +11,25 @@ const reducer = (state, action) => {
     switch (action.type){
         case "fetch":
             return {...state, shifts: action.payload}
-        // newState = {...state}
-        // newState.shifts.push(action.payload)
-        // console.log(state)
-        // return newState
         case "new":
             newState = {...state}
             newState.shifts.push(action.payload)
             return newState
+        case "update":
+            /* since state is an array of objects
+                Using splice to preserve the display order of the shifts in app
+            1. duplicate the array
+            2. find the index of the item you want to updated
+            3. delete the existing element and add the updated element
+            4. return the new state
+            */
+
+             newState = {...state}
+            let index = newState.shifts.findIndex(shiftObjs => shiftObjs._id === action.payload._id)
+            newState.shifts.splice(index, 1, action.payload)
+            return newState
+        default:
+            return state
     }
 }
 
