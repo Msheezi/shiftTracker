@@ -58,7 +58,7 @@ const getShift = (shiftId) => {
       if (status){
         getShift(shiftId)
         
-        updateStatus(false)
+        // updateStatus(false)
         console.log("am i running")
       }
 

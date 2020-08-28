@@ -28,9 +28,10 @@ export const Summary = () => {
   });
 
   const addNewShift = async () =>  {
-    const newShift = await Axios.post("shifts/newshift")
+     await Axios.post("shifts/newshift")
     fetchShifts()
   }
+
 
   let values;
   if (state) {
@@ -45,6 +46,7 @@ export const Summary = () => {
 
     <Container>
       {values}
+      
       <button onClick={ e => addNewShift()}>New Shift</button>
     </Container>
   );

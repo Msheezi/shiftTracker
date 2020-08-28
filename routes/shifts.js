@@ -23,6 +23,7 @@ const excluded = {"__v": 0 }
 
 
 router.get("/shifts", (req, res) => {
+  
   Shift.find({}, excluded).then((shifts) => res.json(shifts));
 });
 
@@ -48,6 +49,17 @@ router.post("/newShift", (req,res)=> {
     let newShift = new Shift({startDateTime: date})
     newShift.save()
     .then((shift) => res.json(shift))
+
+  // let date = new Date
+  // let newShift = new Shift({startDateTime: date})
+  // newShift.save()
+  // .then(shift => {
+  //   let shiftId = shift._id
+  //   console.log(shiftId, shift)
+  //   res.json({ shiftId: shift})
+
+  // })
+
  } )
 
  router.patch("/:id", async (req,res)=> {
