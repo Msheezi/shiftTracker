@@ -4,6 +4,7 @@ import {ShiftItem} from './shiftItem'
 import styled from 'styled-components'
 import Axios from 'axios'
 import {Store} from '../store'
+import { frontEndFetch} from '../functionhelpers'
 
 // import reducer from '../reducer'
 
@@ -15,7 +16,7 @@ const Container = styled.div`
 export const Summary = () => {
  
 
-    const {state, dispatch} = useContext(Store)
+  const {state, dispatch} = useContext(Store)
 
   const fetchShifts = async () => {
     const data = await Axios.get("/shifts/shifts");
@@ -24,7 +25,7 @@ export const Summary = () => {
   
 
   useEffect(() => {
-    state.shifts.length === 0 && fetchShifts();
+     fetchShifts();
   });
 
   const addNewShift = async () =>  {
@@ -32,11 +33,13 @@ export const Summary = () => {
     fetchShifts()
   }
 
-
+  
   let values;
   if (state) {
-    values = state.shifts.map((shiftObj, idx) => (
-      <ShiftItem key={shiftObj._id} shift={shiftObj} number={idx} />
+    let shiftArray = frontEndFetch(state)
+    debugger
+    values = shiftArray.map((shiftObj) => (
+      <ShiftItem key={shiftObj._id} shift={shiftObj}/>
     )).reverse();
   } else {
     values = null;

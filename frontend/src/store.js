@@ -3,17 +3,21 @@ import React from 'react'
 export const Store = React.createContext()
 
 const initialState = {
-    shifts: []
+    shifts: {}
 }
 
 const reducer = (state, action) => {
     let newState
     switch (action.type){
         case "fetch":
-            return {...state, shifts: action.payload}
+           newState ={}
+           action.payload.forEach(shift => (newState[shift._id] = shift))
+           return Object.assign({}, newState)
+            
         case "new":
             newState = {...state}
-            newState.shifts.push(action.payload)
+            newState[action.payload._id] = action.payload
+           
             return newState
         case "update":
             /* since state is an array of objects
@@ -23,11 +27,13 @@ const reducer = (state, action) => {
             3. delete the existing element and add the updated element
             4. return the new state
             */
-
-             newState = {...state}
-            let index = newState.shifts.findIndex(shiftObjs => shiftObjs._id === action.payload._id)
-            newState.shifts.splice(index, 1, action.payload)
+            newState = {...state}
+            newState[action.payload._id] = action.payload
             return newState
+            //  newState = {...state}
+            // let index = newState.shifts.findIndex(shiftObjs => shiftObjs._id === action.payload._id)
+            // newState.shifts.splice(index, 1, action.payload)
+            // return newState
         default:
             return state
     }
