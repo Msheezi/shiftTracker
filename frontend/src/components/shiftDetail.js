@@ -13,7 +13,7 @@ const ShiftDetail =  (props) => {
     const [shift, updateShift] = useState();
     const [status, updateStatus] = useState(false)
 
-  console.log(state)
+  // console.log(state)
    
     const handleChange = (e) => {
       let newState = { ...shift,[e.target.name]: e.target.value }
@@ -48,10 +48,9 @@ const ShiftDetail =  (props) => {
 
     useEffect(()=>{
       if (!shift){
-        //  axios.get(`/shifts/${shiftId}`).then(res => updateShift(res.data))
         getShift(shiftId)
       }
-      console.log("am i running 1")
+      // console.log("am i running 1")
     },[shiftId])
 
     
@@ -60,7 +59,7 @@ const ShiftDetail =  (props) => {
         getShift(shiftId)
         
         // updateStatus(false)
-        console.log("am i running")
+        // console.log("am i running")
       }
       
     },[])

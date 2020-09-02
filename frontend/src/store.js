@@ -20,7 +20,7 @@ const reducer = (state, action) => {
             newState = {...state}
             newState.shifts[action.payload._id] = action.payload
            
-            return { shifts: newState }
+            return newState
         case "update":
          
             newState = {...state}
@@ -31,7 +31,15 @@ const reducer = (state, action) => {
             return state
     }
 }
+/*below is mostly boilerplate that creates top level state with the 
+use reducer call
+then assigns the state object and the dispatch updated function to the provider
+prop value
+finally return a component with the value prop with keys for the state and the 
+means to update it.  
+pass props.children to make values available to nested components
 
+*/
 export function StoreProvider(props){
     const [state, dispatch] = React.useReducer(reducer, initialState)
     const value = {state, dispatch}

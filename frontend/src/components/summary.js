@@ -30,7 +30,8 @@ export const Summary = () => {
 
   const addNewShift =  () =>  {
     addNewShiftAPI()
-    fetchShifts()
+    .then(res => dispatch({type: "new", payload: res.data}))
+    // fetchShifts()
   }
 
   
