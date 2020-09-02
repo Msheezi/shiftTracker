@@ -7,6 +7,19 @@ const Updated = styled.div`
         color: red;
     `
 
+const Container = styled.div`
+
+    margin: 20px auto;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    border-top: 0.5px solid black;
+    padding-top: 20px;
+    
+
+
+`
+
 export const ShiftEdit = ( {shiftObj, shiftId, dispatch}) => {
 
     const [shift, updateShift] = useState(shiftObj)
@@ -43,8 +56,8 @@ export const ShiftEdit = ( {shiftObj, shiftId, dispatch}) => {
 
     return (
         <>
+            <Container>
             <Updated>{displayUpdate}</Updated>
-        <div style={{ display: "flex" }}>
             <label>
                 Start Time:
           <input disabled={disabled}
@@ -83,7 +96,7 @@ export const ShiftEdit = ( {shiftObj, shiftId, dispatch}) => {
             </label>
             <button onClick={(e) => postUpdate(shiftId, shift)}>Submit</button>
             <button onClick={(e) => closeShift(shiftId, shift)}>Close</button>
-        </div>
+            </Container>
         </>
     )
 }

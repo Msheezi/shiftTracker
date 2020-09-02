@@ -8,6 +8,8 @@ const Container = styled.div`
     width: 80%;
     display: flex;
     justify-content: space-around;
+    
+
 
 `
 const DisplayItem = styled.div`

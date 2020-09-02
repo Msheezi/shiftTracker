@@ -1,8 +1,12 @@
+require("dotenv").config();
+
+
 const express = require("express")
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 const db = require("./config/keys").mongoURI
 const shifts = require("./routes/shifts")
+const pictures = require('./routes/pictures')
 
 const port = process.env.PORT || 5000
 
@@ -22,6 +26,7 @@ app.get("/", (req, res)=>{
 })
 
 app.use("/shifts", shifts)
+app.use("/pictures", pictures)
 
 app.listen(port, () => console.log(`Servers Running B, port: ${port}`))
 

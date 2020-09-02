@@ -4,6 +4,15 @@ import {Store} from '../../store'
 import { getShiftAPI, fetchShiftsAPI} from '../../functionhelpers'
 import { ShiftDisplay} from './shiftdisplay'
 import {ShiftEdit} from './shiftDetailUpdater'
+import styled from 'styled-components'
+
+const Container = styled.div`
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+
+
+`
 
 
 
@@ -40,10 +49,10 @@ const ShiftDetail =  (props) => {
       let testShift = state.shifts[shiftId]
 
     return shift ? (
-      <>
+      <Container>
         <ShiftDisplay shiftObj={testShift}/>
         <ShiftEdit shiftObj={shift} shiftId={shiftId} dispatch={dispatch}/>
-      </>
+      </Container>
     ) : null;
   
     

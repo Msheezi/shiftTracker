@@ -13,11 +13,13 @@ const ShiftSchema = new Schema({
   },
   startingUrl: {
     type: String,
-    default: undefined,
+    default: null,
+    
   },
   endingUrl: {
     type: String,
-    default: undefined
+    default: null,
+
   },
   shiftDuration: {
     type: String,
