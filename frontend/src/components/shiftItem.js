@@ -6,7 +6,7 @@ const Container = styled.div`
     width: 90%;
     line-height: 50px;
     height: 50px;
-    background-color: ${props => props.number % 2 === 0 ? "white" : "#D5E8EB"} ;
+    background-color: ${props => props.number % 2 === 0 ? "#D5E8EB":"white"} ;
     overflow: hidden;
     border: 0.5px solid black;
     border-radius: 50px;
@@ -82,7 +82,7 @@ let shiftStatus = closed ? <Button status={closed}>Closed</Button> : <Button sta
        <Link style={{textDecoration: "none", color: "black"}} to={`shift/${_id}`}>
 
         <Container number={number} >
-            <MyDiv> {`${number + 1}. `}  
+            <MyDiv> {`${ number + 1}.  `} 
             <Value>{`Shift Start: ${start}`}</Value>
             <Value>{`Shift End: ${end}`}</Value>
             {/* <Value>Starting Miles: {startMiles}</Value>

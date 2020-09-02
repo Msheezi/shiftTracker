@@ -1,12 +1,10 @@
-import React, {useContext, useEffect} from 'react';
+import React  from 'react';
 
 import './css/App.css';
 import { Switch, Route,BrowserRouter as Router } from "react-router-dom";
 import {Summary} from './components/summary'
 import {MainPage } from './components/mainpage'
 import ShiftDetail from './components/shiftDetail'
-import {Store} from './store'
-import Axios from "axios";
 import {Navbar} from './components/nav'
 
 function  App() {
