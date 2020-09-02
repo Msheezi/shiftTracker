@@ -18,14 +18,14 @@ const reducer = (state, action) => {
             
         case "new":
             newState = {...state}
-            newState[action.payload._id] = action.payload
+            newState.shifts[action.payload._id] = action.payload
            
             return { shifts: newState }
         case "update":
          
             newState = {...state}
-            newState[action.payload._id] = action.payload
-            return { shifts: newState }
+            newState.shifts[action.payload._id] = action.payload
+            return newState
            
         default:
             return state
