@@ -42,7 +42,7 @@ export const ShiftDisplay = ({shiftObj})=> {
                     <DisplayItem>{`Total Miles: ${ttlMiles}`}</DisplayItem>
                     <DisplayItem>{`Tips: ${tips}`}</DisplayItem>
                     <DisplayItem>{`Earnings: ${ttlComp}`}</DisplayItem>
-                    <DisplayItem>{`Open?: ${closed}`}</DisplayItem>
+                    <DisplayItem>{`Closed?: ${closed}`}</DisplayItem>
                </Container>
     
     

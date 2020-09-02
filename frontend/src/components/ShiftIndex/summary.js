@@ -2,8 +2,8 @@ import React, {useContext,  useEffect} from 'react'
 // import { ShiftContext } from '../shiftContext'
 import {ShiftItem} from './shiftItem'
 import styled from 'styled-components'
-import {Store} from '../store'
-import { frontEndFetch, fetchShiftsAPI, addNewShiftAPI} from '../functionhelpers'
+import {Store} from '../../store'
+import { frontEndFetch, fetchShiftsAPI, addNewShiftAPI} from '../../functionhelpers'
 
 // import reducer from '../reducer'
 
