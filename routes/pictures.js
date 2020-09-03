@@ -11,6 +11,15 @@ const Shift = require('../models/shift')
 
 const excluded = { __v: 0 };
 router.delete('/delete/:id', (req,res) => {
+
+    /* for deletes since front end won't have reference for id, 
+        send the shiftId and the key down, use a find a delete for picture
+        using shiftId, pictureType.  Should have this since you are using
+        the key on the front end for startingUrl or endingUrl
+
+        or 
+        
+    */
     let pictureId = req.params.id 
 
     Picture.findOneAndDelete({"_id": pictureId})
@@ -20,6 +29,7 @@ router.post("/upload", upload.single("file"), (req, res) => {
   const file = req.file;
   const shiftId = req.body.shiftId;
   const pictureType = req.body.pictureType
+  console.log(req)
   const s3FileURL = process.env.AWS_Uploaded_File_URL_Link;
   const newPictureUrl = s3FileURL + file.originalname;
   

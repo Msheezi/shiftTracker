@@ -27,3 +27,7 @@ export const fetchShiftsAPI = () => {
 export const addNewShiftAPI = () => {
     return axios.post("shifts/newshift")
 }
+
+export const uploadPhoto = (pictureObj) => {
+    return axios.post("/pictures/upload", pictureObj)
+}

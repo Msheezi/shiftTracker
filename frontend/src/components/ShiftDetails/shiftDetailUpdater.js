@@ -1,6 +1,7 @@
 import React, {useState, } from 'react'
 import styled from 'styled-components'
 import {  postShiftAPI, closeShiftAPI, } from '../../functionhelpers'
+import {ImageUploader} from './imageUpload'
 
 const Updated = styled.div`
         width: 100%;
@@ -49,6 +50,9 @@ export const ShiftEdit = ( {shiftObj, shiftId, dispatch}) => {
 
     }
 
+
+   
+
     let disabled = shift.closed ? true : false
     let displayUpdate = status ? "Operation Successful" : null
     
@@ -56,8 +60,11 @@ export const ShiftEdit = ( {shiftObj, shiftId, dispatch}) => {
 
     return (
         <>
+            <ImageUploader shiftId={shiftId} dispatch={dispatch}/>
             <Container>
+
             <Updated>{displayUpdate}</Updated>
+
             <label>
                 Start Time:
           <input disabled={disabled}

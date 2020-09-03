@@ -8,7 +8,7 @@ const Container = styled.div`
     width: 80%;
     display: flex;
     justify-content: space-around;
-    
+
 
 
 `
@@ -29,7 +29,7 @@ export const ShiftDisplay = ({shiftObj})=> {
         const { 
             startDateTime, endDateTime, 
             startMiles, endMiles, ttlMiles, 
-            tips = 0, ttlComp = 0, closed } = shiftObj
+            tips = 0, ttlComp = 0, closed , startingUrl, endingUrl} = shiftObj
             
             // console.log(`shiftObj: ${shiftObj}`)
             
@@ -45,6 +45,8 @@ export const ShiftDisplay = ({shiftObj})=> {
                     <DisplayItem>{`Tips: ${tips}`}</DisplayItem>
                     <DisplayItem>{`Earnings: ${ttlComp}`}</DisplayItem>
                     <DisplayItem>{`Closed?: ${closed}`}</DisplayItem>
+                    <img style={{width: "200px", height:"200px"}}src={startingUrl}/>
+                    <img style={{width: "200px", height:"200px"}}src={endingUrl}/>
                </Container>
     
     
