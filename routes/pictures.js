@@ -29,7 +29,6 @@ router.post("/upload", upload.single("file"), (req, res) => {
   const file = req.file;
   const shiftId = req.body.shiftId;
   const pictureType = req.body.pictureType
-  console.log(req)
   const s3FileURL = process.env.AWS_Uploaded_File_URL_Link;
   const newPictureUrl = s3FileURL + file.originalname;
   

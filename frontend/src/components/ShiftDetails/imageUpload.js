@@ -54,8 +54,8 @@ export const ImageUploader = ({shiftId, dispatch}) =>{
 
      return (
         <div>
-            <label>
-                <input type="file" name="file" id="file" onChange={e=>handleFile(e)}/>
+            <label> Upload Mileage Photos: 
+                <input style={{color: "white"}}type="file" name="file" id="file" onChange={e=>handleFile(e)}/>
             </label>
            <select onChange={e=> handleSelect(e)}
                 defaultValue={{label: "Select Image Type", value: null}}

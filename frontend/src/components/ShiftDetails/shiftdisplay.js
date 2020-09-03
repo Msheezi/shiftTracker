@@ -35,25 +35,27 @@ export const ShiftDisplay = ({shiftObj})=> {
             
             
             return (
-               <Container>
-
-                    <DisplayItem>{`Start Time: ${startDateTime}`}</DisplayItem>
-                    <DisplayItem>{`End Time: ${endDateTime}`}</DisplayItem>
-                    <DisplayItem>{`Starting Miles: ${startMiles}`}</DisplayItem>
-                    <DisplayItem>{`Ending Miles: ${endMiles}`}</DisplayItem>
-                    <DisplayItem>{`Total Miles: ${ttlMiles}`}</DisplayItem>
-                    <DisplayItem>{`Tips: ${tips}`}</DisplayItem>
-                    <DisplayItem>{`Earnings: ${ttlComp}`}</DisplayItem>
-                    <DisplayItem>{`Closed?: ${closed}`}</DisplayItem>
-                    <img style={{width: "200px", height:"200px"}}src={startingUrl}/>
-                    <img style={{width: "200px", height:"200px"}}src={endingUrl}/>
-               </Container>
-    
-    
-  
-
-
-)
+              <Container>
+                <img
+                  style={{ width: "200px", height: "200px" }}
+                  src={startingUrl}
+                  alt="Starting Mileage"
+                />
+                <img
+                  style={{ width: "200px", height: "200px" }}
+                  src={endingUrl}
+                  alt="Ending Mileage"
+                />
+                <DisplayItem>{`Start Time: ${startDateTime}`}</DisplayItem>
+                <DisplayItem>{`End Time: ${endDateTime}`}</DisplayItem>
+                <DisplayItem>{`Starting Miles: ${startMiles}`}</DisplayItem>
+                <DisplayItem>{`Ending Miles: ${endMiles}`}</DisplayItem>
+                <DisplayItem>{`Total Miles: ${ttlMiles}`}</DisplayItem>
+                <DisplayItem>{`Tips: ${tips}`}</DisplayItem>
+                <DisplayItem>{`Earnings: ${ttlComp}`}</DisplayItem>
+                <DisplayItem>{`Closed?: ${closed}`}</DisplayItem>
+              </Container>
+            );
 } else {
     return null
 }
