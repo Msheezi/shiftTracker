@@ -6,18 +6,58 @@ const Container = styled.div`
 
     margin: 20px auto;
     width: 80%;
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    row-gap: 5px;
+    grid-template-areas:
 
+    "startPic  startTimeL endTimeL ttlHours"
+    "startPic  startTimeL endTimeL ttlHours"
+    "startM   . . . "
+    "endPic    ttlM ttltips comp"
+    "endPic    ttlM ttltips comp"
+    "endM      . . closed"
+    ;
+    
+
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: auto;
 
 
 `
 const DisplayItem = styled.div`
-    margin: 5px;
-    width: 12.5%;
+    margin: auto;
+    margin-right: 20px;
+    width: 150px;
     text-align: center;
+    grid-area: ${props => props.gridArea} ;
+    
 
 
+`
+
+const DisplayImg = styled.img`
+  width: 200px;
+  height: 200px;
+  grid-row-start: ${props => props.rowStart}; 
+   grid-row-end: span 2;
+   margin-right: 20px;
+
+
+`
+
+const DispItemHead = styled.div`
+  background-color: lightgreen;
+  border-radius: 20px;
+  vertical-align: center;
+  margin: auto;
+`
+
+const DispItemVal = styled.div`
+  margin-top: 5px;
+  background-color: white;
+  border-radius: 20px;
+  border: 0.25px solid grey;
+  background-color: ${props => props.bgcolor ? "red" : "white"};
 `
 
 
@@ -36,24 +76,41 @@ export const ShiftDisplay = ({shiftObj})=> {
             
             return (
               <Container>
-                <img
-                  style={{ width: "200px", height: "200px" }}
+                <DisplayImg gridArea={"startPic"} rowStart={1}
                   src={startingUrl}
                   alt="Starting Mileage"
                 />
-                <img
-                  style={{ width: "200px", height: "200px" }}
+                <DisplayImg gridArea={"endPic"} rowStart={4}
                   src={endingUrl}
                   alt="Ending Mileage"
                 />
-                <DisplayItem>{`Start Time: ${startDateTime}`}</DisplayItem>
-                <DisplayItem>{`End Time: ${endDateTime}`}</DisplayItem>
-                <DisplayItem>{`Starting Miles: ${startMiles}`}</DisplayItem>
-                <DisplayItem>{`Ending Miles: ${endMiles}`}</DisplayItem>
-                <DisplayItem>{`Total Miles: ${ttlMiles}`}</DisplayItem>
-                <DisplayItem>{`Tips: ${tips}`}</DisplayItem>
-                <DisplayItem>{`Earnings: ${ttlComp}`}</DisplayItem>
-                <DisplayItem>{`Closed?: ${closed}`}</DisplayItem>
+                  <DisplayItem gridArea={"startM"}>{`Starting Miles: ${startMiles}`}</DisplayItem>
+                <DisplayItem gridArea={"endM"}>{`Ending Miles: ${endMiles}`}</DisplayItem>
+
+                <DisplayItem gridArea={"startTimeL"}>
+                  <DispItemHead>Start Time</DispItemHead>
+                  <DispItemVal>{startDateTime}</DispItemVal>
+                </DisplayItem>
+                <DisplayItem gridArea={"endTimeL"}>
+                  <DispItemHead>End Time</DispItemHead>
+                  <DispItemVal>{endDateTime || "Shift Open"}</DispItemVal>
+                </DisplayItem>
+                <DisplayItem gridArea={"ttlM"}>
+                  <DispItemHead>Total Miles</DispItemHead>
+                  <DispItemVal>{ttlMiles}</DispItemVal>
+                </DisplayItem>
+                <DisplayItem gridArea={"ttltips"}>
+                  <DispItemHead>Tips</DispItemHead>
+                  <DispItemVal>{tips}</DispItemVal>
+                </DisplayItem>
+                <DisplayItem gridArea={"comp"}>
+                  <DispItemHead>Earnings</DispItemHead>
+                  <DispItemVal>{ttlComp}</DispItemVal>
+                </DisplayItem>
+                <DisplayItem gridArea={"closed"}>
+                  <DispItemHead>Shift Status</DispItemHead>
+                  <DispItemVal bgcolor={closed}>{closed ? "Closed" : "Open"}</DispItemVal>
+                </DisplayItem>
               </Container>
             );
 } else {
