@@ -24,20 +24,26 @@ export const Summary = () => {
 
   const {state, dispatch} = useContext(Store)
   const [selectedShiftIndex, setSelectedShift] = useState(null)
-  const [shiftKeyArray, setShiftKeyArray] = useState(null)
     let shiftKeys = Object.keys(state.shifts);
 
 
-  const fetchShifts =  () => {
-    fetchShiftsAPI()
-      .then(res => dispatch({ type: "fetch", payload: res.data}))
+  // const fetchShifts =  () => {
+  //   fetchShiftsAPI()
+  //     .then(res => dispatch({ type: "fetch", payload: res.data}))
     
-  };
+  // };
   
 
+  // useEffect(() => {
+  //    fetchShifts();
+  // },[]);
+
   useEffect(() => {
-     fetchShifts();
-  },[]);
+    Object.keys(state.shifts).length === 0 &&
+      fetchShiftsAPI()
+        .then((res) => dispatch({ type: "fetch", payload: res.data }))
+        .catch((err) => console.log(err));
+  });
 
   const addNewShift =  () =>  {
     addNewShiftAPI()

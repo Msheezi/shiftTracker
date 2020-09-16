@@ -21,8 +21,14 @@ const reducer = (state, action) => {
             newState.shifts[action.payload._id] = action.payload
            
             return newState
+        case "upload":
+            const {_id} = action.payload
+            newState = {...state}
+            newState.shifts = {...state.shifts}
+            newState.shifts[_id] = action.payload
+            return newState
+
         case "update":
-         
             newState = {...state}
             newState.shifts[action.payload._id] = action.payload
             return newState

@@ -70,7 +70,7 @@ export const ShiftDisplay = ({shiftObj})=> {
         const { 
             startDateTime, endDateTime, 
             startMiles, endMiles, ttlMiles, 
-            tips = 0, ttlComp = 0, closed , startingUrl, endingUrl} = shiftObj
+            tips = 0, ttlComp = 0, closed , startingUrl, endingUrl, shiftDuration} = shiftObj
             
             // console.log(`shiftObj: ${shiftObj}`)
             
@@ -80,14 +80,20 @@ export const ShiftDisplay = ({shiftObj})=> {
                 <DisplayImg
                   gridArea={"startPic"}
                   rowStart={1}
-                  src={startingUrl}
-                  alt="Starting Mileage"
+                  src={
+                    startingUrl ||
+                    "https://eazetracker-dev.s3-us-west-1.amazonaws.com/noimage.jpg"
+                  }
+                  alt="Starting Mileage Pic"
                 />
                 <DisplayImg
                   gridArea={"endPic"}
                   rowStart={4}
-                  src={endingUrl}
-                  alt="Ending Mileage"
+                  src={
+                    endingUrl ||
+                    "https://eazetracker-dev.s3-us-west-1.amazonaws.com/noimage.jpg"
+                  }
+                  alt="Ending Mileage Pic"
                 />
                 <DisplayItem
                   gridArea={"startM"}
@@ -109,6 +115,10 @@ export const ShiftDisplay = ({shiftObj})=> {
                 <DisplayItem gridArea={"ttlM"}>
                   <DispItemHead>Total Miles</DispItemHead>
                   <DispItemVal>{ttlMiles}</DispItemVal>
+                </DisplayItem>
+                <DisplayItem gridArea={"ttlHours"}>
+                  <DispItemHead>Shift Duration(hrs)</DispItemHead>
+                  <DispItemVal>{shiftDuration}</DispItemVal>
                 </DisplayItem>
                 <DisplayItem gridArea={"ttltips"}>
                   <DispItemHead>Tips</DispItemHead>

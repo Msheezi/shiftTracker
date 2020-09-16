@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {withRouter} from 'react-router-dom'
 import {Store} from '../../store'
-import { getShiftAPI, fetchShiftsAPI} from '../../functionhelpers'
+import {  fetchShiftsAPI} from '../../functionhelpers'
 import { ShiftDisplay} from './shiftdisplay'
 import {ShiftEdit} from './shiftDetailUpdater'
 import styled from 'styled-components'
@@ -24,7 +24,7 @@ const ShiftDetail =  ({_id, setSelectedShift}) => {
 
     useEffect(()=>{
       updateShift(state.shifts[shiftId])
-    })
+    }, [state.shifts, shiftId])
    
    useEffect(()=> {
       Object.keys(state.shifts).length === 0 && fetchShiftsAPI()

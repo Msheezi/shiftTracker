@@ -1,6 +1,6 @@
 import React, {useState, useEffect, } from 'react'
 import styled from 'styled-components'
-import {  postShiftAPI, closeShiftAPI, converDateString } from '../../functionhelpers'
+import {  postShiftAPI, closeShiftAPI,  } from '../../functionhelpers'
 import {ImageUploader} from './imageUpload'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
@@ -32,15 +32,11 @@ export const ShiftEdit = ( {shiftObj, shiftId, dispatch}) => {
 
     useEffect(() => {
         updateShift(shiftObj)
-        console.log("I ran")
+        updateStartTime(shiftObj.startDateTime)
+        updateEndTime(shiftObj.endDateTime);
     },[shiftObj])
 
-    const handleStartDateChange = (e, date) => {
-        let interimShift = {...shift}
-        interimShift.startDateTime = date
-        updateShift(interimShift)
-    }
-    
+      
     const handleChange = (e) => {
         let newState = { ...shift, [e.target.name]: e.target.value }
         return updateShift(newState)
@@ -84,12 +80,7 @@ export const ShiftEdit = ( {shiftObj, shiftId, dispatch}) => {
 
           <label>
             Start Time:
-            {/* <input disabled={disabled}
-                    type="text"
-                    value={converDateString(shift.startDateTime)}
-                    name="startDateTime"
-                    onChange={handleChange}
-                /> */}
+           
             <DatePicker
               selected={Date.parse(startTime)}
               onChange={(date) => updateStartTime(date)}
@@ -142,3 +133,5 @@ export const ShiftEdit = ( {shiftObj, shiftId, dispatch}) => {
       </>
     );
 }
+
+

@@ -35,7 +35,7 @@ export const ImageUploader = ({shiftId, dispatch}) =>{
        formData.append("shiftId", shiftId);
        formData.append("pictureType", state.pictureType);
        // formData.append("profilePrimary", this.state.checked)
-       uploadPhoto(formData).then((shift) => dispatch({type: "update", payload: shift.data}) 
+       uploadPhoto(formData).then((shift) => dispatch({type: "upload", payload: shift.data}) 
           
          ).then(()=> updateState(initialState))
        
