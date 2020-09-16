@@ -19,6 +19,7 @@ const Container = styled.div`
     &:hover {
     border-color: #1e7e34;
     background-color: #FCDDBC;
+    cursor: pointer;
 }
 
 
@@ -72,16 +73,16 @@ const converDateString = (dateString) => {
 
 
 
-export const ShiftItem = ({number, shift: {_id, startDateTime, endDateTime, startMiles, endMiles, ttlMiles, tips = 0, ttlComp = 0, closed}}) => {
+export const ShiftItem = ({number, setSelectedShift, shift: {_id, startDateTime, endDateTime, startMiles, endMiles, ttlMiles, tips = 0, ttlComp = 0, closed}}) => {
     
 let start = converDateString(startDateTime)
 let end = endDateTime ?  converDateString(endDateTime) : "00:00"
 let shiftStatus = closed ? <Button status={closed}>Closed</Button> : <Button status={closed}>Edit</Button>
 
     return (
-       <Link style={{textDecoration: "none", color: "black"}} to={`shift/${_id}`}>
-
-        <Container number={number} >
+    //    <Link style={{textDecoration: "none", color: "black"}} to={`shift/${_id}`}>
+           
+        <Container number={number} onClick={()=>setSelectedShift(_id)}>
             <MyDiv> {`${ number + 1}.  `} 
             <Value>{`Shift Start: ${start}`}</Value>
             <Value>{`Shift End: ${end}`}</Value>
@@ -93,7 +94,8 @@ let shiftStatus = closed ? <Button status={closed}>Closed</Button> : <Button sta
             </MyDiv>
             {shiftStatus}
         </Container>
-       </Link>
+
+    //    </Link>
                 
 
     )

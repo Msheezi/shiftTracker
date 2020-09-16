@@ -10,48 +10,33 @@ const Container = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
-
-
+`
+const Closer = styled.div`
+  color: red;
+  cursor: pointer;
 `
 
 
-
-const ShiftDetail =  (props) => {
-    const shiftId = props.match.params.shiftId
+const ShiftDetail =  ({_id, setSelectedShift}) => {
+    const shiftId = _id
     const {state,  dispatch} = useContext(Store)
-    const [shift, updateShift] = useState();
+    const [shift, updateShift] = useState(state.shifts[shiftId]);
 
-    const getShift = (shiftId) => {
-       getShiftAPI(shiftId)
-      .then((res) => updateShift(res.data))
-      .catch(err => {
-        console.log(`error:` + err)
-      })
-    }
-
-    
     useEffect(()=>{
-      if (!shift){
-        getShift(shiftId)
-      }
-      // console.log("am i running 1")
-    },[shiftId,])
-
-    
+      updateShift(state.shifts[shiftId])
+    })
+   
    useEffect(()=> {
       Object.keys(state.shifts).length === 0 && fetchShiftsAPI()
         .then(res => dispatch({ type: "fetch", payload: res.data }))
         .catch(err=>console.log(err))
     })
     
-  
-
-      let testShift = state.shifts[shiftId]
-
     return shift ? (
       <Container>
-        <ShiftDisplay shiftObj={testShift}/>
+        <ShiftDisplay shiftObj={shift}/>
         <ShiftEdit shiftObj={shift} shiftId={shiftId} dispatch={dispatch}/>
+        <Closer onClick={()=>setSelectedShift(null)}>X</Closer>
       </Container>
     ) : null;
   
@@ -61,3 +46,22 @@ const ShiftDetail =  (props) => {
 export default withRouter(ShiftDetail)
 
 
+
+
+ // const getShift = (shiftId) => {
+    //    getShiftAPI(shiftId)
+    //   .then((res) => updateShift(res.data))
+    //   .catch(err => {
+    //     console.log(`error:` + err)
+    //   })
+    // }
+
+    
+    // useEffect(()=>{
+    //   // if (!shift){
+    //   //   getShift(shiftId)
+    //   // }
+    //   console.log("am i running 1")
+
+    //   getShift(shiftId)
+    // },[shiftId])

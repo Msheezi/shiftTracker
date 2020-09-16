@@ -6,6 +6,20 @@ export const frontEndFetch = (state) => {
     return Object.keys(state).map(key => (state[key]))
 }
 
+export const converDateString = (dateString) => {
+    if(!dateString){
+        return ""
+    }
+  let [month, date, year] = new Date(dateString)
+    .toLocaleDateString()
+    .split("/");
+  let [hour, minute] = new Date(dateString)
+    .toLocaleTimeString()
+    .slice(0, 7)
+    .split(":");
+
+  return `${month}/${date}/${year} ${hour}:${minute}`;
+};
 
 export const getShiftAPI = (shiftId) => {
     return ( axios.get(`/shifts/${shiftId}`))

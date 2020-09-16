@@ -1,6 +1,7 @@
 import React from 'react'
 
 import styled from 'styled-components'
+import { converDateString } from "../../functionhelpers";
 
 const Container = styled.div`
 
@@ -76,24 +77,34 @@ export const ShiftDisplay = ({shiftObj})=> {
             
             return (
               <Container>
-                <DisplayImg gridArea={"startPic"} rowStart={1}
+                <DisplayImg
+                  gridArea={"startPic"}
+                  rowStart={1}
                   src={startingUrl}
                   alt="Starting Mileage"
                 />
-                <DisplayImg gridArea={"endPic"} rowStart={4}
+                <DisplayImg
+                  gridArea={"endPic"}
+                  rowStart={4}
                   src={endingUrl}
                   alt="Ending Mileage"
                 />
-                  <DisplayItem gridArea={"startM"}>{`Starting Miles: ${startMiles}`}</DisplayItem>
-                <DisplayItem gridArea={"endM"}>{`Ending Miles: ${endMiles}`}</DisplayItem>
+                <DisplayItem
+                  gridArea={"startM"}
+                >{`Starting Miles: ${startMiles}`}</DisplayItem>
+                <DisplayItem
+                  gridArea={"endM"}
+                >{`Ending Miles: ${endMiles}`}</DisplayItem>
 
                 <DisplayItem gridArea={"startTimeL"}>
                   <DispItemHead>Start Time</DispItemHead>
-                  <DispItemVal>{startDateTime}</DispItemVal>
+                  <DispItemVal>{converDateString(startDateTime)}</DispItemVal>
                 </DisplayItem>
                 <DisplayItem gridArea={"endTimeL"}>
                   <DispItemHead>End Time</DispItemHead>
-                  <DispItemVal>{endDateTime || "Shift Open"}</DispItemVal>
+                  <DispItemVal>
+                    {converDateString(endDateTime) || "Shift Open"}
+                  </DispItemVal>
                 </DisplayItem>
                 <DisplayItem gridArea={"ttlM"}>
                   <DispItemHead>Total Miles</DispItemHead>
@@ -109,7 +120,9 @@ export const ShiftDisplay = ({shiftObj})=> {
                 </DisplayItem>
                 <DisplayItem gridArea={"closed"}>
                   <DispItemHead>Shift Status</DispItemHead>
-                  <DispItemVal bgcolor={closed}>{closed ? "Closed" : "Open"}</DispItemVal>
+                  <DispItemVal bgcolor={closed}>
+                    {closed ? "Closed" : "Open"}
+                  </DispItemVal>
                 </DisplayItem>
               </Container>
             );
