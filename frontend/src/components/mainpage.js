@@ -15,6 +15,7 @@ const Card = styled.div`
     width: 300px;
     height: 300px;
     border: 0.5px solid black;
+    margin: auto;
 
 `
 
@@ -27,7 +28,7 @@ export const MainPage = ()=>{
         <Card>
           <Link to="/shifts">Shifts </Link>
         </Card>
-        <Card>
+        <Card style={{ backgroundImage: "url(summary.jpg)" }}>
           <Link to="/summary">Summary</Link>
         </Card>
       </Container>
