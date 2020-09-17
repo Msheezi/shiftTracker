@@ -13,7 +13,7 @@ const Container = styled.div`
     overflow: hidden;
     position: relative;
     display: flex;
-
+    justify-content: center;
 `
 
 const Title = styled.h2`
@@ -37,7 +37,7 @@ export const Navbar = () => {
 
 
         <Container>
-            <Title>Shift Tracker</Title>
+            <Links to='/'><Title>Shift Tracker</Title></Links>
             {/* <Links to="/">Home</Links> */}
             {/* <Links to="/summary">Summary</Links> */}
         </Container>

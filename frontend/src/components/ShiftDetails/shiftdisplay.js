@@ -27,13 +27,14 @@ const Container = styled.div`
   grid-template-rows: auto;
 `;
 const DisplayItem = styled.div`
-  margin: auto;
+  margin: 0px auto;
   margin-right: 20px;
   width: 150px;
   text-align: center;
   grid-area: ${(props) => props.gridArea};
-  border-radius: 20px;
-  border: 0.25px solid grey;
+  box-sizing: border-box;
+  
+  
   overflow:hidden;
 `;
 
@@ -54,16 +55,23 @@ const DisplayMiles = styled.div`
 const DispItemHead = styled.div`
   background-color: lightgreen;
   vertical-align: center;
+  border-radius: 20px;
+  border: 0.5px solid grey;
   margin: auto;
-`
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+`;
 
 const DispItemVal = styled.div`
   /* margin-top: 5px; */
   background-color: white;
   /* border-radius: 20px;
   border: 0.25px solid grey; */
-  background-color: ${props => props.bgcolor ? "red" : "white"};
-`
+  background-color: ${(props) => (props.bgcolor ? "#EB3633" : "white")};
+  border: 1px solid grey;
+  z-index: 1;
+`;
 
 
 export const ShiftDisplay = ({shiftObj})=> {
@@ -78,7 +86,6 @@ export const ShiftDisplay = ({shiftObj})=> {
             
             // console.log(`shiftObj: ${shiftObj}`)
             
-            https://via.placeholder.com/728x90.png?text=Visit+WhoIsHostingThis.com+Buyers+Guide
 
 
             return (
@@ -109,36 +116,44 @@ export const ShiftDisplay = ({shiftObj})=> {
                 >{`Ending Miles: ${endMiles}`}</DisplayMiles>
 
                 <DisplayItem gridArea={"startTimeL"}>
-                  <DispItemHead>Start Time</DispItemHead>
-                  <DispItemVal>{converDateString(startDateTime)}</DispItemVal>
+                  <DispItemHead>Start Time
+                    <DispItemVal>{converDateString(startDateTime)}</DispItemVal>
+                  </DispItemHead>
                 </DisplayItem>
                 <DisplayItem gridArea={"endTimeL"}>
-                  <DispItemHead>End Time</DispItemHead>
-                  <DispItemVal>
-                    {converDateString(endDateTime) || "Shift Open"}
-                  </DispItemVal>
+                  <DispItemHead>End Time
+
+                    <DispItemVal>
+                      {converDateString(endDateTime) || "Shift Open"}
+                    </DispItemVal>
+                  </DispItemHead>
                 </DisplayItem>
                 <DisplayItem gridArea={"ttlM"}>
-                  <DispItemHead>Total Miles</DispItemHead>
+                  <DispItemHead>Total Miles
                   <DispItemVal>{ttlMiles}</DispItemVal>
+                </DispItemHead>
                 </DisplayItem>
                 <DisplayItem gridArea={"ttlHours"}>
-                  <DispItemHead>Shift Duration(hrs)</DispItemHead>
-                  <DispItemVal>{shiftDuration}</DispItemVal>
+                  <DispItemHead>Shift Duration(hrs)
+                    <DispItemVal>{shiftDuration}</DispItemVal>
+                  </DispItemHead>
                 </DisplayItem>
                 <DisplayItem gridArea={"ttltips"}>
-                  <DispItemHead>Tips</DispItemHead>
-                  <DispItemVal>{tips}</DispItemVal>
+                  <DispItemHead>Tips
+                    <DispItemVal>{tips}</DispItemVal>
+                  </DispItemHead>
                 </DisplayItem>
                 <DisplayItem gridArea={"comp"}>
-                  <DispItemHead>Earnings</DispItemHead>
-                  <DispItemVal>{ttlComp}</DispItemVal>
+                  <DispItemHead>Earnings
+                    <DispItemVal>{ttlComp}</DispItemVal>
+                  </DispItemHead>
                 </DisplayItem>
-                <DisplayItem gridArea={"closed"}>
-                  <DispItemHead>Shift Status</DispItemHead>
-                  <DispItemVal bgcolor={closed}>
-                    {closed ? "Closed" : "Open"}
-                  </DispItemVal>
+                <DisplayItem  gridArea={"closed"}>
+                  <DispItemHead style={{marginTop: "100px"}}>Shift Status
+                    <DispItemVal bgcolor={closed}>
+                      {closed ? "Closed" : "Open"}
+                    </DispItemVal>
+                  </DispItemHead>
                 </DisplayItem>
               </Container>
             );

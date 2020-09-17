@@ -25,12 +25,23 @@ export const MainPage = ()=>{
 
     return (
       <Container>
-        <Card>
-          <Link to="/shifts">Shifts </Link>
-        </Card>
-        <Card style={{ backgroundImage: "url(summary.jpg)" }}>
-          <Link to="/summary">Summary</Link>
-        </Card>
+        <Link to="/shifts">
+          Shifts{" "}
+          <Card
+            style={{
+              backgroundImage: "url(shifts2.jpg)",
+              objectFit: "scale-down",
+            }}
+          >
+            {" "}
+          </Card>
+        </Link>
+
+        <Link to="/summary">
+          Summary<Card style={{ backgroundImage: "url(summary.jpg)" }}>
+
+         </Card>
+        </Link>
       </Container>
     );
 }

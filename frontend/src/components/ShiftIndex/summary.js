@@ -9,8 +9,9 @@ import ShiftDetail from '../ShiftDetails/shiftDetail'
 // import reducer from '../reducer'
 
 const Container = styled.div`
-    width: 80%;
-    margin-left: 10%;
+    max-width: 1000px;
+    width: 80vw;
+    margin-left: 10vw;
    
 `
 
@@ -56,7 +57,7 @@ const StyledButton = styled.button`
   border-radius: 20px;
   margin: 20px;
   cursor: pointer;
-  float: right;
+  float: left;
 
   &:hover {
     background-color: #b4f8c3;

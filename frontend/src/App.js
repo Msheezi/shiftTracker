@@ -14,10 +14,10 @@ function  App() {
       <div>
       
         <Switch>
-          <Route path="/summary">
+          <Route path="/shifts">
             <Summary />
           </Route>
-          <Route path="/shift/:shiftId">
+          <Route path="/summary">
             <ShiftDetail  />
           </Route>
           <Route path="/">
