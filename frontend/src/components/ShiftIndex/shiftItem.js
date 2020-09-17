@@ -5,6 +5,8 @@ const Container = styled.div`
     width: 90%;
     line-height: 50px;
     height: 50px;
+    max-width: 1000px;
+    min-width: 850px;
     background-color: ${props => props.number % 2 === 0 ? "#D5E8EB":"white"} ;
     overflow: hidden;
     border: 0.5px solid black;

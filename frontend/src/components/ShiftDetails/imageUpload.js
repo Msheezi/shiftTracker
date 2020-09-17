@@ -53,7 +53,7 @@ export const ImageUploader = ({shiftId, dispatch}) =>{
      }
 
      return (
-        <div>
+        <div style={{ margin: "0px auto"}}>
             <label> Upload Mileage Photos: 
                 <input style={{color: "white"}}type="file" name="file" id="file" onChange={e=>handleFile(e)}/>
             </label>

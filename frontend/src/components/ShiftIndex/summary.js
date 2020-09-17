@@ -10,14 +10,58 @@ import ShiftDetail from '../ShiftDetails/shiftDetail'
 
 const Container = styled.div`
     width: 80%;
+    margin-left: 10%;
    
+`
+
+const DetailContainer =styled.div`
+  width: 80%;
+  display: flex;
+  margin-left: 10%;
+
 `
 
 const SelectorButton = styled.div`
   color: red;
   cursor: pointer;
+  height: 80vh;
+  width: 80px;
+  margin: auto;
+  line-height: 80vh;
+  text-align: center;
+  &:hover {
+    background-color: #f0f8fa;
+  }
+`;
 
-`
+const Closer = styled.div`
+  color: black;
+  cursor: pointer;
+  border-radius: 100px;
+  /* border: 0.5px solid black; */
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  line-height: 20px;
+  &:hover {
+    background-color: #f0f8fa;
+  }
+`;
+
+const StyledButton = styled.button`
+  width: 80px;
+  height: 30px;
+  border: none;
+  background-color: #a3f7b5;
+  border-radius: 20px;
+  margin: 20px;
+  cursor: pointer;
+  float: right;
+
+  &:hover {
+    background-color: #b4f8c3;
+  }
+`;
 
 export const Summary = () => {
  
@@ -81,29 +125,31 @@ export const Summary = () => {
 
   if (selectedShiftIndex){
    return (
-     <>
+     <DetailContainer>
        <SelectorButton onClick={() => left(selectedShiftIndex)}>
-         Left
+         &#9664;
        </SelectorButton>
-       <SelectorButton onClick={() => right(selectedShiftIndex)}>
-         Right
-       </SelectorButton>
+
        <ShiftDetail
          _id={selectedShiftIndex}
          setSelectedShift={setSelectedShift}
        />
-     </>
+       <SelectorButton onClick={() => right(selectedShiftIndex)}>
+         &#9654;
+       </SelectorButton>
+       <Closer onClick={() => setSelectedShift(null)}>x</Closer>
+     </DetailContainer>
    );
   } else {
 
     return (
-      
-      <Container>
-      {values}
-      
-      <button onClick={ e => addNewShift()}>New Shift</button>
-    </Container>
-  );
+      <>
+        <StyledButton onClick={(e) => addNewShift()}>Add Shift</StyledButton>
+        < Container>
+           {values}
+        </Container>
+      </>
+    );
 }
 }
 

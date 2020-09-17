@@ -11,10 +11,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 `
-const Closer = styled.div`
-  color: red;
-  cursor: pointer;
-`
+
 
 
 const ShiftDetail =  ({_id, setSelectedShift}) => {
@@ -36,7 +33,7 @@ const ShiftDetail =  ({_id, setSelectedShift}) => {
       <Container>
         <ShiftDisplay shiftObj={shift}/>
         <ShiftEdit shiftObj={shift} shiftId={shiftId} dispatch={dispatch}/>
-        <Closer onClick={()=>setSelectedShift(null)}>X</Closer>
+        
       </Container>
     ) : null;
   

@@ -38,8 +38,8 @@ export const Navbar = () => {
 
         <Container>
             <Title>Shift Tracker</Title>
-            <Links to="/">Home</Links>
-            <Links to="/summary">Summary</Links>
+            {/* <Links to="/">Home</Links> */}
+            {/* <Links to="/summary">Summary</Links> */}
         </Container>
     )
 }

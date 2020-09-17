@@ -4,60 +4,64 @@ import styled from 'styled-components'
 import { converDateString } from "../../functionhelpers";
 
 const Container = styled.div`
+  margin: 50px auto;
+  width: 80%;
+  display: grid;
+  row-gap: 5px;
+  grid-template-areas:
 
-    margin: 20px auto;
-    width: 80%;
-    display: grid;
-    row-gap: 5px;
-    grid-template-areas:
-
-    "startPic  startTimeL endTimeL ttlHours"
-    "startPic  startTimeL endTimeL ttlHours"
+    /* "startPic  startTimeL endTimeL ttlHours"
+    ".  startTimeL endTimeL ttlHours"
     "startM   . . . "
     "endPic    ttlM ttltips comp"
-    "endPic    ttlM ttltips comp"
-    "endM      . . closed"
-    ;
-    
+    ".    ttlM ttltips comp"
+    "endM      .  closed ."
+    ; */
+    "startPic  startTimeL endTimeL ttlHours"
+    "startM    ttlM ttltips comp"
+    ".   . . . "
+    "endPic    . closed ."
+    "endM      .  . .";
 
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: auto;
-
-
-`
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+`;
 const DisplayItem = styled.div`
-    margin: auto;
-    margin-right: 20px;
-    width: 150px;
-    text-align: center;
-    grid-area: ${props => props.gridArea} ;
-    
-
-
-`
+  margin: auto;
+  margin-right: 20px;
+  width: 150px;
+  text-align: center;
+  grid-area: ${(props) => props.gridArea};
+  border-radius: 20px;
+  border: 0.25px solid grey;
+  overflow:hidden;
+`;
 
 const DisplayImg = styled.img`
   width: 200px;
   height: 200px;
   grid-row-start: ${props => props.rowStart}; 
-   grid-row-end: span 2;
+   /* grid-row-end: span 2; */
    margin-right: 20px;
 
 
 `
-
+const DisplayMiles = styled.div`
+  margin: auto;
+  text-align: center;
+  grid-area: ${(props) => props.gridArea};
+`;
 const DispItemHead = styled.div`
   background-color: lightgreen;
-  border-radius: 20px;
   vertical-align: center;
   margin: auto;
 `
 
 const DispItemVal = styled.div`
-  margin-top: 5px;
+  /* margin-top: 5px; */
   background-color: white;
-  border-radius: 20px;
-  border: 0.25px solid grey;
+  /* border-radius: 20px;
+  border: 0.25px solid grey; */
   background-color: ${props => props.bgcolor ? "red" : "white"};
 `
 
@@ -74,7 +78,9 @@ export const ShiftDisplay = ({shiftObj})=> {
             
             // console.log(`shiftObj: ${shiftObj}`)
             
-            
+            https://via.placeholder.com/728x90.png?text=Visit+WhoIsHostingThis.com+Buyers+Guide
+
+
             return (
               <Container>
                 <DisplayImg
@@ -82,7 +88,7 @@ export const ShiftDisplay = ({shiftObj})=> {
                   rowStart={1}
                   src={
                     startingUrl ||
-                    "https://eazetracker-dev.s3-us-west-1.amazonaws.com/noimage.jpg"
+                    "https://via.placeholder.com/200.png?text=Add+Starting+Image"
                   }
                   alt="Starting Mileage Pic"
                 />
@@ -91,16 +97,16 @@ export const ShiftDisplay = ({shiftObj})=> {
                   rowStart={4}
                   src={
                     endingUrl ||
-                    "https://eazetracker-dev.s3-us-west-1.amazonaws.com/noimage.jpg"
+                    "https://via.placeholder.com/200.png?text=Add+Ending+Image"
                   }
                   alt="Ending Mileage Pic"
                 />
-                <DisplayItem
+                <DisplayMiles
                   gridArea={"startM"}
-                >{`Starting Miles: ${startMiles}`}</DisplayItem>
-                <DisplayItem
+                >{`Starting Miles: ${startMiles}`}</DisplayMiles>
+                <DisplayMiles
                   gridArea={"endM"}
-                >{`Ending Miles: ${endMiles}`}</DisplayItem>
+                >{`Ending Miles: ${endMiles}`}</DisplayMiles>
 
                 <DisplayItem gridArea={"startTimeL"}>
                   <DispItemHead>Start Time</DispItemHead>

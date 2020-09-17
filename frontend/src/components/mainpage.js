@@ -14,7 +14,7 @@ const Container = styled.div`
 const Card = styled.div`
     width: 300px;
     height: 300px;
-    border: 0.5px solid black;
+    /* border: 0.5px solid black; */
     margin: auto;
 
 `

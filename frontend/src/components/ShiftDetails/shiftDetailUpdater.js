@@ -5,23 +5,47 @@ import {ImageUploader} from './imageUpload'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 
-const Updated = styled.div`
-        width: 100%;
-        color: red;
-    `
+// const Updated = styled.div`
+//         width: 100%;
+//         color: red;
+//     `
 
 const Container = styled.div`
 
     margin: 20px auto;
-    width: 80%;
+    
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     border-top: 0.5px solid black;
     padding-top: 20px;
-    
-
-
+  
 `
+
+const StyledInput = styled.input`
+  max-width: 100px;
+  text-align: center;
+  background-color: white;
+`;
+
+const StyledLabel = styled.label`
+  margin: 0px 5px;
+  text-align: center;
+  background-color: lightgreen;
+  border-radius: 20px;
+`;
+
+const StyledButton = styled.button`
+  width: 100px;
+  height: 40px;
+  border: none;
+  background-color: #a3f7b5;
+  border-radius: 20px;
+  margin: 20px;
+  cursor: pointer;
+  &:hover {
+    background-color: #b4f8c3;
+  }
+`;
 
 export const ShiftEdit = ( {shiftObj, shiftId, dispatch}) => {
    
@@ -44,7 +68,7 @@ export const ShiftEdit = ( {shiftObj, shiftId, dispatch}) => {
 
     const postShift = async (shiftId, shift) => {
         postShiftAPI(shiftId, shift)
-            .then(res => dispatch({ type: "update", payload: res.data }))
+            .then(res => dispatch({ type: "upload", payload: res.data }))
             .catch(err => console.log(`error: ${err}`))
     }
 
@@ -59,8 +83,8 @@ export const ShiftEdit = ( {shiftObj, shiftId, dispatch}) => {
 
     const closeShift = (shiftId, shift) => {
         closeShiftAPI(shiftId, shift)
-            .then(res => dispatch({type: "update", payload: res.data}))
-            .catch(err => console.log(`error: ${err}`))
+          .then((res) => dispatch({ type: "upload", payload: res.data }))
+          .catch((err) => console.log(`error: ${err}`));
 
     }
 
@@ -68,7 +92,7 @@ export const ShiftEdit = ( {shiftObj, shiftId, dispatch}) => {
    
 
     let disabled = shift.closed ? true : false
-    let displayUpdate = status ? "Operation Successful" : null
+    // let displayUpdate = status ? "Operation Successful" : null
     
    
 
@@ -76,60 +100,72 @@ export const ShiftEdit = ( {shiftObj, shiftId, dispatch}) => {
       <>
         <ImageUploader shiftId={shiftId} dispatch={dispatch} />
         <Container>
-          <Updated>{displayUpdate}</Updated>
-
-          <label>
-            Start Time:
-           
+          {/* <Updated>{displayUpdate}</Updated> */}
+          <br />
+          <StyledLabel>
+            Start Time
+            <br />
             <DatePicker
               selected={Date.parse(startTime)}
               onChange={(date) => updateStartTime(date)}
               showTimeSelect
               dateFormat="MMMM d, yyyy h:mm aa"
             />
-          </label>
-          <label>
-            End Time:
+          </StyledLabel>
+          <StyledLabel>
+            End Time
+            <br />
             <DatePicker
               selected={Date.parse(endTime)}
               onChange={(date) => updateEndTime(date)}
               showTimeSelect
               dateFormat="MMMM d, yyyy h:mm aa"
             />
-          </label>
-          <label>
+          </StyledLabel>
+          <StyledLabel>
             Starting Miles
-            <input
+            <br />
+            <StyledInput
               disabled={disabled}
               type="text"
               name="startMiles"
               value={shift.startMiles}
               onChange={handleChange}
             />
-          </label>
-          <label>
+          </StyledLabel>
+          <StyledLabel>
             Ending Miles
-            <input
+            <br />
+            <StyledInput
               disabled={disabled}
               type="text"
               name="endMiles"
               value={shift.endMiles}
               onChange={handleChange}
             />
-          </label>
-          <label>
+          </StyledLabel>
+          <StyledLabel>
             Tips
-            <input
+            <br />
+            <StyledInput
               disabled={disabled}
               type="text"
               name="tips"
               value={shift.tips}
               onChange={handleChange}
             />
-          </label>
-          <button onClick={(e) => postUpdate(shiftId, shift)}>Submit</button>
-          <button onClick={(e) => closeShift(shiftId, shift)}>Close</button>
+          </StyledLabel>
+          <br />
         </Container>
+        <div style={{margin: "0 auto"}}>
+        <StyledButton onClick={(e) => postUpdate(shiftId, shift)}>
+          Submit
+        </StyledButton>
+
+        <StyledButton onClick={(e) => closeShift(shiftId, shift)}>
+          Close
+        </StyledButton>
+        </div>
       </>
     );
 }

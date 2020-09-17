@@ -8,33 +8,33 @@ const initialState = {
 
 const reducer = (state, action) => {
     let newState
-    switch (action.type){
-        case "fetch":
-           newState = {}
+    switch (action.type) {
+      case "fetch":
+        newState = {};
 
-           action.payload.forEach(shift => (newState[shift._id] = shift))
-           
-            return { shifts: newState}
-            
-        case "new":
-            newState = {...state}
-            newState.shifts[action.payload._id] = action.payload
-           
-            return newState
-        case "upload":
-            const {_id} = action.payload
-            newState = {...state}
-            newState.shifts = {...state.shifts}
-            newState.shifts[_id] = action.payload
-            return newState
+        action.payload.forEach((shift) => (newState[shift._id] = shift));
 
-        case "update":
-            newState = {...state}
-            newState.shifts[action.payload._id] = action.payload
-            return newState
-           
-        default:
-            return state
+        return { shifts: newState };
+
+      case "new":
+        newState = { ...state };
+        newState.shifts[action.payload._id] = action.payload;
+
+        return newState;
+      case "update":
+        newState = { ...state };
+        newState.shifts[action.payload._id] = action.payload;
+        return newState;
+
+      case "upload":
+        const { _id } = action.payload;
+        newState = { ...state };
+        newState.shifts = { ...state.shifts };
+        newState.shifts[_id] = action.payload;
+        return newState;
+
+      default:
+        return state;
     }
 }
 /*below is mostly boilerplate that creates top level state with the 
