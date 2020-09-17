@@ -11,7 +11,7 @@ import ShiftDetail from '../ShiftDetails/shiftDetail'
 const Container = styled.div`
     max-width: 1000px;
     width: 80vw;
-    margin-left: 10vw;
+    margin: 10px auto;
    
 `
 
@@ -56,6 +56,7 @@ const StyledButton = styled.button`
   background-color: #a3f7b5;
   border-radius: 20px;
   margin: 20px;
+  margin-left: 15%;
   cursor: pointer;
   float: left;
 

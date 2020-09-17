@@ -16,6 +16,7 @@ const Card = styled.div`
     height: 300px;
     /* border: 0.5px solid black; */
     margin: auto;
+    text-align: center;
 
 `
 
