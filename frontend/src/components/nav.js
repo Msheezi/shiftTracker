@@ -4,17 +4,18 @@ import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 
 const Container = styled.div`
-    height: 50px;
-    width: 100%;
-    background-color: #C8E1E5;
-    margin: 0;
-    margin-bottom: 10px;
-    padding: 0;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    justify-content: center;
-`
+  height: 50px;
+  width: 100%;
+  background-color: #5eadfd;
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  box-shadow: 2px 2px 2px lightgray;
+`;
 
 const Title = styled.h2`
     align-self: center;

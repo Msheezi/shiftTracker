@@ -23,13 +23,14 @@ const DetailContainer =styled.div`
 `
 
 const SelectorButton = styled.div`
-  color: red;
+  color: blue;
   cursor: pointer;
   height: 80vh;
   width: 80px;
   margin: auto;
   line-height: 80vh;
   text-align: center;
+  font-size: 40pt;
   &:hover {
     background-color: #f0f8fa;
   }
@@ -38,10 +39,10 @@ const SelectorButton = styled.div`
 const Closer = styled.div`
   color: black;
   cursor: pointer;
-  border-radius: 100px;
+  /* border-radius: 100px; */
   /* border: 0.5px solid black; */
   height: 20px;
-  width: 20px;
+  
   text-align: center;
   line-height: 20px;
   &:hover {
@@ -59,9 +60,13 @@ const StyledButton = styled.button`
   margin-left: 15%;
   cursor: pointer;
   float: left;
+  line-height: 30px;
 
   &:hover {
     background-color: #b4f8c3;
+    border: 0.5px solid blue;
+    transition-duration: 0.2s;
+    transform: scale(1.01);
   }
 `;
 
@@ -129,7 +134,7 @@ export const Summary = () => {
    return (
      <DetailContainer>
        <SelectorButton onClick={() => left(selectedShiftIndex)}>
-         &#9664;
+         <i class="fas fa-angle-left"></i>
        </SelectorButton>
 
        <ShiftDetail
@@ -137,9 +142,18 @@ export const Summary = () => {
          setSelectedShift={setSelectedShift}
        />
        <SelectorButton onClick={() => right(selectedShiftIndex)}>
-         &#9654;
+         <i class="fas fa-angle-right" ></i>
        </SelectorButton>
-       <Closer onClick={() => setSelectedShift(null)}>x</Closer>
+       <Closer onClick={() => setSelectedShift(null)}>
+         {" "}
+         <i
+           class="fas fa-reply"
+           style={{ lineHeight: "20px", marginRight: "2px" }}
+         >
+           {" "}
+         </i>
+         Shifts
+       </Closer>
      </DetailContainer>
    );
   } else {

@@ -2,29 +2,30 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
-    width: 90%;
-    line-height: 50px;
-    height: 50px;
-    max-width: 1000px;
-    min-width: 850px;
-    background-color: ${props => props.number % 2 === 0 ? "#D5E8EB":"white"} ;
-    overflow: hidden;
-    border: 0.5px solid black;
-    border-radius: 50px;
-    list-style-type: none;
-    padding: 0;
-    position:relative;
-    margin: 10px auto;
-    
+  width: 90%;
+  line-height: 50px;
+  height: 50px;
+  max-width: 1000px;
+  min-width: 850px;
+  background-color: ${(props) => (props.number % 2 === 0 ? "white" : "white")};
+  overflow: hidden;
+  /* border: 0.25px solid black; */
+  border-radius: 5px;
+  list-style-type: none;
+  padding: 0;
+  position: relative;
+  margin: 10px auto;
+  box-shadow: -2px -1px 2px lightgray, 2px 2px 2px lightgray;
 
-    &:hover {
+  &:hover {
+      border: 0.25px solid blue;
     border-color: #1e7e34;
-    background-color: #FCDDBC;
+    /* background-color: #FCDDBC; */
     cursor: pointer;
-}
-
-
-`
+    transition-duration: 0.4s;
+    transform: scale(1.02);
+  }
+`;
 const MyDiv = styled.div`
 margin-left: 20px;
 /* display: inline; */
@@ -41,29 +42,28 @@ const Value = styled.div`
 
 `
 const Button = styled.div`
-    border: 0.5px solid black;
-    background-color: ${props => props.status ? "#E23C4A" : "#A3CCA6"};
-    border-radius: 5px;
-    padding: 5px;
-    /* width: 25px; */
-    text-align:center;
-    margin: 0 auto;
-    /* justify-self: flex-end; */
-    /* display: inline; */
-    /* float: right; */
-    width: 60px;
-    /* z-index: 1; */
-    /* overflow: hidden; */
-    box-sizing: border-box;
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    height: 25px;
-    line-height: 20px;
-    
-    
+  /* border: 0.5px solid black; */
+  background-color: ${(props) => (props.status ? "#E23C4A" : "#a3f7b5")};
+  box-shadow: 2px 2px 2px lightgray;
 
-`
+  border-radius: 5px;
+  /* padding: 5px; */
+  /* width: 25px; */
+  text-align: center;
+  margin: 0 auto;
+  /* justify-self: flex-end; */
+  /* display: inline; */
+  /* float: right; */
+  width: 60px;
+  /* z-index: 1; */
+  /* overflow: hidden; */
+  box-sizing: border-box;
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  height: 25px;
+  line-height: 25px;
+`;
 
 const converDateString = (dateString) => {
      let [month, date, year] = (new Date(dateString).toLocaleDateString().split("/"))
