@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 90%;
-  line-height: 50px;
-  height: 150px;
+  /* line-height: 50px; */
+  height: 75px;
   max-width: 1000px;
   min-width: 850px;
   background-color: ${(props) => (props.number % 2 === 0 ? "white" : "white")};
@@ -14,14 +14,15 @@ const Container = styled.div`
   list-style-type: none;
   padding: 0;
   position: relative;
-  margin: 10px auto;
+  margin: 5px auto;
   box-shadow: -2px -1px 2px lightgray, 2px 2px 2px lightgray;
   display: grid;
   grid-template-areas:
-    " date hrsHeader milesHeader compHeader "
-    " . hrsval milesval compval ";
-  grid-template-rows: auto;
-  grid-template-columns: repeat(6, 1fr);
+    " dateHeader hrsHeader milesHeader compHeader "
+    " dateval hrsval milesval compval ";
+  grid-template-rows: 40px 25px;
+  grid-template-columns: repeat(5, 1fr);
+  box-sizing:border-box;
 
   &:hover {
     border: 0.25px solid blue;
@@ -39,8 +40,23 @@ const MyDiv = styled.div`
 
 const Value = styled.div`
   margin-right: 10px;
-  display: inline;
+  /* display: inline; */
   grid-area: ${(props) => props.gridArea};
+  line-height: 25px;
+  text-align: center;
+  align-self: start;
+  justify-self: center;
+  box-sizing: border-box;
+  /* height: 25px; */
+`;
+
+const Header = styled.div`
+  margin-right: 10px;
+  grid-area: ${(props) => props.gridArea};
+  text-align: center;
+  /* text-decoration: underline; */
+  align-self: end;
+  font-size: 16pt;
 `;
 const Button = styled.div`
   /* border: 0.5px solid black; */
@@ -61,12 +77,12 @@ const Button = styled.div`
   box-sizing: border-box;
   position: absolute;
   right: 15px;
-  top: 10px;
+  top: 25px;
   height: 25px;
   line-height: 25px;
 `;
 
-const converDateString = (dateString) => {
+const converDateString = (dateString, time) => {
   let [month, date, year] = new Date(dateString)
     .toLocaleDateString()
     .split("/");
@@ -74,8 +90,13 @@ const converDateString = (dateString) => {
     .toLocaleTimeString()
     .slice(0, 7)
     .split(":");
+  if(time){
+    return `${hour}:${minute}`
+  } else {
+    // return `${month}/${date}/${year} ${hour}:${minute}`;
+    return `${month}/${date}/${year}`;
 
-  return `${month}/${date}/${year} ${hour}:${minute}`;
+  }
 };
 
 export const ShiftItem = ({
@@ -94,8 +115,9 @@ export const ShiftItem = ({
     closed,
   },
 }) => {
-  let start = converDateString(startDateTime);
-  let end = endDateTime ? converDateString(endDateTime) : "00:00";
+  let startDate = converDateString(startDateTime)
+  let start = converDateString(startDateTime, "true");
+  let end = endDateTime ? converDateString(endDateTime, "true") : "00:00";
   let shiftStatus = closed ? (
     <Button status={closed}>Closed</Button>
   ) : (
@@ -106,15 +128,19 @@ export const ShiftItem = ({
     //    <Link style={{textDecoration: "none", color: "black"}} to={`shift/${_id}`}>
 
     <Container number={number} onClick={() => setSelectedShift(_id)}>
-      {/* <MyDiv> {`${number + 1}.  `} */}
-      <Value gridArea={"date"}>{`Shift Start: ${start}`}</Value>
-      {/* <Value gridArea={"date"}>{`Shift End: ${end}`}</Value> */}
-      {/* <Value>Starting Miles: {startMiles}</Value>
-            <Value>Ending Miles: {endMiles}</Value> */}
-      <Value gridArea={"milesHeader"}>Total Miles: {ttlMiles}</Value>
-      {/* <Value gridArea={"date"} >{`Tips: $${tips.toFixed(2)}`}</Value> */}
-      <Value gridArea={"compHeader"}>Total Comp: ${ttlComp}</Value>
-      {/* </MyDiv> */}
+    
+      <Header gridArea={"dateHeader"}>Date</Header>
+        <Value gridArea={"dateval"}>{startDate}</Value>
+      
+      <Header gridArea={"hrsHeader"}>Start</Header>
+        <Value gridArea={"hrsval"}>{start}</Value>
+      
+      <Header gridArea={"milesHeader"}>Miles</Header>
+        <Value gridArea={"milesval"}> {ttlMiles}</Value>
+      
+      <Header gridArea={"compHeader"}>Earnings</Header>
+        <Value gridArea={"compval"}> {ttlComp}</Value>
+      
       {shiftStatus}
     </Container>
 
