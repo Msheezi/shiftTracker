@@ -129,7 +129,7 @@ export const Summary = () => {
     return (
       <DetailContainer>
         <SelectorButton onClick={() => left(selectedShiftIndex)}>
-          <i class="fas fa-angle-left"></i>
+          <i className="fas fa-angle-left"></i>
         </SelectorButton>
 
         <ShiftDetail
@@ -137,12 +137,12 @@ export const Summary = () => {
           setSelectedShift={setSelectedShift}
         />
         <SelectorButton onClick={() => right(selectedShiftIndex)}>
-          <i class="fas fa-angle-right"></i>
+          <i className="fas fa-angle-right"></i>
         </SelectorButton>
         <Closer onClick={() => setSelectedShift(null)}>
           {" "}
           <i
-            class="fas fa-reply"
+            className="fas fa-reply"
             style={{ lineHeight: "20px", marginRight: "2px" }}
           >
             {" "}
