@@ -1,12 +1,36 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 
 import styled from 'styled-components'
 import {uploadPhoto} from '../../functionhelpers'
+
+const UploadButton = styled.button`
+  width: 125px;
+  height: 25px;
+  border-radius: 5px;
+  /* background-color: #A3F7B5; */
+  background-color: ${(props) => (props.disabled ? "lightgrey" : "#A3F7B5")};
+  text-align: center;
+  /* line-height: 25px; */
+  cursor: ${(props) => (props.disabled ? "" : "pointer")};
+  margin: 0px 10px;
+  border: none;
+  font-size: 12pt;
+`;
+
+const StyledLabel = styled.label`
+  font-size: 14pt;
+  font-weight: bold;
+  color: darkslategrey;
+
+`
 
 
 export const ImageUploader = ({shiftId, dispatch}) =>{
     let initialState = { shiftId: shiftId, pictureType: "", file: null };
     const [state, updateState] = useState(initialState)
+    const myRef = useRef()
+
+    const disabled = state.photoUrl ? false: true
 
      const handleFile = (e) => {
        // const file = e.currentTarget.files[0];
@@ -41,6 +65,8 @@ export const ImageUploader = ({shiftId, dispatch}) =>{
        
      };
 
+
+
      const handleSelect = (e) =>{
          e.preventDefault()
          e.persist()
@@ -53,22 +79,41 @@ export const ImageUploader = ({shiftId, dispatch}) =>{
      }
 
      return (
-        <div style={{ margin: "0px auto"}}>
-            <label> Upload Mileage Photos: 
-                <input style={{color: "white"}}type="file" name="file" id="file" onChange={e=>handleFile(e)}/>
-            </label>
-           <select onChange={e=> handleSelect(e)}
-                defaultValue={{label: "Select Image Type", value: null}}
-           >
-               <option >Select Image Type</option>
-               <option value="startingUrl">Beginning Miles</option>
-               <option value="endingUrl">Ending Miles</option>
-           </select>
-        <button onClick={e=>handleSubmit(e)}>Submit </button>
-        </div>
-
-
-     )
+       <div
+         style={{
+           margin: "0px auto",
+           display: "flex",
+           justifyContent: "center",
+         }}
+       >
+         <StyledLabel>
+           {" "}
+           Upload Mileage Photos:
+           <input
+             ref={myRef}
+             style={{ color: "white", display: "none" }}
+             type="file"
+             name="file"
+             id="file"
+             onChange={(e) => handleFile(e)}
+           />
+         </StyledLabel>
+         <UploadButton onClick={() => myRef.current.click()}>
+           Select File
+         </UploadButton>
+         <select style={{textAlign: "center"}}
+           onChange={(e) => handleSelect(e)}
+           defaultValue={{ label: "Select Image Type", value: null }}
+         >
+           <option>Select Image Type</option>
+           <option value="startingUrl">Beginning Miles</option>
+           <option value="endingUrl">Ending Miles</option>
+         </select>
+         <UploadButton disabled={disabled} onClick={(e) => handleSubmit(e)}>
+           Upload{" "}
+         </UploadButton>
+       </div>
+     );
 
 
 }

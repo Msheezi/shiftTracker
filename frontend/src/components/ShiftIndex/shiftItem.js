@@ -132,8 +132,8 @@ export const ShiftItem = ({
       <Header gridArea={"dateHeader"}>Date</Header>
         <Value gridArea={"dateval"}>{startDate}</Value>
       
-      <Header gridArea={"hrsHeader"}>Start</Header>
-        <Value gridArea={"hrsval"}>{start}</Value>
+      <Header gridArea={"hrsHeader"}>Hours Worked</Header>
+        <Value gridArea={"hrsval"}>{shiftDuration || 0.00}</Value>
       
       <Header gridArea={"milesHeader"}>Miles</Header>
         <Value gridArea={"milesval"}> {ttlMiles}</Value>
