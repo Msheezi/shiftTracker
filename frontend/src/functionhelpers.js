@@ -45,3 +45,7 @@ export const addNewShiftAPI = () => {
 export const uploadPhoto = (pictureObj) => {
     return axios.post("/pictures/upload", pictureObj)
 }
+
+export const searchResults = (start, end)=> {
+    return axios.get(`shifts/search?start=${start}&end=${end}`)
+}
