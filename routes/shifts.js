@@ -17,6 +17,22 @@ const updateObject = (shift, updatedShift) => {
   return shift;
 };
 
+const getShiftTotals = (array) => {
+  const totals = { duration: 0, ttlMiles: 0, tips: 0, ttlComp: 0 };
+  for (let ele of array) {
+    const { shiftDuration, ttlMiles, tips, ttlComp } = ele;
+    if (ele.closed) {
+
+      totals["duration"] += parseFloat(shiftDuration);
+      totals["ttlMiles"] += ttlMiles;
+      totals["tips"] += tips;
+      totals["ttlComp"] += parseFloat(ttlComp);
+      // console.log(totals)
+    }
+  }
+  return totals
+}
+
 router.get("/shifts", async (req, res) => {
   try {
     let shifts = await Shift.find({}, excluded)
@@ -31,18 +47,26 @@ router.get("/search", async (req, res) => {
   let startDate = new Date(start);
 
   let endDate =  end ? new Date(end): new Date()
-
+  let docs
   console.log(startDate, endDate);
   try {
-    let docs = 
+    docs = 
       await Shift.find(
         {startDateTime: { $gte: startDate, $lte: endDate }}
         ,excluded);
-
-     res.json(docs);
+        // console.log(docs)
+       
   
     } catch(err) {
       res.json(err)
+     }
+
+     finally {
+      let totals = getShiftTotals(docs);
+      // console.log(`Totals: ${totals}`);
+      let payload = { shifts: docs, shiftTotals: totals };
+      // console.log(payload);
+      res.json(payload);
      }
   // try {
 

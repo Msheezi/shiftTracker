@@ -2,23 +2,23 @@ import React  from 'react';
 
 import './css/App.css';
 import { Switch, Route,BrowserRouter as Router } from "react-router-dom";
-import {Summary} from './components/ShiftIndex/summary'
+import { ShiftsPage } from "./components/ShiftIndex/shiftsMain";
 import {MainPage } from './components/mainpage'
-import ShiftDetail from './components/ShiftDetails/shiftDetail'
+// import ShiftDetail from './components/ShiftDetails/shiftDetail'
+import {Summary} from './components/Summary/summary'
 import {Navbar} from './components/nav'
 
 function  App() {
   return (
     <Router>
-      <Navbar/>
+      <Navbar />
       <div>
-      
         <Switch>
           <Route path="/shifts">
-            <Summary />
+            <ShiftsPage />
           </Route>
           <Route path="/summary">
-            <ShiftDetail  />
+            <Summary />
           </Route>
           <Route path="/">
             <MainPage />

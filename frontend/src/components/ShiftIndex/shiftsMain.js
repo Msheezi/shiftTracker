@@ -72,7 +72,7 @@ const StyledButton = styled.button`
   }
 `;
 
-export const Summary = () => {
+export const ShiftsPage = () => {
   const { state, dispatch } = useContext(Store);
   const [selectedShiftIndex, setSelectedShift] = useState(null);
   let shiftKeys = Object.keys(state.shifts);
