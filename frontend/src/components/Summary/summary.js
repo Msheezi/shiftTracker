@@ -1,8 +1,11 @@
 import React, {useState} from 'react'
 import {searchResults } from '../../functionhelpers'
 import {ShiftItem} from '../ShiftIndex/shiftItem'
+import styled from 'styled-components'
 
-
+const Container = styled.div`
+  margin-top: 50px;
+`;
 
 
 export const Summary = ()=>{
@@ -33,13 +36,12 @@ export const Summary = ()=>{
     }
 
     return (
-        <>
+      <Container>
         <div>Summary Route</div>
-        <button onClick={()=> search("09/15/2020","09/18/2020")}>Test</button>
+        <button onClick={() => search("09/15/2020", "09/18/2020")}>Test</button>
         {values}
         {/* // <ShiftList shifts={shifts}/>
         // <ShiftSummary shiftTotals={shiftTotals} */}
-        
-        </>
-        )
+      </Container>
+    );
 }

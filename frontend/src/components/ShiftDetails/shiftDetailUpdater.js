@@ -37,8 +37,8 @@ const StyledButton = styled.button`
   height: 40px;
   border: none;
   background-color: #a3f7b5;
-  border-radius: 20px;
-  margin: 20px;
+  border-radius: 5px;
+  margin: 20px 20px 20px 30px;
   cursor: pointer;
   &:hover {
     background-color: #b4f8c3;
@@ -146,7 +146,7 @@ export const ShiftEdit = ({ shiftObj, shiftId, dispatch }) => {
         </StyledLabel>
         <br />
       </Container>
-      <div style={{ margin: "0 auto" }}>
+      <div style={{ margin: "0 auto", paddingLeft: "50px" }}>
         <StyledButton onClick={(e) => postUpdate(shiftId, shift)}>
           Submit
         </StyledButton>

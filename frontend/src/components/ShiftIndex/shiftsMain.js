@@ -16,12 +16,25 @@ const Container = styled.div`
   max-width: 1000px;
   width: 80vw;
   margin: 10px auto;
+  grid-area: ${props => props.gridArea};
+`;
+
+const IndexContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1000px 100px;
+  /* margin: 10px auto; */
+  grid-template-areas: " columns button ";
+  justify-content: center;
+  margin-top: 50px;
+
+  /* width: 100vw; */
 `;
 
 const DetailContainer = styled.div`
   width: 80%;
   display: flex;
   margin-left: 10%;
+  margin-top: 50px;
 `;
 
 const SelectorButton = styled.div`
@@ -63,6 +76,7 @@ const StyledButton = styled.button`
   cursor: pointer;
   float: left;
   line-height: 30px;
+  grid-area: ${(props) => props.gridArea};
 
   &:hover {
     background-color: #b4f8c3;
@@ -153,10 +167,12 @@ export const ShiftsPage = () => {
     );
   } else {
     return (
-      <>
-        <StyledButton onClick={(e) => addNewShift()}>Add Shift</StyledButton>
-        <Container>{values}</Container>
-      </>
+      <IndexContainer>
+        <Container gridArea={"columns"}>{values}</Container>
+        <StyledButton gridArea={"button"} onClick={(e) => addNewShift()}>
+          Add Shift
+        </StyledButton>
+      </IndexContainer>
     );
   }
 };

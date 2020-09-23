@@ -7,18 +7,22 @@ const Container = styled.div`
   height: 50px;
   width: 100%;
   background-color: #5eadfd;
-  margin: 0;
-  margin-bottom: 10px;
+  /* margin-left: 20px; */
+  margin-bottom: 40px;
   padding: 0;
   overflow: hidden;
   position: relative;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   box-shadow: 2px 2px 2px lightgray;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+
 `;
 
 const Title = styled.h2`
-    align-self: center;
+    /* align-self: center; */
     margin: 5px auto;
 `
 
@@ -26,8 +30,9 @@ const Links = styled(Link)`
     align-self: center;
     justify-self: center;
     margin-right: 5px;
+    margin-left: 20px;
     text-decoration: none;
-    color: black;
+    color: navajowhite;
 
 `
 
