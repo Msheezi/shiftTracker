@@ -59,7 +59,7 @@ export const Summary = ()=>{
             <ShiftsPage shifts={summaryState.shifts} location={"true"} />
           ) : ("")}
         </div>
-        <div style={{ gridArea: "rangeSummary" , marginTop: "80px"}}>
+        <div style={{ gridArea: "rangeSummary" , marginTop: "55px"}}>
           
           <div>
             {metrics}

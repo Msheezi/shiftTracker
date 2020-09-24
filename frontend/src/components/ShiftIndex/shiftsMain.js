@@ -13,7 +13,7 @@ import ShiftDetail from "../ShiftDetails/shiftDetail";
 const Container = styled.div`
   max-width: 1000px;
   width: 80vw;
-  margin: 10px auto;
+  margin: 0 auto;
   grid-area: ${props => props.gridArea};
 `;
 

@@ -23,6 +23,7 @@ const Container = styled.div`
   grid-template-rows: 40px 25px;
   grid-template-columns: repeat(5, 1fr);
   box-sizing:border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
   &:hover {
     border: 0.25px solid blue;
