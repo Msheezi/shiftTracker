@@ -28,9 +28,15 @@ const IndexContainer = styled.div`
 
 const DetailContainer = styled.div`
   width: 80%;
-  display: flex;
+  display: grid;
   margin-left: 10%;
   margin-top: 50px;
+  grid-template-areas: 
+  
+  
+  
+  "navleft data navright closer"
+  ;
 `;
 
 const SelectorButton = styled.div`
@@ -51,12 +57,16 @@ const Closer = styled.div`
   color: black;
   cursor: pointer;
   height: 20px;
-
+  grid-area: ${props=> props.gridArea};
   text-align: center;
   line-height: 20px;
   &:hover {
     background-color: #f0f8fa;
   }
+`;
+
+const DataContainer = styled.div`
+  grid-area: ${(props) => props.gridArea};
 `;
 
 const StyledButton = styled.button`
@@ -80,34 +90,32 @@ const StyledButton = styled.button`
   }
 `;
 
-export const ShiftsPage = ({shifts, location}) => {
+export const ShiftsPage = ({ shifts, location, setDisplayMetrics }) => {
   const { state, dispatch } = useContext(Store);
   const [selectedShiftIndex, setSelectedShift] = useState(null);
   let shiftKeys = Object.keys(state.shifts);
 
-  let searchValues
+  let searchValues;
 
-  if (location){
-        searchValues = shifts.map((shiftObj, idx) => (
-          <ShiftItem
-            key={shiftObj._id}
-            shift={shiftObj}
-            number={idx}
-            setSelectedShift={setSelectedShift}
-          />
-        )); 
-    }
+  if (location) {
+    searchValues = shifts.map((shiftObj, idx) => (
+      <ShiftItem
+        key={shiftObj._id}
+        shift={shiftObj}
+        number={idx}
+        setSelectedShift={setSelectedShift}
+      />
+    ));
+  }
 
   useEffect(() => {
-    if(!location){
-
+    if (!location) {
       Object.keys(state.shifts).length === 0 &&
-      fetchShiftsAPI()
-      .then((res) => dispatch({ type: "fetch", payload: res.data }))
-      .catch((err) => console.log(err));
-    } 
-
-    })
+        fetchShiftsAPI()
+          .then((res) => dispatch({ type: "fetch", payload: res.data }))
+          .catch((err) => console.log(err));
+    }
+  });
 
   const addNewShift = () => {
     addNewShiftAPI().then((res) =>
@@ -130,9 +138,15 @@ export const ShiftsPage = ({shifts, location}) => {
     }
   };
 
-  
+  const hideDetail = () => {
+    
+    if (location){
+      setDisplayMetrics(true);
+    }
+    setSelectedShift(null);
+  }
 
-  let values
+  let values;
   if (state) {
     //rename function, something like formatting
     let shiftArray = frontEndFetch(state.shifts);
@@ -147,31 +161,46 @@ export const ShiftsPage = ({shifts, location}) => {
         />
       ))
       .reverse();
-  } 
-  else {
+  } else {
     values = null;
   }
 
-  let addShift = !location ?  <StyledButton gridArea={"button"} onClick={(e) => addNewShift()}>
-          Add Shift
-        </StyledButton> : ""
-
+  let addShift = !location ? (
+    <StyledButton gridArea={"button"} onClick={(e) => addNewShift()}>
+      Add Shift
+    </StyledButton>
+  ) : (
+    ""
+  );
 
   if (selectedShiftIndex) {
     return (
       <DetailContainer>
-        <SelectorButton onClick={() => left(selectedShiftIndex)}>
+        <SelectorButton
+          gridArea={"navLeft"}
+          onClick={() => left(selectedShiftIndex)}
+        >
           <i className="fas fa-angle-left"></i>
         </SelectorButton>
 
-        <ShiftDetail
-          _id={selectedShiftIndex}
-          setSelectedShift={setSelectedShift}
-        />
-        <SelectorButton onClick={() => right(selectedShiftIndex)}>
+        <DataContainer gridArea={"data"}>
+          <ShiftDetail
+            _id={selectedShiftIndex}
+            setSelectedShift={setSelectedShift}
+          />
+        </DataContainer>
+        <SelectorButton
+          gridArea={"navRight"}
+          onClick={() => right(selectedShiftIndex)}
+        >
           <i className="fas fa-angle-right"></i>
         </SelectorButton>
-        <Closer onClick={() => setSelectedShift(null)}>
+        <Closer
+          gridArea={"closer"}
+          onClick={
+            hideDetail
+          }
+        >
           {" "}
           <i
             className="fas fa-reply"
@@ -186,8 +215,10 @@ export const ShiftsPage = ({shifts, location}) => {
   } else {
     return (
       <IndexContainer>
-        <Container gridArea={"columns"}>{location ? searchValues: values}</Container>
-       {addShift}
+        <Container gridArea={"columns"}>
+          {location ? searchValues : values}
+        </Container>
+        {addShift}
       </IndexContainer>
     );
   }

@@ -25,6 +25,7 @@ export const Summary = ()=>{
     const [summaryState, setSummaryState] = useState()
     const [startDate, setStartDate] = useState({start: ""})
     const [endDate, setEndDate] = useState({end: ""})
+    const [displayMetrics, setDisplayMetrics] = useState(true)
     
     const search = async () => {
       if(startDate && endDate) {
@@ -35,7 +36,7 @@ export const Summary = ()=>{
         
     }
 
-    let metrics = summaryState ? <Metrics shiftTotals={summaryState.shiftTotals} /> : ""
+    let metrics = summaryState && displayMetrics ? <Metrics shiftTotals={summaryState.shiftTotals} /> : ""
   
     return (
       <Container>
@@ -54,16 +55,22 @@ export const Summary = ()=>{
           <button onClick={search}>Get Shifts</button>
         </div>
 
-        <div style={{ gridArea: "shifts" }}>
+        <div
+          onClick={() => setDisplayMetrics(false)}
+          style={{ gridArea: "shifts" }}
+        >
           {summaryState ? (
-            <ShiftsPage shifts={summaryState.shifts} location={"true"} />
-          ) : ("")}
+            <ShiftsPage
+              shifts={summaryState.shifts}
+              location={"true"}
+              setDisplayMetrics={setDisplayMetrics}
+            />
+          ) : (
+            ""
+          )}
         </div>
-        <div style={{ gridArea: "rangeSummary" , marginTop: "55px"}}>
-          
-          <div>
-            {metrics}
-          </div>
+        <div style={{ gridArea: "rangeSummary", marginTop: "55px" }}>
+          <div>{metrics}</div>
         </div>
       </Container>
     );
