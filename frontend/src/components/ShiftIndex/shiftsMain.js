@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-// import { ShiftContext } from '../shiftContext'
 import { ShiftItem } from "./shiftItem";
 import styled from "styled-components";
 import { Store } from "../../store";
@@ -10,7 +9,6 @@ import {
 } from "../../functionhelpers";
 import ShiftDetail from "../ShiftDetails/shiftDetail";
 
-// import reducer from '../reducer'
 
 const Container = styled.div`
   max-width: 1000px;
@@ -22,12 +20,10 @@ const Container = styled.div`
 const IndexContainer = styled.div`
   display: grid;
   grid-template-columns: 1000px 100px;
-  /* margin: 10px auto; */
   grid-template-areas: " columns button ";
   justify-content: center;
   margin-top: 50px;
 
-  /* width: 100vw; */
 `;
 
 const DetailContainer = styled.div`
@@ -54,8 +50,6 @@ const SelectorButton = styled.div`
 const Closer = styled.div`
   color: black;
   cursor: pointer;
-  /* border-radius: 100px; */
-  /* border: 0.5px solid black; */
   height: 20px;
 
   text-align: center;
@@ -70,7 +64,7 @@ const StyledButton = styled.button`
   height: 30px;
   border: none;
   background-color: #a3f7b5;
-  border-radius: 20px;
+  border-radius: 5px;
   margin: 20px;
   margin-left: 15%;
   cursor: pointer;
@@ -86,23 +80,39 @@ const StyledButton = styled.button`
   }
 `;
 
-export const ShiftsPage = () => {
+export const ShiftsPage = ({shifts, location}) => {
   const { state, dispatch } = useContext(Store);
   const [selectedShiftIndex, setSelectedShift] = useState(null);
   let shiftKeys = Object.keys(state.shifts);
 
+  let searchValues
+
+  if (location){
+        searchValues = shifts.map((shiftObj, idx) => (
+          <ShiftItem
+            key={shiftObj._id}
+            shift={shiftObj}
+            number={idx}
+            setSelectedShift={setSelectedShift}
+          />
+        )); 
+    }
+
   useEffect(() => {
-    Object.keys(state.shifts).length === 0 &&
+    if(!location){
+
+      Object.keys(state.shifts).length === 0 &&
       fetchShiftsAPI()
-        .then((res) => dispatch({ type: "fetch", payload: res.data }))
-        .catch((err) => console.log(err));
-  });
+      .then((res) => dispatch({ type: "fetch", payload: res.data }))
+      .catch((err) => console.log(err));
+    } 
+
+    })
 
   const addNewShift = () => {
     addNewShiftAPI().then((res) =>
       dispatch({ type: "new", payload: res.data })
     );
-    // fetchShifts()
   };
 
   const right = (id) => {
@@ -120,7 +130,9 @@ export const ShiftsPage = () => {
     }
   };
 
-  let values;
+  
+
+  let values
   if (state) {
     //rename function, something like formatting
     let shiftArray = frontEndFetch(state.shifts);
@@ -135,9 +147,15 @@ export const ShiftsPage = () => {
         />
       ))
       .reverse();
-  } else {
+  } 
+  else {
     values = null;
   }
+
+  let addShift = !location ?  <StyledButton gridArea={"button"} onClick={(e) => addNewShift()}>
+          Add Shift
+        </StyledButton> : ""
+
 
   if (selectedShiftIndex) {
     return (
@@ -168,10 +186,8 @@ export const ShiftsPage = () => {
   } else {
     return (
       <IndexContainer>
-        <Container gridArea={"columns"}>{values}</Container>
-        <StyledButton gridArea={"button"} onClick={(e) => addNewShift()}>
-          Add Shift
-        </StyledButton>
+        <Container gridArea={"columns"}>{location ? searchValues: values}</Container>
+       {addShift}
       </IndexContainer>
     );
   }

@@ -11,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 //     `
 
 const Container = styled.div`
-  margin: 20px auto;
+  margin: 5px auto;
 
   display: flex;
   /* justify-content: space-around; */
@@ -88,6 +88,8 @@ export const ShiftEdit = ({ shiftObj, shiftId, dispatch }) => {
   return (
     <>
       <ImageUploader shiftId={shiftId} dispatch={dispatch} />
+      <div style={{ marginTop: "20px" }}></div>
+      <h2 style={{ textAlign: "center", margin: "0px" }}>Edit Your Shift</h2>
       <Container>
         {/* <Updated>{displayUpdate}</Updated> */}
         <br />

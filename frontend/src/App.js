@@ -12,7 +12,7 @@ function  App() {
   return (
     <Router>
       <Navbar />
-      <div>
+      <div style={{marginTop: "80px"}}>
         <Switch>
           <Route path="/shifts">
             <ShiftsPage />
