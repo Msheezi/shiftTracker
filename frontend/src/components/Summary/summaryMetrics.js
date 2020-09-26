@@ -3,15 +3,15 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
-    width: 300px;
-    border: 0.5px solid lightgray;
-    /* height: 60vh; */
-    display: flex;
-    flex-direction: column;
-    padding: 10px 20px;
-    text-align: center;
-
-`
+  width: 300px;
+  border: 0.5px solid lightgray;
+  /* height: 60vh; */
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  text-align: center;
+  box-shadow: -2px -1px 2px lightgray, 2px 2px 2px lightgray;
+`;
 
 const MetricItem = styled.div`
   font-size: 12pt;
@@ -50,7 +50,7 @@ export const Metrics = ({shiftTotals}) => {
         <StyledHeader>Shift Metrics</StyledHeader>
         <MetricItem>{`Miles Driven: ${ttlMiles}`}</MetricItem>
         <MetricItem>{`Hours Worked: ${duration.toFixed(2)}`}</MetricItem>
-        <MetricItem>{`Tips Collected: ${tips}`}</MetricItem>
+        <MetricItem>{`Tips Collected: ${tips.toFixed(2)}`}</MetricItem>
         <MetricItem>{`Est. Earnings: $ ${ttlComp}`}</MetricItem>
         <p>
           *Totals only include <strong>Closed</strong> shifts
