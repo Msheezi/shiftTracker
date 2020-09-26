@@ -5,7 +5,7 @@ import styled from 'styled-components'
 const Container = styled.div`
     width: 300px;
     border: 0.5px solid lightgray;
-    height: 60vh;
+    /* height: 60vh; */
     display: flex;
     flex-direction: column;
     padding: 10px 20px;
@@ -49,9 +49,9 @@ export const Metrics = ({shiftTotals}) => {
       <Container>
         <StyledHeader>Shift Metrics</StyledHeader>
         <MetricItem>{`Miles Driven: ${ttlMiles}`}</MetricItem>
-        <MetricItem>{`Hours Worked: ${duration}`}</MetricItem>
+        <MetricItem>{`Hours Worked: ${duration.toFixed(2)}`}</MetricItem>
         <MetricItem>{`Tips Collected: ${tips}`}</MetricItem>
-        <MetricItem>{`Est. Earnings: ${ttlComp}`}</MetricItem>
+        <MetricItem>{`Est. Earnings: $ ${ttlComp}`}</MetricItem>
         <p>
           *Totals only include <strong>Closed</strong> shifts
         </p>
