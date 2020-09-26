@@ -1,6 +1,5 @@
-import React, {useEffect, useState, useRef} from 'react'
-import {searchResults } from '../../functionhelpers'
-import {ShiftItem} from '../ShiftIndex/shiftItem'
+import React, {useEffect, useState, } from 'react'
+import { searchResults, keyShifts } from "../../functionhelpers";
 import styled from 'styled-components'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -21,7 +20,6 @@ const Container = styled.div`
 export const Summary = ()=>{
     //display blanks update values after entering in the starting and ending dates
 
-    // const{shifts, shiftTotals} = apiresonse
     const [summaryState, setSummaryState] = useState()
     const [startDate, setStartDate] = useState({start: ""})
     const [endDate, setEndDate] = useState({end: ""})
@@ -29,14 +27,12 @@ export const Summary = ()=>{
     
     const search = async () => {
       if(startDate && endDate) {
-
         let data = await searchResults(startDate,endDate)
         setSummaryState(data.data)
       }
-        
     }
 
-    // const myStateRef = useRef(displayMetrics)
+    
    
     const handleClose = () => {
       setDisplayMetrics(true);
@@ -45,17 +41,23 @@ export const Summary = ()=>{
     const hideMetrics = () => {
       setDisplayMetrics(false)
     }
+
+
+    let keyedShifts = summaryState ? keyShifts(summaryState.shifts) : ""
+    
     let metrics = summaryState && displayMetrics ? <Metrics shiftTotals={summaryState.shiftTotals} /> : ""
     let shifts = summaryState ? (
       <ShiftsPage
-        shifts={summaryState.shifts}
-        location={"true"}
+        shifts={keyedShifts}
+        location={true}
         handleClose={handleClose}
         hideMetrics={hideMetrics}
       />
     ) : (
       ""
     );
+
+
     return (
       <Container>
         <div style={{ gridArea: "header" }}>

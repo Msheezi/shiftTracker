@@ -6,6 +6,14 @@ export const frontEndFetch = (state) => {
     return Object.keys(state).map(key => (state[key]))
 }
 
+export const keyShifts = (shiftArray) => {
+    const shifts = {}
+    shiftArray.forEach(shiftObj => {
+        shifts[shiftObj._id] = shiftObj
+    })
+    return shifts
+}
+
 export const converDateString = (dateString) => {
     if(!dateString){
         return ""

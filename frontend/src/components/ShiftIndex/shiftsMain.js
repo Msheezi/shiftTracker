@@ -98,8 +98,9 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
   let searchValues;
 
   if (location) {
-    
-    searchValues = shifts.map((shiftObj, idx) => (
+    shiftKeys = Object.keys(shifts)
+    let shiftArray = frontEndFetch(shifts);
+    searchValues = shiftArray.map((shiftObj, idx) => (
       <ShiftItem
         key={shiftObj._id}
         shift={shiftObj}
@@ -131,25 +132,25 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
     );
   };
 
-  const right = (id) => {
-    let index = shiftKeys.indexOf(id);
 
+const transition = (direction, id) => {
+  let index = shiftKeys.indexOf(id)
+  if (direction === "right") {
     if (index < shiftKeys.length - 1) {
       setSelectedShift(shiftKeys[index + 1]);
     }
-  };
-  const left = (id) => {
-    let index = shiftKeys.indexOf(id);
-
-    if (index > 0) {
-      setSelectedShift(shiftKeys[index - 1]);
+  } 
+ if (direction ==="left") {
+     if (index > 0) {
+          setSelectedShift(shiftKeys[index - 1]);
+        }
+      }
     }
-  };
+  ;
+
 
   const hideDetail = () => {
-    
     if (location){
-      
       handleClose(true);
     }
     setSelectedShift(null);
@@ -187,7 +188,7 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
       <DetailContainer>
         <SelectorButton
           gridArea={"navLeft"}
-          onClick={() => left(selectedShiftIndex)}
+          onClick={() => transition("left", selectedShiftIndex)}
         >
           <i className="fas fa-angle-left"></i>
         </SelectorButton>
@@ -200,16 +201,11 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
         </DataContainer>
         <SelectorButton
           gridArea={"navRight"}
-          onClick={() => right(selectedShiftIndex)}
+          onClick={() => transition("right", selectedShiftIndex)}
         >
           <i className="fas fa-angle-right"></i>
         </SelectorButton>
-        <Closer
-          gridArea={"closer"}
-          onClick={()=>
-            hideDetail()
-          }
-        >
+        <Closer gridArea={"closer"} onClick={() => hideDetail()}>
           {" "}
           <i
             className="fas fa-reply"
