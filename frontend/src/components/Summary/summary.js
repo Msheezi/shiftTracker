@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import {searchResults } from '../../functionhelpers'
 import {ShiftItem} from '../ShiftIndex/shiftItem'
 import styled from 'styled-components'
@@ -36,8 +36,26 @@ export const Summary = ()=>{
         
     }
 
+    // const myStateRef = useRef(displayMetrics)
+   
+    const handleClose = () => {
+      setDisplayMetrics(true);
+    }
+
+    const hideMetrics = () => {
+      setDisplayMetrics(false)
+    }
     let metrics = summaryState && displayMetrics ? <Metrics shiftTotals={summaryState.shiftTotals} /> : ""
-  
+    let shifts = summaryState ? (
+      <ShiftsPage
+        shifts={summaryState.shifts}
+        location={"true"}
+        handleClose={handleClose}
+        hideMetrics={hideMetrics}
+      />
+    ) : (
+      ""
+    );
     return (
       <Container>
         <div style={{ gridArea: "header" }}>
@@ -54,20 +72,12 @@ export const Summary = ()=>{
           />
           <button onClick={search}>Get Shifts</button>
         </div>
-
+      
         <div
-          onClick={() => setDisplayMetrics(false)}
+          
           style={{ gridArea: "shifts" }}
         >
-          {summaryState ? (
-            <ShiftsPage
-              shifts={summaryState.shifts}
-              location={"true"}
-              setDisplayMetrics={setDisplayMetrics}
-            />
-          ) : (
-            ""
-          )}
+          {shifts}
         </div>
         <div style={{ gridArea: "rangeSummary", marginTop: "55px" }}>
           <div>{metrics}</div>

@@ -90,7 +90,7 @@ const StyledButton = styled.button`
   }
 `;
 
-export const ShiftsPage = ({ shifts, location, setDisplayMetrics }) => {
+export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
   const { state, dispatch } = useContext(Store);
   const [selectedShiftIndex, setSelectedShift] = useState(null);
   let shiftKeys = Object.keys(state.shifts);
@@ -98,6 +98,7 @@ export const ShiftsPage = ({ shifts, location, setDisplayMetrics }) => {
   let searchValues;
 
   if (location) {
+    
     searchValues = shifts.map((shiftObj, idx) => (
       <ShiftItem
         key={shiftObj._id}
@@ -106,6 +107,7 @@ export const ShiftsPage = ({ shifts, location, setDisplayMetrics }) => {
         setSelectedShift={setSelectedShift}
       />
     ));
+    
   }
 
   useEffect(() => {
@@ -116,6 +118,12 @@ export const ShiftsPage = ({ shifts, location, setDisplayMetrics }) => {
           .catch((err) => console.log(err));
     }
   });
+
+  useEffect(()=> {
+    if (location && selectedShiftIndex){
+      hideMetrics();
+    }
+  })
 
   const addNewShift = () => {
     addNewShiftAPI().then((res) =>
@@ -141,7 +149,8 @@ export const ShiftsPage = ({ shifts, location, setDisplayMetrics }) => {
   const hideDetail = () => {
     
     if (location){
-      setDisplayMetrics(true);
+      
+      handleClose(true);
     }
     setSelectedShift(null);
   }
@@ -197,8 +206,8 @@ export const ShiftsPage = ({ shifts, location, setDisplayMetrics }) => {
         </SelectorButton>
         <Closer
           gridArea={"closer"}
-          onClick={
-            hideDetail
+          onClick={()=>
+            hideDetail()
           }
         >
           {" "}
