@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ShiftItem } from "./shiftItem";
+// import { ShiftItem } from "./shiftItemTable";
 import styled from "styled-components";
 import { Store } from "../../store";
 import {
@@ -8,6 +8,9 @@ import {
   addNewShiftAPI,
 } from "../../functionhelpers";
 import ShiftDetail from "../ShiftDetails/shiftDetail";
+import {ShiftTable} from './shiftsTable'
+import { ShiftDisplay } from "../ShiftDetails/shiftdisplay";
+
 
 
 const Container = styled.div`
@@ -94,44 +97,28 @@ const StyledButton = styled.button`
 export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
   const { state, dispatch } = useContext(Store);
   const [selectedShiftIndex, setSelectedShift] = useState(null);
+  const [stateShifts, setStateShifts] = useState([])
   let shiftKeys = Object.keys(state.shifts);
 
   let searchValues;
 
-  if (location) {
-    shiftKeys = Object.keys(shifts)
-    let shiftArray = frontEndFetch(shifts);
-    searchValues = shiftArray.map((shiftObj, idx) => (
-      <ShiftItem
-        key={shiftObj._id}
-        shift={shiftObj}
-        number={idx}
-        setSelectedShift={setSelectedShift}
-      />
-    ));
-    
-  }
-
-  useEffect(() => {
-    if (!location) {
-      Object.keys(state.shifts).length === 0 &&
-        fetchShiftsAPI()
-          .then((res) => dispatch({ type: "fetch", payload: res.data }))
-          .catch((err) => console.log(err));
+  useEffect(()=> {
+    const fetchShifts = async ()=>{
+      let {data} = await fetchShiftsAPI()
+      dispatch({type: "fetch", payload: data})
     }
-  });
+    fetchShifts()
+    
+  }, [dispatch])
 
   useEffect(()=> {
-    if (location && selectedShiftIndex){
-      hideMetrics();
-    }
-  })
+   if (Object.keys(state.shifts).length) {
+    let shiftArray = frontEndFetch(state.shifts)
+    setStateShifts(shiftArray)
+   }
+  },[state])
 
-  const addNewShift = () => {
-    addNewShiftAPI().then((res) =>
-      dispatch({ type: "new", payload: res.data })
-    );
-  };
+;
 
 
 const transition = (direction, id) => {
@@ -157,35 +144,180 @@ const transition = (direction, id) => {
     setSelectedShift(null);
   }
 
-  let values;
-  if (state) {
-    //rename function, something like formatting
-    let shiftArray = frontEndFetch(state.shifts);
+  const addNewShift = () => {
+    addNewShiftAPI().then((res) =>
+      dispatch({ type: "new", payload: res.data })
+    );
+  };
 
-    values = shiftArray
-      .map((shiftObj, idx) => (
-        <ShiftItem
-          key={shiftObj._id}
-          shift={shiftObj}
-          number={idx}
-          setSelectedShift={setSelectedShift}
-        />
-      ))
-      .reverse();
-  } else {
-    values = null;
-  }
+  if (stateShifts.length) {
+    if (selectedShiftIndex){
+      return(
 
-  let addShift = !location ? (
-    <StyledButton gridArea={"button"} onClick={(e) => addNewShift()}>
-      Add Shift
-    </StyledButton>
-  ) : (
-    ""
-  );
+      
+       <DetailContainer>
+        <SelectorButton
+          gridArea={"navLeft"}
+          onClick={() => transition("left", selectedShiftIndex)}
+        >
+          <i className="fas fa-angle-left"></i>
+        </SelectorButton>
 
-  if (selectedShiftIndex) {
-    return (
+        <DataContainer gridArea={"data"}>
+          <ShiftDetail
+            _id={selectedShiftIndex}
+            setSelectedShift={setSelectedShift}
+          />
+        </DataContainer>
+        <SelectorButton
+          gridArea={"navRight"}
+          onClick={() => transition("right", selectedShiftIndex)}
+        >
+          <i className="fas fa-angle-right"></i>
+        </SelectorButton>
+        <Closer gridArea={"closer"} onClick={() => hideDetail()}>
+          {" "}
+          <i
+            className="fas fa-reply"
+            style={{ lineHeight: "20px", marginRight: "2px" }}
+          >
+            {" "}
+          </i>
+          Shifts
+        </Closer>
+      </DetailContainer>
+      )
+     } else {
+       
+       return (
+         // "hello"
+         <IndexContainer>
+
+          <ShiftTable shifts={stateShifts} setSelectedShift={setSelectedShift} />
+          <StyledButton gridArea={"button"} onClick={(e) => addNewShift()}>
+            Add Shift
+          </StyledButton>
+         </IndexContainer>
+       )
+
+     }
+
+
+  
+} else { return ""}}
+
+
+
+
+
+//   if (location) {
+//     shiftKeys = Object.keys(shifts)
+//     let shiftArray = frontEndFetch(shifts);
+//     searchValues = shiftArray.map((shiftObj, idx) => (
+//       <ShiftItem
+//         key={shiftObj._id}
+//         shift={shiftObj}
+//         number={idx}
+//         setSelectedShift={setSelectedShift}
+//       />
+//     ));
+    
+//   }
+
+
+//   useEffect(() => {
+//     if (!location) {
+//       Object.keys(state.shifts).length === 0 &&
+//         fetchShiftsAPI()
+//           .then((res) => dispatch({ type: "fetch", payload: res.data }))
+//           .catch((err) => console.log(err));
+//     }
+//   });
+
+//   useEffect(()=> {
+//     if (location && selectedShiftIndex){
+//       hideMetrics();
+//     }
+//   })
+
+//   const addNewShift = () => {
+//     addNewShiftAPI().then((res) =>
+//       dispatch({ type: "new", payload: res.data })
+//     );
+//   };
+
+
+// const transition = (direction, id) => {
+//   let index = shiftKeys.indexOf(id)
+//   if (direction === "right") {
+//     if (index < shiftKeys.length - 1) {
+//       setSelectedShift(shiftKeys[index + 1]);
+//     }
+//   } 
+//  if (direction ==="left") {
+//      if (index > 0) {
+//           setSelectedShift(shiftKeys[index - 1]);
+//         }
+//       }
+//     }
+//   ;
+
+
+//   const hideDetail = () => {
+//     if (location){
+//       handleClose(true);
+//     }
+//     setSelectedShift(null);
+//   }
+
+//   let values;
+//   if (state) {
+//     //rename function, something like formatting
+//     let shiftArray = frontEndFetch(state.shifts);
+
+//     values = shiftArray
+//       .map((shiftObj, idx) => (
+//         <ShiftItem
+//           key={shiftObj._id}
+//           shift={shiftObj}
+//           number={idx}
+//           setSelectedShift={setSelectedShift}
+//         />
+//       ))
+//       .reverse();
+//   } else {
+//     values = null;
+//   }
+
+//   let addShift = !location ? (
+//     <StyledButton gridArea={"button"} onClick={(e) => addNewShift()}>
+//       Add Shift
+//     </StyledButton>
+//   ) : (
+//     ""
+//   );
+// const fetchShifts =  () => {
+//   fetchShiftsAPI()
+//     .then(res => dispatch({ type: "fetch", payload: res.data}))
+
+// };
+
+// useEffect(() => {
+//    fetchShifts();
+// },[]);
+
+/*
+
+
+//   const fetchShifts =  () => {
+//   fetchShiftsAPI()
+//     .then(res => dispatch({ type: "fetch", payload: res.data}))
+
+// };
+
+// useEffect(() => {
+//    fetchShifts();
+// },[]);
       <DetailContainer>
         <SelectorButton
           gridArea={"navLeft"}
@@ -217,8 +349,10 @@ const transition = (direction, id) => {
           Shifts
         </Closer>
       </DetailContainer>
+
     );
-  } else {
+
+    } else {
     return (
       <IndexContainer>
         <Container gridArea={"columns"}>
@@ -228,14 +362,22 @@ const transition = (direction, id) => {
       </IndexContainer>
     );
   }
-};
 
-// const fetchShifts =  () => {
-//   fetchShiftsAPI()
-//     .then(res => dispatch({ type: "fetch", payload: res.data}))
-
-// };
-
-// useEffect(() => {
-//    fetchShifts();
-// },[]);
+  <div style={{width: "800px", margin: "50px auto"}}>
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell >Date</TableCell>
+            <TableCell align="center" >Hours</TableCell>
+            <TableCell align="center">Miles</TableCell>
+            <TableCell  align="center">Earnings</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+           {values}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  </div>
+*/ 
