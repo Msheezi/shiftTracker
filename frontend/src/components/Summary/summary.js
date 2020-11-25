@@ -13,7 +13,7 @@ const Container = styled.div`
   grid-template-areas:
     ". header  header ."
     ". shifts  rangeSummary .";
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 10% 1fr 1fr 10%;
 `;
 
 

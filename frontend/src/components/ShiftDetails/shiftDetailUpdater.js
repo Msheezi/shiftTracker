@@ -17,6 +17,7 @@ const Container = styled.div`
   /* justify-content: space-around; */
   border-top: 0.5px solid black;
   padding-top: 20px;
+  padding-left: 80px;
 `;
 
 const StyledInput = styled.input`
@@ -148,7 +149,7 @@ export const ShiftEdit = ({ shiftObj, shiftId, dispatch }) => {
         </StyledLabel>
         <br />
       </Container>
-      <div style={{ margin: "0 auto", paddingLeft: "50px" }}>
+      <div style={{ margin: "0px auto", paddingLeft: "80px", display: "flex", justifyContent: "center" }}>
         <StyledButton onClick={(e) => postUpdate(shiftId, shift)}>
           Submit
         </StyledButton>

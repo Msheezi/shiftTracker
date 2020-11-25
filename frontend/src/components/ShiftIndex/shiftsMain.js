@@ -29,8 +29,9 @@ const IndexContainer = styled.div`
 const DetailContainer = styled.div`
   width: 80%;
   display: grid;
-  margin-left: 10%;
-  margin-top: 50px;
+  /* margin-left: 10%; */
+  /* margin-top: 50px; */
+  margin: 50px auto;
   grid-template-areas: 
   
   
