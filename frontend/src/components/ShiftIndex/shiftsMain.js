@@ -101,7 +101,8 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
   let shiftKeys = Object.keys(state.shifts);
 
   let searchValues;
-
+  // do the search values on the front end. apply filter to state shifts based on date range, don't make it a 
+  //back end call
   useEffect(()=> {
     const fetchShifts = async ()=>{
       let {data} = await fetchShiftsAPI()

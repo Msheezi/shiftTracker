@@ -44,7 +44,7 @@ export const ShiftTable = ({shifts, setSelectedShift}) => {
                 <TableCell component="th" scope="row">{startDate}</TableCell>
                 <TableCell align="center">{shiftDuration || 0.00}</TableCell>
                 <TableCell align="center">{ttlMiles}</TableCell>
-                <TableCell align="center">{ttlComp}</TableCell>
+                <TableCell align="center">{`$ ${ttlComp}`}</TableCell>
             </TableRow>
                 )
                 
