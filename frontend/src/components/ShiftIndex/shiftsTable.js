@@ -8,6 +8,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import TablePagination from '@material-ui/core/TablePagination'
+import { TableFooter } from '@material-ui/core';
+
 // import { ShiftItem } from "./shiftItemTable";
 
 const converDateString = (dateString, time) => {
@@ -27,11 +30,40 @@ const converDateString = (dateString, time) => {
   }
 };
 
+const columns =[
+  {field: 'startDate', headerName: "Date", width: "20%" },
+  {field: 'shiftDuration', headerName: "Hours",width: "20%" },
+  {field: 'ttlMiles', headerName: "Miles", width: "20%" },
+  {field: 'ttlComp', headerName: "Earnings", width: "20%" }
+]
+
+
 //shifts is an array of objects
 export const ShiftTable = ({shifts, setSelectedShift}) => {
+  const [page, setPage] = useState(0)
+  const [displayRows, setDisplayRows] = useState([])
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+
+
+    useEffect(()=>{
+      let startingIndex = page * rowsPerPage
+      let selectedObjects = Object.values(shifts).reverse().slice(startingIndex,startingIndex+rowsPerPage)
+      setDisplayRows(selectedObjects)
+
+    },[page, rowsPerPage, shifts ])
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+      };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+      };
+
+      let count = Object.values(shifts).length
     
-   
-       let shiftObjects = Object.values(shifts).map(({startDateTime,endDateTime, shiftDuration, ttlMiles, ttlComp,_id}, idx )=> {
+       let shiftObjects = displayRows.map(({startDateTime,endDateTime, shiftDuration, ttlMiles, ttlComp,_id}, idx )=> {
         
         let startDate = converDateString(startDateTime)
         let start = converDateString(startDateTime, "true");
@@ -40,7 +72,7 @@ export const ShiftTable = ({shifts, setSelectedShift}) => {
 
             return (
                 
-            <TableRow key={_id} onClick={()=> setSelectedShift(_id) }>
+            <TableRow key={_id} onClick={()=> setSelectedShift(_id)} style={{cursor: "pointer"}}>
                 <TableCell component="th" scope="row">{startDate}</TableCell>
                 <TableCell align="center">{shiftDuration || 0.00}</TableCell>
                 <TableCell align="center">{ttlMiles}</TableCell>
@@ -72,10 +104,23 @@ return (
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                    {shiftObjects.reverse()}
+                    {shiftObjects}
                 </TableBody>
+                <TableFooter>
+                  <TableRow>
+                    <TablePagination
+                      count={count}
+                      colSpan={4}
+                      page={page}
+                      onChangePage={handleChangePage}
+                      onChangeRowsPerPage={handleChangeRowsPerPage}
+                      rowsPerPage={rowsPerPage}
+                    />
+                  </TableRow>
+                </TableFooter>
             </Table>
         </TableContainer>
+        
     
     ) 
 }

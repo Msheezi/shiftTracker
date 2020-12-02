@@ -7,8 +7,9 @@ import {
   fetchShiftsAPI,
   addNewShiftAPI,
 } from "../../functionhelpers";
-import ShiftDetail from "../ShiftDetails/shiftDetail";
 import {ShiftTable} from './shiftsTable'
+import {ShiftCarousel} from './shiftCarousel'
+import ShiftDetail from "../ShiftDetails/shiftDetail";
 import { ShiftDisplay } from "../ShiftDetails/shiftdisplay";
 
 
@@ -22,7 +23,7 @@ const Container = styled.div`
 
 const IndexContainer = styled.div`
   display: grid;
-  grid-template-columns: 1000px 100px;
+  grid-template-columns: 800px 100px;
   grid-template-areas: " columns button ";
   justify-content: center;
   margin-top: 50px;
@@ -37,41 +38,19 @@ const DetailContainer = styled.div`
   margin: 50px auto;
   grid-template-areas: 
   
-  
-  
   "navleft data navright closer"
   ;
 `;
 
-const SelectorButton = styled.div`
-  color: blue;
-  cursor: pointer;
-  height: 80vh;
-  width: 80px;
-  margin: auto;
-  line-height: 80vh;
-  text-align: center;
-  font-size: 40pt;
-  &:hover {
-    background-color: #f0f8fa;
-  }
-`;
-
-const Closer = styled.div`
-  color: black;
-  cursor: pointer;
-  height: 20px;
-  grid-area: ${props=> props.gridArea};
-  text-align: center;
-  line-height: 20px;
-  &:hover {
-    background-color: #f0f8fa;
-  }
-`;
-
-const DataContainer = styled.div`
+const GridContainer = styled.div`
   grid-area: ${(props) => props.gridArea};
-`;
+  
+  height: 400px;
+ 
+`
+
+
+
 
 const StyledButton = styled.button`
   width: 80px;
@@ -122,29 +101,6 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
 ;
 
 
-const transition = (direction, id) => {
-  let index = shiftKeys.indexOf(id)
-  if (direction === "right") {
-    if (index < shiftKeys.length - 1) {
-      setSelectedShift(shiftKeys[index + 1]);
-    }
-  } 
- if (direction ==="left") {
-     if (index > 0) {
-          setSelectedShift(shiftKeys[index - 1]);
-        }
-      }
-    }
-  ;
-
-
-  const hideDetail = () => {
-    if (location){
-      handleClose(true);
-    }
-    setSelectedShift(null);
-  }
-
   const addNewShift = () => {
     addNewShiftAPI().then((res) =>
       dispatch({ type: "new", payload: res.data })
@@ -154,51 +110,35 @@ const transition = (direction, id) => {
   if (stateShifts.length) {
     if (selectedShiftIndex){
       return(
-
       
        <DetailContainer>
-        <SelectorButton
-          gridArea={"navLeft"}
-          onClick={() => transition("left", selectedShiftIndex)}
-        >
-          <i className="fas fa-angle-left"></i>
-        </SelectorButton>
-
-        <DataContainer gridArea={"data"}>
-          <ShiftDetail
-            _id={selectedShiftIndex}
-            setSelectedShift={setSelectedShift}
-          />
-        </DataContainer>
-        <SelectorButton
-          gridArea={"navRight"}
-          onClick={() => transition("right", selectedShiftIndex)}
-        >
-          <i className="fas fa-angle-right"></i>
-        </SelectorButton>
-        <Closer gridArea={"closer"} onClick={() => hideDetail()}>
-          {" "}
-          <i
-            className="fas fa-reply"
-            style={{ lineHeight: "20px", marginRight: "2px" }}
-          >
-            {" "}
-          </i>
-          Shifts
-        </Closer>
+        <ShiftCarousel 
+          selectedShiftIndex={selectedShiftIndex} 
+          setSelectedShift={setSelectedShift} 
+          shiftKeys={shiftKeys} />
       </DetailContainer>
       )
      } else {
        
        return (
          // "hello"
+         <>
          <IndexContainer>
+          <GridContainer gridArea={"columns"}  >
 
-          <ShiftTable shifts={stateShifts} setSelectedShift={setSelectedShift} />
-          <StyledButton gridArea={"button"} onClick={(e) => addNewShift()}>
+            <ShiftTable 
+              
+              shifts={stateShifts} 
+              setSelectedShift={setSelectedShift} 
+            />
+          </GridContainer>
+          <StyledButton 
+            gridArea={"button"} 
+            onClick={(e) => addNewShift()} >
             Add Shift
           </StyledButton>
          </IndexContainer>
+          </>
        )
 
      }

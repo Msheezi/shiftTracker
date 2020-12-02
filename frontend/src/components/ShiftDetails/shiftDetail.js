@@ -14,7 +14,7 @@ const Container = styled.div`
 
 
 
-const ShiftDetail =  ({_id, setSelectedShift}) => {
+export const ShiftDetail =  ({_id, setSelectedShift}) => {
     const shiftId = _id
     const {state,  dispatch} = useContext(Store)
     const [shift, updateShift] = useState(state.shifts[shiftId]);
@@ -40,7 +40,7 @@ const ShiftDetail =  ({_id, setSelectedShift}) => {
     
 };
 
-export default withRouter(ShiftDetail)
+// export default withRouter(ShiftDetail)
 
 
 
