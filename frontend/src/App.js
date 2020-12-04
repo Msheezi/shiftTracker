@@ -2,7 +2,7 @@ import React  from 'react';
 
 import './css/App.css';
 import { Switch, Route,BrowserRouter as Router } from "react-router-dom";
-import { ShiftsPage } from "./components/ShiftIndex/shiftsMain";
+import { ShiftsPage } from "./components/main/shiftsMain";
 import {MainPage } from './components/mainpage'
 // import ShiftDetail from './components/ShiftDetails/shiftDetail'
 import {Summary} from './components/Summary/summary'

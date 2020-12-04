@@ -3,7 +3,7 @@ import { searchResults, keyShifts } from "../../functionhelpers";
 import styled from 'styled-components'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { ShiftsPage } from '../ShiftIndex/shiftsMain';
+import { ShiftsPage } from '../main/shiftsMain';
 import {Metrics} from './summaryMetrics'
 
 
@@ -34,9 +34,6 @@ export const Summary = ()=>{
 
     
    
-    const handleClose = () => {
-      setDisplayMetrics(true);
-    }
 
     const hideMetrics = () => {
       setDisplayMetrics(false)
@@ -50,7 +47,7 @@ export const Summary = ()=>{
       <ShiftsPage
         shifts={keyedShifts}
         location={true}
-        handleClose={handleClose}
+        // handleClose={handleClose}
         hideMetrics={hideMetrics}
       />
     ) : (

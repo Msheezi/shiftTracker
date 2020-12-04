@@ -18,11 +18,13 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   z-index: 1;
+   text-align: center;
+   justify-content:center;
 
 `;
 
 const Title = styled.h2`
-    /* align-self: center; */
+    text-align: center;
     margin: 5px auto;
 `
 
@@ -32,6 +34,7 @@ const Links = styled(Link)`
     margin-right: 5px;
     margin-left: 20px;
     text-decoration: none;
+    text-align: center;
     color: navajowhite;
 
 `

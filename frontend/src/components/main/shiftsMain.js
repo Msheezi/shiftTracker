@@ -7,8 +7,8 @@ import {
   fetchShiftsAPI,
   addNewShiftAPI,
 } from "../../functionhelpers";
-import {ShiftTable} from './shiftsTable'
-import {ShiftCarousel} from './shiftCarousel'
+import {ShiftTable} from '../ShiftIndex/shiftsTable'
+import {ShiftCarousel} from '../ShiftIndex/shiftCarousel'
 import ShiftDetail from "../ShiftDetails/shiftDetail";
 import { ShiftDisplay } from "../ShiftDetails/shiftdisplay";
 
@@ -23,10 +23,10 @@ const Container = styled.div`
 
 const IndexContainer = styled.div`
   display: grid;
-  grid-template-columns: 800px 100px;
+  grid-template-columns: 60vw 10vw;
   grid-template-areas: " columns button ";
   justify-content: center;
-  margin-top: 50px;
+  margin: 50px auto;
 
 `;
 
@@ -132,11 +132,14 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
               setSelectedShift={setSelectedShift} 
             />
           </GridContainer>
-          <StyledButton 
-            gridArea={"button"} 
-            onClick={(e) => addNewShift()} >
-            Add Shift
-          </StyledButton>
+          <div gridArea={"button"}>
+
+              <StyledButton onClick={(e) => addNewShift()} >
+                Add Shift
+              </StyledButton>
+            
+              <StyledButton>Metrics </StyledButton>
+           </div>
          </IndexContainer>
           </>
        )

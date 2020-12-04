@@ -82,10 +82,10 @@ export const ShiftTable = ({shifts, setSelectedShift}) => {
                 
             })
         const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
+          table: {
+            minWidth: 650,
+          },
+        });
 
     const classes = useStyles()
    
