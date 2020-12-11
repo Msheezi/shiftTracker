@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import styled from "styled-components";
 import { converDateString } from "../../functionhelpers";
+import {SimpleCard} from './shiftCard'
 
 const Container = styled.div`
   margin: 50px auto;
@@ -17,13 +18,16 @@ const Container = styled.div`
     ".    ttlM ttltips comp"
     "endM      .  closed ."
     ; */
-    "startPic  startTimeL endTimeL ttlHours"
+    /* "startPic  startTimeL endTimeL ttlHours"
     "startM    ttlM ttltips comp"
     ".   . . . "
     "endPic    . closed ."
-    "endM      .  . .";
+    "endM      .  . ." */
 
-  grid-template-columns: repeat(6, 1fr);
+    " cards "
+    " pics";
+
+  
   grid-template-rows: auto;
 `;
 const DisplayItem = styled.div`
@@ -37,10 +41,21 @@ const DisplayItem = styled.div`
   overflow: hidden;
 `;
 
+const CardsContainer = styled.div`
+  grid-area: ${(props) => props.gridArea};
+  display: flex;
+
+`
+const ImagesContainer = styled.div`
+  grid-area: ${(props) => props.gridArea};
+  display: flex;
+  justify-content: center;
+`
+
 const DisplayImg = styled.img`
   width: 200px;
   height: 200px;
-  grid-row-start: ${(props) => props.rowStart};
+ 
   /* grid-row-end: span 2; */
   margin-right: 20px;
 `;
@@ -71,8 +86,10 @@ const DispItemVal = styled.div`
 `;
 
 export const ShiftDisplay = ({ shiftObj }) => {
-  if (shiftObj) {
-    const {
+  const [miles, setMiles] = useState(0)
+  const [hours, setHours] = useState(0)
+
+  const {
       startDateTime,
       endDateTime,
       startMiles,
@@ -86,39 +103,82 @@ export const ShiftDisplay = ({ shiftObj }) => {
       shiftDuration,
     } = shiftObj;
 
+
+  useEffect(()=> {
+    let mileage = endMiles - startMiles 
+    
+    setMiles(mileage)
+    setHours(shiftDuration)
+  }, [endMiles, startMiles, startDateTime, endDateTime])
+  
+  
+  
+    
+
     // console.log(`shiftObj: ${shiftObj}`)
 
     return (
       <Container>
-        <DisplayImg
-          gridArea={"startPic"}
-          rowStart={1}
+        
+        <CardsContainer
+          gridArea={"cards"}
+        >
+
+        <SimpleCard
+          data={converDateString(startDateTime)}
+          text={"Shift Start"}
+          />
+        <SimpleCard
+          data={miles}
+          text={"Miles Driven"}
+          />
+        <SimpleCard
+          data={hours}
+          text={"Hours Worked"}
+          />
+        <SimpleCard
+          data={tips}
+          text={"Tips"}
+          />
+        <SimpleCard
+          data={ttlComp}
+          text={"Total Earnings"}
+          />
+          </CardsContainer>
+          <ImagesContainer
+            gridArea={"pics"}
+          >
+
+          <DisplayImg
+          
+          
           src={
             startingUrl ||
             "https://via.placeholder.com/200.png?text=Add+Starting+Image"
           }
           alt="Starting Mileage Pic"
-        />
+          />
         <DisplayImg
-          gridArea={"endPic"}
-          rowStart={4}
+          
+          
           src={
             endingUrl ||
             "https://via.placeholder.com/200.png?text=Add+Ending+Image"
           }
           alt="Ending Mileage Pic"
-        />
-        <DisplayMiles
+          />
+          </ImagesContainer>
+        {/* <DisplayMiles
           gridArea={"startM"}
-        >{`Starting Miles: ${startMiles}`}</DisplayMiles>
-        <DisplayMiles
+          >{`Starting Miles: ${startMiles}`}</DisplayMiles>
+          <DisplayMiles
           gridArea={"endM"}
-        >{`Ending Miles: ${endMiles}`}</DisplayMiles>
-
-        <DisplayItem gridArea={"startTimeL"}>
+          >{`Ending Miles: ${endMiles}`}</DisplayMiles>
+          
+          <DisplayItem gridArea={"startTimeL"}>
           <DispItemHead>
-            Start Time
-            <DispItemVal>{converDateString(startDateTime)}</DispItemVal>
+          Start Time
+          <DispItemVal>{converDateString(startDateTime)}</DispItemVal>
           </DispItemHead>
         </DisplayItem>
 
@@ -163,10 +223,8 @@ export const ShiftDisplay = ({ shiftObj }) => {
               {closed ? "Closed" : "Open"}
             </DispItemVal>
           </DispItemHead>
-        </DisplayItem>
+        </DisplayItem> */}
       </Container>
     );
-  } else {
-    return null;
-  }
-};
+  } 
+

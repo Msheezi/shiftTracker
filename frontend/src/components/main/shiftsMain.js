@@ -23,8 +23,8 @@ const Container = styled.div`
 
 const IndexContainer = styled.div`
   display: grid;
-  grid-template-columns: 60vw 10vw;
-  grid-template-areas: " columns button ";
+  grid-template-columns: 1fr 3fr 1fr 1fr;
+  grid-template-areas: " lspacer columns button rspacer ";
   justify-content: center;
   margin: 50px auto;
 
@@ -47,6 +47,11 @@ const GridContainer = styled.div`
   
   height: 400px;
  
+`
+const ButtonContainer = styled.div`
+  grid-area: ${(props) => props.gridArea};
+  display: flex;
+  flex-direction: column;
 `
 
 
@@ -132,14 +137,14 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
               setSelectedShift={setSelectedShift} 
             />
           </GridContainer>
-          <div gridArea={"button"}>
+          <ButtonContainer gridArea={"button"}>
 
               <StyledButton onClick={(e) => addNewShift()} >
                 Add Shift
               </StyledButton>
             
               <StyledButton>Metrics </StyledButton>
-           </div>
+           </ButtonContainer>
          </IndexContainer>
           </>
        )
