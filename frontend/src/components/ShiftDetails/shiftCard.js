@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { FormHelperText } from '@material-ui/core';
 
 
 const useStyles = makeStyles({
@@ -12,7 +13,10 @@ const useStyles = makeStyles({
     minWidth: 175,
     textAlign: "center",
     maxHeight: 150, 
-    margin: 5
+    margin: 5,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
   },
   bullet: {
     display: 'inline-block',

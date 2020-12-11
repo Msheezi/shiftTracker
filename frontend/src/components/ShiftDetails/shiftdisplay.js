@@ -6,7 +6,7 @@ import {SimpleCard} from './shiftCard'
 
 const Container = styled.div`
   margin: 50px auto;
-  width: 80%;
+  
   display: grid;
   row-gap: 5px;
   grid-template-areas:
@@ -105,11 +105,11 @@ export const ShiftDisplay = ({ shiftObj }) => {
 
 
   useEffect(()=> {
-    let mileage = endMiles - startMiles 
+     
     
-    setMiles(mileage)
+    setMiles(ttlMiles)
     setHours(shiftDuration)
-  }, [endMiles, startMiles, startDateTime, endDateTime])
+  }, [ttlMiles, shiftDuration])
   
   
   
@@ -125,7 +125,7 @@ export const ShiftDisplay = ({ shiftObj }) => {
         >
 
         <SimpleCard
-          data={converDateString(startDateTime)}
+          data={converDateString(startDateTime, true)}
           text={"Shift Start"}
           />
         <SimpleCard
@@ -168,7 +168,13 @@ export const ShiftDisplay = ({ shiftObj }) => {
           alt="Ending Mileage Pic"
           />
           </ImagesContainer>
-        {/* <DisplayMiles
+       
+      </Container>
+    );
+  } 
+
+/**
+ *  {/* <DisplayMiles
           gridArea={"startM"}
           >{`Starting Miles: ${startMiles}`}</DisplayMiles>
           <DisplayMiles
@@ -223,8 +229,9 @@ export const ShiftDisplay = ({ shiftObj }) => {
               {closed ? "Closed" : "Open"}
             </DispItemVal>
           </DispItemHead>
-        </DisplayItem> */}
-      </Container>
-    );
-  } 
-
+        </DisplayItem> 
+ * 
+ * 
+ * 
+ * 
+ */

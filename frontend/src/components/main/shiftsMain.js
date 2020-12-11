@@ -9,8 +9,7 @@ import {
 } from "../../functionhelpers";
 import {ShiftTable} from '../ShiftIndex/shiftsTable'
 import {ShiftCarousel} from '../ShiftIndex/shiftCarousel'
-import ShiftDetail from "../ShiftDetails/shiftDetail";
-import { ShiftDisplay } from "../ShiftDetails/shiftdisplay";
+
 
 
 
