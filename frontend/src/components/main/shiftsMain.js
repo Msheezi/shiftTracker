@@ -7,8 +7,9 @@ import {
   fetchShiftsAPI,
   addNewShiftAPI,
 } from "../../functionhelpers";
-import {ShiftTable} from '../ShiftIndex/shiftsTable'
-import {ShiftCarousel} from '../ShiftIndex/shiftCarousel'
+
+import {ShiftsDetailsPage} from './shiftsDetailsPage'
+import {ShiftsIndexPage } from './shiftsIndexPage'
 
 
 
@@ -20,62 +21,6 @@ const Container = styled.div`
   grid-area: ${props => props.gridArea};
 `;
 
-const IndexContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr 1fr;
-  grid-template-areas: " lspacer columns button rspacer ";
-  justify-content: center;
-  margin: 50px auto;
-
-`;
-
-const DetailContainer = styled.div`
-  width: 80%;
-  display: grid;
-  /* margin-left: 10%; */
-  /* margin-top: 50px; */
-  margin: 50px auto;
-  grid-template-areas: 
-  
-  "navleft data navright closer"
-  ;
-`;
-
-const GridContainer = styled.div`
-  grid-area: ${(props) => props.gridArea};
-  
-  height: 400px;
- 
-`
-const ButtonContainer = styled.div`
-  grid-area: ${(props) => props.gridArea};
-  display: flex;
-  flex-direction: column;
-`
-
-
-
-
-const StyledButton = styled.button`
-  width: 80px;
-  height: 30px;
-  border: none;
-  background-color: #a3f7b5;
-  border-radius: 5px;
-  margin: 20px;
-  margin-left: 15%;
-  cursor: pointer;
-  float: left;
-  line-height: 30px;
-  grid-area: ${(props) => props.gridArea};
-
-  &:hover {
-    background-color: #b4f8c3;
-    border: 0.5px solid blue;
-    transition-duration: 0.2s;
-    transform: scale(1.01);
-  }
-`;
 
 export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
   const { state, dispatch } = useContext(Store);
@@ -83,7 +28,7 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
   const [stateShifts, setStateShifts] = useState([])
   let shiftKeys = Object.keys(state.shifts);
 
-  let searchValues;
+  // let searchValues;
   // do the search values on the front end. apply filter to state shifts based on date range, don't make it a 
   //back end call
   useEffect(()=> {
@@ -113,41 +58,24 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
 
   if (stateShifts.length) {
     if (selectedShiftIndex){
+      // grid container here with shift detail layout
       return(
-      
-       <DetailContainer>
-        <ShiftCarousel 
+        <ShiftsDetailsPage
           selectedShiftIndex={selectedShiftIndex} 
           setSelectedShift={setSelectedShift} 
-          shiftKeys={shiftKeys} />
-      </DetailContainer>
+          shiftKeys={shiftKeys}
+        />
       )
      } else {
        
        return (
-         // "hello"
-         <>
-         <IndexContainer>
-          <GridContainer gridArea={"columns"}  >
-
-            <ShiftTable 
-              
-              shifts={stateShifts} 
-              setSelectedShift={setSelectedShift} 
-            />
-          </GridContainer>
-          <ButtonContainer gridArea={"button"}>
-
-              <StyledButton onClick={(e) => addNewShift()} >
-                Add Shift
-              </StyledButton>
-            
-              <StyledButton>Metrics </StyledButton>
-           </ButtonContainer>
-         </IndexContainer>
-          </>
+         // "hello" container grid here with layout
+         <ShiftsIndexPage
+          shifts={stateShifts}
+          setSelectedShift={setSelectedShift} 
+          addNewShift={addNewShift}/>
+        
        )
-
      }
 
 
@@ -329,3 +257,81 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
     </TableContainer>
   </div>
 */ 
+
+
+// const IndexContainer = styled.div`
+//   display: grid;
+//   grid-template-columns: 1fr 3fr 1fr 1fr;
+//   grid-template-areas: " lspacer columns button rspacer ";
+//   justify-content: center;
+//   margin: 50px auto;
+
+// `;
+
+// const DetailContainer = styled.div`
+//   width: 80%;
+//   display: grid;
+//   /* margin-left: 10%; */
+//   /* margin-top: 50px; */
+//   margin: 50px auto;
+//   grid-template-areas: 
+  
+//   "navleft data navright closer"
+//   ;
+// `;
+
+// const GridContainer = styled.div`
+//   grid-area: ${(props) => props.gridArea};
+  
+//   height: 400px;
+ 
+// `
+// const ButtonContainer = styled.div`
+//   grid-area: ${(props) => props.gridArea};
+//   display: flex;
+//   flex-direction: column;
+// `
+
+
+
+
+// const StyledButton = styled.button`
+//   width: 80px;
+//   height: 30px;
+//   border: none;
+//   background-color: #a3f7b5;
+//   border-radius: 5px;
+//   margin: 20px;
+//   margin-left: 15%;
+//   cursor: pointer;
+//   float: left;
+//   line-height: 30px;
+//   grid-area: ${(props) => props.gridArea};
+
+//   &:hover {
+//     background-color: #b4f8c3;
+//     border: 0.5px solid blue;
+//     transition-duration: 0.2s;
+//     transform: scale(1.01);
+//   }
+// `;
+//  <>
+        //  <IndexContainer>
+        //   <GridContainer gridArea={"columns"}  >
+
+        //     <ShiftTable 
+              
+        //       shifts={stateShifts} 
+        //       setSelectedShift={setSelectedShift} 
+        //     />
+        //   </GridContainer>
+        //   <ButtonContainer gridArea={"button"}>
+
+        //       <StyledButton onClick={(e) => addNewShift()} >
+        //         Add Shift
+        //       </StyledButton>
+            
+        //       <StyledButton>Metrics </StyledButton>
+        //    </ButtonContainer>
+        //  </IndexContainer>
+        //   </>
