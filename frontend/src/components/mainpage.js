@@ -4,14 +4,7 @@ import {Link} from 'react-router-dom'
 import {makeStyles} from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 
-const Container = styled.div`
 
-    width: 80%;
-    margin: 200px auto;
-    display: flex;
-    justify-content: space-around;
-
-`
 
 const Card = styled.div`
     width: 300px;

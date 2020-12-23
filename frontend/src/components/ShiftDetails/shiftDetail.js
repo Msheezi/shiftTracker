@@ -9,7 +9,7 @@ import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
 // import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
+// import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -70,26 +70,9 @@ export const ShiftDetail =  ({_id, setSelectedShift}) => {
         <DialogTitle id="form-dialog-title">Update Details</DialogTitle>
         <DialogContent>
           <ShiftEditor shiftObj={shift} shiftId={shiftId} dispatch={dispatch} close={handleClose}/>
-          {/* <DialogContentText>
-           Update Your Shift Below
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-          /> */}
+         
         </DialogContent>
-        {/* <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Submit
-          </Button>
-        </DialogActions> */}
+       
       </Dialog>
         
         

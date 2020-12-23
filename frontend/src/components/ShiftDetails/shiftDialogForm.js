@@ -4,9 +4,9 @@ import styled from "styled-components";
 import { postShiftAPI, closeShiftAPI } from "../../functionhelpers";
 // import { ImageUploader } from "./imageUpload";
 import Grid from '@material-ui/core/Grid'
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 import Button from '@material-ui/core/Button';
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 import { DateTimePicker } from "@material-ui/pickers";
 
 const StyledInput = styled.input`

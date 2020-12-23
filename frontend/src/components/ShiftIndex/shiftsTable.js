@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination'
-import Grid from '@material-ui/core/Grid'
+// import Grid from '@material-ui/core/Grid'
 import { TableFooter } from '@material-ui/core';
 
 
@@ -31,12 +31,12 @@ const converDateString = (dateString, time) => {
   }
 };
 
-const columns =[
-  {field: 'startDate', headerName: "Date", width: "20%" },
-  {field: 'shiftDuration', headerName: "Hours",width: "20%" },
-  {field: 'ttlMiles', headerName: "Miles", width: "20%" },
-  {field: 'ttlComp', headerName: "Earnings", width: "20%" }
-]
+// const columns =[
+//   {field: 'startDate', headerName: "Date", width: "20%" },
+//   {field: 'shiftDuration', headerName: "Hours",width: "20%" },
+//   {field: 'ttlMiles', headerName: "Miles", width: "20%" },
+//   {field: 'ttlComp', headerName: "Earnings", width: "20%" }
+// ]
 
 
 //shifts is an array of objects
@@ -67,8 +67,8 @@ export const ShiftTable = ({shifts, setSelectedShift}) => {
        let shiftObjects = displayRows.map(({startDateTime,endDateTime, shiftDuration, ttlMiles, ttlComp,_id}, idx )=> {
         
         let startDate = converDateString(startDateTime)
-        let start = converDateString(startDateTime, "true");
-        let end = endDateTime ? converDateString(endDateTime, "true") : "00:00";
+        // let start = converDateString(startDateTime, "true");
+        // let end = endDateTime ? converDateString(endDateTime, "true") : "00:00";
 
 
             return (
