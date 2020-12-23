@@ -10,9 +10,9 @@ import { FormHelperText } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 175,
+    
     textAlign: "center",
-    maxHeight: 150, 
+    height: "75px", 
     margin: 5,
     display: "flex",
     flexDirection: "column",
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)',
   },
   title: {
-    fontSize: 14,
+    fontSize: 10,
     textAlign: "center"
   },
   pos: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 
 export const  SimpleCard = ({data, text}) => {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+  // const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <Card className={classes.root}>

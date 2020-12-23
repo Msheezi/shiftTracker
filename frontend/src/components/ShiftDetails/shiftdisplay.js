@@ -3,6 +3,7 @@ import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import { converDateString } from "../../functionhelpers";
 import {SimpleCard} from './shiftCard'
+import Grid from '@material-ui/core/Grid'
 
 const Container = styled.div`
   margin: 50px auto;
@@ -32,7 +33,7 @@ const DisplayImg = styled.img`
   height: 200px;
  
   /* grid-row-end: span 2; */
-  margin-right: 20px;
+  
 `;
 
 
@@ -61,58 +62,59 @@ export const ShiftDisplay = ({ shiftObj }) => {
     // console.log(`shiftObj: ${shiftObj}`)
 
     return (
-      <Container>
-        
-        <CardsContainer
-          gridArea={"cards"}
-        >
-
-        <SimpleCard
-          data={converDateString(startDateTime, true)}
-          text={"Shift Start"}
+      <Grid container justify="center" align="center">
+        <Grid item xs={12} >
+            <SimpleCard
+            data={converDateString(startDateTime, true)}
+            text={"Shift Start"}
+            />
+        </Grid>
+        <Grid item xs={12} sm={3}   >
+            <SimpleCard
+              data={miles}
+              text={"Miles Driven"}
+            />
+        </Grid>
+        <Grid item xs={12} sm={3} >
+          <SimpleCard
+            data={hours}
+            text={"Hours Worked"}
           />
-        <SimpleCard
-          data={miles}
-          text={"Miles Driven"}
-          />
-        <SimpleCard
-          data={hours}
-          text={"Hours Worked"}
-          />
-        <SimpleCard
-          data={tips}
-          text={"Tips"}
-          />
-        <SimpleCard
-          data={ttlComp}
-          text={"Total Earnings"}
-          />
-          </CardsContainer>
-          <ImagesContainer
-            gridArea={"pics"}
-          >
-
+        </Grid>
+        <Grid item xs={12} sm={3} >
+          <SimpleCard
+            data={tips}
+            text={"Tips"}
+            />
+        </Grid>
+        <Grid item xs={12} sm={3} >
+          <SimpleCard
+            data={ttlComp}
+            text={"Total Earnings"}
+            />
+        </Grid>
+        <Grid item xs={false} sm={1}/>
+        <Grid item xs={12} sm={5} >
           <DisplayImg
-          
-          
-          src={
-            startingUrl ||
-            "https://via.placeholder.com/200.png?text=Add+Starting+Image"
-          }
-          alt="Starting Mileage Pic"
+            src={
+              startingUrl ||
+              "https://via.placeholder.com/200.png?text=Add+Starting+Image"
+            }
+            alt="Starting Mileage Pic"
           />
-        <DisplayImg
-          
-          
-          src={
-            endingUrl ||
-            "https://via.placeholder.com/200.png?text=Add+Ending+Image"
-          }
-          alt="Ending Mileage Pic"
+       </Grid>
+        
+       <Grid item xs={12} sm={5}>
+            <DisplayImg
+              src={
+                endingUrl ||
+                "https://via.placeholder.com/200.png?text=Add+Ending+Image"
+              }
+              alt="Ending Mileage Pic"
           />
-          </ImagesContainer>
-       
-      </Container>
+       </Grid>
+       <Grid item xs={false} sm={1}/> 
+      </Grid>
     );
   } 
 
@@ -229,3 +231,59 @@ export const ShiftDisplay = ({ shiftObj }) => {
 
 //   overflow: hidden;
 // `;
+
+
+//  <Grid container>
+//         <Grid item>
+          
+//         </Grid>
+//         <CardsContainer
+//           gridArea={"cards"}
+//         >
+
+//         <SimpleCard
+//           data={converDateString(startDateTime, true)}
+//           text={"Shift Start"}
+//           />
+//         <SimpleCard
+//           data={miles}
+//           text={"Miles Driven"}
+//           />
+//         <SimpleCard
+//           data={hours}
+//           text={"Hours Worked"}
+//           />
+//         <SimpleCard
+//           data={tips}
+//           text={"Tips"}
+//           />
+//         <SimpleCard
+//           data={ttlComp}
+//           text={"Total Earnings"}
+//           />
+//           </CardsContainer>
+//           <ImagesContainer
+//             gridArea={"pics"}
+//           >
+
+//           <DisplayImg
+          
+          
+//           src={
+//             startingUrl ||
+//             "https://via.placeholder.com/200.png?text=Add+Starting+Image"
+//           }
+//           alt="Starting Mileage Pic"
+//           />
+//         <DisplayImg
+          
+          
+//           src={
+//             endingUrl ||
+//             "https://via.placeholder.com/200.png?text=Add+Ending+Image"
+//           }
+//           alt="Ending Mileage Pic"
+//           />
+//           </ImagesContainer>
+       
+//       </Grid>

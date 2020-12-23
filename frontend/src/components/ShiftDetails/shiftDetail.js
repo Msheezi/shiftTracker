@@ -7,7 +7,7 @@ import {ShiftEdit} from './shiftDetailUpdater'
 import styled from 'styled-components'
 
 const Container = styled.div`
-  width: 80%;
+  /* width: 80%; */
   display: flex;
   flex-direction: column;
 `
@@ -32,7 +32,7 @@ export const ShiftDetail =  ({_id, setSelectedShift}) => {
     return shift ? (
       <Container>
         <ShiftDisplay shiftObj={shift}/>
-        <ShiftEdit shiftObj={shift} shiftId={shiftId} dispatch={dispatch}/>
+        
         
       </Container>
     ) : null;
@@ -62,3 +62,4 @@ export const ShiftDetail =  ({_id, setSelectedShift}) => {
 
     //   getShift(shiftId)
     // },[shiftId])
+    // <ShiftEdit shiftObj={shift} shiftId={shiftId} dispatch={dispatch}/>
