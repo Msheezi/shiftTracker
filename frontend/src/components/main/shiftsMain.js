@@ -1,25 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-// import { ShiftItem } from "./shiftItemTable";
-import styled from "styled-components";
 import { Store } from "../../store";
+import {ShiftsDetailsPage} from './shiftsDetailsPage'
+import {ShiftsIndexPage } from './shiftsIndexPage'
+
 import {
   frontEndFetch,
   fetchShiftsAPI,
   addNewShiftAPI,
 } from "../../functionhelpers";
 
-import {ShiftsDetailsPage} from './shiftsDetailsPage'
-import {ShiftsIndexPage } from './shiftsIndexPage'
-
-
-
-
-const Container = styled.div`
-  max-width: 1000px;
-  width: 80vw;
-  margin: 0 auto;
-  grid-area: ${props => props.gridArea};
-`;
 
 
 export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
@@ -84,6 +73,13 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
 
 
 
+
+// const Container = styled.div`
+//   max-width: 1000px;
+//   width: 80vw;
+//   margin: 0 auto;
+//   grid-area: ${props => props.gridArea};
+// `;
 
 
 //   if (location) {

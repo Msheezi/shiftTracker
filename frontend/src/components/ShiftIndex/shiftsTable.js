@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination'
+import Grid from '@material-ui/core/Grid'
 import { TableFooter } from '@material-ui/core';
 
 
@@ -85,6 +86,11 @@ export const ShiftTable = ({shifts, setSelectedShift}) => {
           table: {
             minWidth: 650,
           },
+          pageContainer: {
+            // width: "100vw",
+            maxWidth: "800px",
+            minWidth: "200px"
+          }
         });
 
     const classes = useStyles()
@@ -92,7 +98,8 @@ export const ShiftTable = ({shifts, setSelectedShift}) => {
 
    
 return (
-    
+      <div >
+
         <TableContainer component={Paper}>
             <Table  aria-label="simple table">
                 <TableHead>
@@ -108,18 +115,20 @@ return (
                 </TableBody>
                 <TableFooter>
                   <TableRow>
+                  </TableRow>
+                </TableFooter>
+            </Table>
+        </TableContainer>
                     <TablePagination
+                      component="div"
                       count={count}
                       colSpan={4}
                       page={page}
                       onChangePage={handleChangePage}
                       onChangeRowsPerPage={handleChangeRowsPerPage}
                       rowsPerPage={rowsPerPage}
-                    />
-                  </TableRow>
-                </TableFooter>
-            </Table>
-        </TableContainer>
+                      />
+        </div>
         
     
     ) 

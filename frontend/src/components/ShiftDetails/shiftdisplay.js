@@ -10,36 +10,11 @@ const Container = styled.div`
   display: grid;
   row-gap: 5px;
   grid-template-areas:
-
-    /* "startPic  startTimeL endTimeL ttlHours"
-    ".  startTimeL endTimeL ttlHours"
-    "startM   . . . "
-    "endPic    ttlM ttltips comp"
-    ".    ttlM ttltips comp"
-    "endM      .  closed ."
-    ; */
-    /* "startPic  startTimeL endTimeL ttlHours"
-    "startM    ttlM ttltips comp"
-    ".   . . . "
-    "endPic    . closed ."
-    "endM      .  . ." */
-
     " cards "
     " pics";
-
-  
   grid-template-rows: auto;
 `;
-const DisplayItem = styled.div`
-  margin: 0px auto;
-  margin-right: 20px;
-  width: 150px;
-  text-align: center;
-  grid-area: ${(props) => props.gridArea};
-  box-sizing: border-box;
 
-  overflow: hidden;
-`;
 
 const CardsContainer = styled.div`
   grid-area: ${(props) => props.gridArea};
@@ -59,31 +34,7 @@ const DisplayImg = styled.img`
   /* grid-row-end: span 2; */
   margin-right: 20px;
 `;
-const DisplayMiles = styled.div`
-  margin: auto;
-  text-align: center;
-  grid-area: ${(props) => props.gridArea};
-`;
-const DispItemHead = styled.div`
-  background-color: lightgreen;
-  vertical-align: center;
-  border-radius: 20px;
-  border: 0.5px solid grey;
-  margin: auto;
-  border-bottom: none;
-  border-left: none;
-  border-right: none;
-`;
 
-const DispItemVal = styled.div`
-  /* margin-top: 5px; */
-  background-color: white;
-  /* border-radius: 20px;
-  border: 0.25px solid grey; */
-  background-color: ${(props) => (props.bgcolor ? "#EB3633" : "white")};
-  border: 1px solid grey;
-  z-index: 1;
-`;
 
 export const ShiftDisplay = ({ shiftObj }) => {
   const [miles, setMiles] = useState(0)
@@ -91,13 +42,9 @@ export const ShiftDisplay = ({ shiftObj }) => {
 
   const {
       startDateTime,
-      endDateTime,
-      startMiles,
-      endMiles,
       ttlMiles,
       tips = 0,
       ttlComp = 0,
-      closed,
       startingUrl,
       endingUrl,
       shiftDuration,
@@ -110,10 +57,6 @@ export const ShiftDisplay = ({ shiftObj }) => {
     setMiles(ttlMiles)
     setHours(shiftDuration)
   }, [ttlMiles, shiftDuration])
-  
-  
-  
-    
 
     // console.log(`shiftObj: ${shiftObj}`)
 
@@ -230,8 +173,59 @@ export const ShiftDisplay = ({ shiftObj }) => {
             </DispItemVal>
           </DispItemHead>
         </DisplayItem> 
+
+        
  * 
  * 
  * 
  * 
  */
+
+//  const DisplayMiles = styled.div`
+//   margin: auto;
+//   text-align: center;
+//   grid-area: ${(props) => props.gridArea};
+// `;
+// const DispItemHead = styled.div`
+//   background-color: lightgreen;
+//   vertical-align: center;
+//   border-radius: 20px;
+//   border: 0.5px solid grey;
+//   margin: auto;
+//   border-bottom: none;
+//   border-left: none;
+//   border-right: none;
+// `;
+
+// const DispItemVal = styled.div`
+//   /* margin-top: 5px; */
+//   background-color: white;
+//   /* border-radius: 20px;
+//   border: 0.25px solid grey; */
+//   background-color: ${(props) => (props.bgcolor ? "#EB3633" : "white")};
+//   border: 1px solid grey;
+//   z-index: 1;
+// `;
+/* "startPic  startTimeL endTimeL ttlHours"
+    ".  startTimeL endTimeL ttlHours"
+    "startM   . . . "
+    "endPic    ttlM ttltips comp"
+    ".    ttlM ttltips comp"
+    "endM      .  closed ."
+    ; */
+    /* "startPic  startTimeL endTimeL ttlHours"
+    "startM    ttlM ttltips comp"
+    ".   . . . "
+    "endPic    . closed ."
+    "endM      .  . ." */
+
+    // const DisplayItem = styled.div`
+//   margin: 0px auto;
+//   margin-right: 20px;
+//   width: 150px;
+//   text-align: center;
+//   grid-area: ${(props) => props.gridArea};
+//   box-sizing: border-box;
+
+//   overflow: hidden;
+// `;
