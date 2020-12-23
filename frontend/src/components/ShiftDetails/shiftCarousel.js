@@ -1,5 +1,5 @@
 import React from 'react'
-import {ShiftDetail} from '../ShiftDetails/shiftDetail'
+import {ShiftDetail} from './shiftDetail'
 import Grid from '@material-ui/core/Grid'
 import styled from 'styled-components'
 

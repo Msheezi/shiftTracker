@@ -5,35 +5,12 @@ import { converDateString } from "../../functionhelpers";
 import {SimpleCard} from './shiftCard'
 import Grid from '@material-ui/core/Grid'
 
-const Container = styled.div`
-  margin: 50px auto;
-  
-  display: grid;
-  row-gap: 5px;
-  grid-template-areas:
-    " cards "
-    " pics";
-  grid-template-rows: auto;
-`;
 
-
-const CardsContainer = styled.div`
-  grid-area: ${(props) => props.gridArea};
-  display: flex;
-
-`
-const ImagesContainer = styled.div`
-  grid-area: ${(props) => props.gridArea};
-  display: flex;
-  justify-content: center;
-`
 
 const DisplayImg = styled.img`
   width: 200px;
   height: 200px;
  
-  /* grid-row-end: span 2; */
-  
 `;
 
 
@@ -287,3 +264,26 @@ export const ShiftDisplay = ({ shiftObj }) => {
 //           </ImagesContainer>
        
 //       </Grid>
+
+// const Container = styled.div`
+//   margin: 50px auto;
+  
+//   display: grid;
+//   row-gap: 5px;
+//   grid-template-areas:
+//     " cards "
+//     " pics";
+//   grid-template-rows: auto;
+// `;
+
+
+// const CardsContainer = styled.div`
+//   grid-area: ${(props) => props.gridArea};
+//   display: flex;
+
+// `
+// const ImagesContainer = styled.div`
+//   grid-area: ${(props) => props.gridArea};
+//   display: flex;
+//   justify-content: center;
+// `
