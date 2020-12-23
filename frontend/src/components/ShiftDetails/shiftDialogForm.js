@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid'
 import DatePicker from "react-datepicker";
 import Button from '@material-ui/core/Button';
 import "react-datepicker/dist/react-datepicker.css";
+import { DateTimePicker } from "@material-ui/pickers";
 
 const StyledInput = styled.input`
   /* max-width: 100px; */
@@ -85,29 +86,26 @@ export const ShiftEditor = ({ shiftObj, shiftId, dispatch, close }) => {
     <Grid container justify="center" alignContent="center" alignItems="center">
         <Grid item  xs={12}>
 
-        <p style={{margin: "5px"}}>
-          Start Time
-
-        </p>
+        
+          <DateTimePicker
+            label="Start Time"
+            inputVariant="outlined"
+            value={startTime}
+            onChange={updateStartTime}/>
           
           
-          <DatePicker
-            selected={Date.parse(startTime)}
-            onChange={(date) => updateStartTime(date)}
-            showTimeSelect
-            dateFormat="MMMM d, yyyy h:mm aa"
-            />
         </Grid>
-        <StyledLabel>
-          End Time
-          <br />
-          <DatePicker
-            selected={Date.parse(endTime)}
-            onChange={(date) => updateEndTime(date)}
-            showTimeSelect
-            dateFormat="MMMM d, yyyy h:mm aa"
-          />
-        </StyledLabel>
+        <Grid item  xs={12}>
+
+        
+          <DateTimePicker
+            label="End Time"
+            inputVariant="outlined"
+            value={endTime}
+            onChange={updateEndTime}/>
+          
+          
+        </Grid>
         <StyledLabel>
           Starting Miles
           <br />
