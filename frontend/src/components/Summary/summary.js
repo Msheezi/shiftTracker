@@ -40,7 +40,7 @@ export const Summary = () => {
 
   let keyedShifts = summaryState ? keyShifts(summaryState.shifts) : "";
 
-    let keyedShifts = summaryState ? keyShifts(summaryState.shifts) : ""
+    
     
     let metrics = summaryState && displayMetrics ? <Metrics shiftTotals={summaryState.shiftTotals} /> : ""
     let shifts = summaryState ? (
