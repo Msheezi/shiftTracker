@@ -16,9 +16,10 @@ const Card = styled.div`
 `
 
 const useStyles = makeStyles({
-  root: {
+  container: {
     width: "80vw",
-    margin: "200px auto"
+    margin: "50px auto",
+    textAlign: "center"
 
   }
 })
@@ -29,9 +30,9 @@ export const MainPage = ()=>{
   const classes = useStyles()
     return (
 
-      <Grid container alignItems={"center"}  >
-        <Grid item xs={2}></Grid>
-        <Grid item xs={4} >
+      <Grid container className={classes.container} alignItems={"center"}  >
+        
+        <Grid item xs={12} >
 
         <Link to="/shifts">
           Shifts{" "}
@@ -46,7 +47,7 @@ export const MainPage = ()=>{
         </Link>
             </Grid>
 
-            <Grid item xs={4}>
+            <Grid item xs={12}>
 
         <Link to="/summary">
           Summary<Card style={{ backgroundImage: "url(summary.jpg)" }}>
@@ -54,7 +55,7 @@ export const MainPage = ()=>{
          </Card>
         </Link>
             </Grid>
-            <Grid item xs={2}></Grid>
+            
       </Grid>
     );
 }
