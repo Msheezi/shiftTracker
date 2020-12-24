@@ -1,15 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
+import {makeStyles} from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
 
-const Container = styled.div`
 
-    width: 80%;
-    margin: 200px auto;
-    display: flex;
-    justify-content: space-around;
-
-`
 
 const Card = styled.div`
     width: 300px;
@@ -20,12 +15,25 @@ const Card = styled.div`
 
 `
 
+const useStyles = makeStyles({
+  container: {
+    width: "80vw",
+    margin: "50px auto",
+    textAlign: "center"
+
+  }
+})
+
 
 
 export const MainPage = ()=>{
-
+  const classes = useStyles()
     return (
-      <Container>
+
+      <Grid container className={classes.container} alignItems={"center"}  >
+        
+        <Grid item xs={12} >
+
         <Link to="/shifts">
           Shifts{" "}
           <Card
@@ -33,17 +41,22 @@ export const MainPage = ()=>{
               backgroundImage: "url(shifts2.jpg)",
               objectFit: "scale-down",
             }}
-          >
+            >
             {" "}
           </Card>
         </Link>
+            </Grid>
+
+            <Grid item xs={12}>
 
         <Link to="/summary">
           Summary<Card style={{ backgroundImage: "url(summary.jpg)" }}>
 
          </Card>
         </Link>
-      </Container>
+            </Grid>
+            
+      </Grid>
     );
 }
 

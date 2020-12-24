@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+
 
 const Container = styled.div`
   width: 90%;
@@ -126,9 +129,20 @@ export const ShiftItem = ({
   );
 
   return (
-    //    <Link style={{textDecoration: "none", color: "black"}} to={`shift/${_id}`}>
+     
 
-    <Container number={number} onClick={() => setSelectedShift(_id)}>
+    <TableRow onClick={()=> setSelectedShift(_id)}>
+      <TableCell component="th" scope="row">{startDate}</TableCell>
+      <TableCell align="center">{shiftDuration || 0.00}</TableCell>
+      <TableCell align="center">{ttlMiles}</TableCell>
+      <TableCell align="center">{ttlComp}</TableCell>
+    </TableRow>
+
+   
+  );
+};
+/*
+<Container number={number} onClick={() => setSelectedShift(_id)}>
     
       <Header gridArea={"dateHeader"}>Date</Header>
         <Value gridArea={"dateval"}>{startDate}</Value>
@@ -143,8 +157,4 @@ export const ShiftItem = ({
         <Value gridArea={"compval"}> {ttlComp}</Value>
       
       {shiftStatus}
-    </Container>
-
-    //    </Link>
-  );
-};
+    </Container>* */

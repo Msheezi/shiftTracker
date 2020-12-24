@@ -14,6 +14,21 @@ const updateObject = (shift, updatedShift) => {
     shift.ttlMiles = totalMiles;
   }
 
+  if (shift.endDateTime){
+    let start = new Date(shift.startDateTime);
+    let end = new Date(shift.endDateTime);
+    shift.shiftDuration = (
+    (end.getTime() - start.getTime()) /
+    (60 * 60 * 1000)
+  ).toFixed(2);
+   shift.ttlComp = (
+    16 * shift.shiftDuration +
+    shift.ttlMiles * 0.57 +
+    shift.tips
+  ).toFixed(2);
+
+  }
+
   return shift;
 };
 

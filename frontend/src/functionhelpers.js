@@ -14,7 +14,7 @@ export const keyShifts = (shiftArray) => {
     return shifts
 }
 
-export const converDateString = (dateString) => {
+export const converDateString = (dateString, time=false) => {
     if(!dateString){
         return ""
     }
@@ -25,8 +25,12 @@ export const converDateString = (dateString) => {
     .toLocaleTimeString()
     .slice(0, 7)
     .split(":");
+    if (!time){
+        return `${month}/${date}/${year} ${hour}:${minute}`;
 
-  return `${month}/${date}/${year} ${hour}:${minute}`;
+    } else {
+        return `${month}/${date}/${year}`
+    }
 };
 
 export const getShiftAPI = (shiftId) => {

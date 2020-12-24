@@ -1,124 +1,163 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import styled from "styled-components";
 import { converDateString } from "../../functionhelpers";
+import {SimpleCard} from './shiftCard'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import {makeStyles} from '@material-ui/core'
+import {ImageUploader} from './imageUpload'
 
-const Container = styled.div`
-  margin: 50px auto;
-  width: 80%;
-  display: grid;
-  row-gap: 5px;
-  grid-template-areas:
 
-    /* "startPic  startTimeL endTimeL ttlHours"
-    ".  startTimeL endTimeL ttlHours"
-    "startM   . . . "
-    "endPic    ttlM ttltips comp"
-    ".    ttlM ttltips comp"
-    "endM      .  closed ."
-    ; */
-    "startPic  startTimeL endTimeL ttlHours"
-    "startM    ttlM ttltips comp"
-    ".   . . . "
-    "endPic    . closed ."
-    "endM      .  . .";
 
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: auto;
-`;
-const DisplayItem = styled.div`
-  margin: 0px auto;
-  margin-right: 20px;
-  width: 150px;
-  text-align: center;
-  grid-area: ${(props) => props.gridArea};
-  box-sizing: border-box;
-
-  overflow: hidden;
-`;
 
 const DisplayImg = styled.img`
   width: 200px;
   height: 200px;
-  grid-row-start: ${(props) => props.rowStart};
-  /* grid-row-end: span 2; */
-  margin-right: 20px;
-`;
-const DisplayMiles = styled.div`
-  margin: auto;
-  text-align: center;
-  grid-area: ${(props) => props.gridArea};
-`;
-const DispItemHead = styled.div`
-  background-color: lightgreen;
-  vertical-align: center;
-  border-radius: 20px;
-  border: 0.5px solid grey;
-  margin: auto;
-  border-bottom: none;
-  border-left: none;
-  border-right: none;
+ 
 `;
 
-const DispItemVal = styled.div`
-  /* margin-top: 5px; */
-  background-color: white;
-  /* border-radius: 20px;
-  border: 0.25px solid grey; */
-  background-color: ${(props) => (props.bgcolor ? "#EB3633" : "white")};
-  border: 1px solid grey;
-  z-index: 1;
-`;
+const useStyles = makeStyles({
+  root: {
+    alignItems: "center",
+    padding: "8px"
+  }, 
+  title: {
+    textAlign: "center"
+  }
+})
 
-export const ShiftDisplay = ({ shiftObj }) => {
-  if (shiftObj) {
-    const {
+export const ShiftDisplay = ({ shiftObj, dispatch }) => {
+  const [miles, setMiles] = useState(0)
+  const [hours, setHours] = useState(0)
+  const [open, setOpen] = useState(false)
+  const [image, setImage] = useState("")
+
+   const classes = useStyles()
+
+  const handleClickOpen = (e) => {
+    let imageType = e.target.id
+    setImage(imageType)
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setImage("")
+    setOpen(false);
+  };
+
+
+
+  const {
       startDateTime,
-      endDateTime,
-      startMiles,
-      endMiles,
       ttlMiles,
       tips = 0,
       ttlComp = 0,
-      closed,
       startingUrl,
       endingUrl,
       shiftDuration,
+      _id
     } = shiftObj;
+
+    const dispatch1 = dispatch 
+
+  useEffect(()=> {
+     
+    
+    setMiles(ttlMiles)
+    setHours(shiftDuration)
+  }, [ttlMiles, shiftDuration])
 
     // console.log(`shiftObj: ${shiftObj}`)
 
     return (
-      <Container>
-        <DisplayImg
-          gridArea={"startPic"}
-          rowStart={1}
-          src={
-            startingUrl ||
-            "https://via.placeholder.com/200.png?text=Add+Starting+Image"
-          }
-          alt="Starting Mileage Pic"
-        />
-        <DisplayImg
-          gridArea={"endPic"}
-          rowStart={4}
-          src={
-            endingUrl ||
-            "https://via.placeholder.com/200.png?text=Add+Ending+Image"
-          }
-          alt="Ending Mileage Pic"
-        />
-        <DisplayMiles
-          gridArea={"startM"}
-        >{`Starting Miles: ${startMiles}`}</DisplayMiles>
-        <DisplayMiles
-          gridArea={"endM"}
-        >{`Ending Miles: ${endMiles}`}</DisplayMiles>
+      <div>
 
-        <DisplayItem gridArea={"startTimeL"}>
+      <Grid container justify="center" align="center">
+        <Grid item xs={12} >
+            <SimpleCard
+            data={converDateString(startDateTime, true)}
+            text={"Shift Start"}
+            />
+        </Grid>
+        <Grid item xs={12} sm={3}   >
+            <SimpleCard
+              data={miles}
+              text={"Miles Driven"}
+            />
+        </Grid>
+        <Grid item xs={12} sm={3} >
+          <SimpleCard
+            data={hours}
+            text={"Hours Worked"}
+          />
+        </Grid>
+        <Grid item xs={12} sm={3} >
+          <SimpleCard
+            data={tips}
+            text={"Tips"}
+            />
+        </Grid>
+        <Grid item xs={12} sm={3} >
+          <SimpleCard
+            data={ttlComp}
+            text={"Total Earnings"}
+            />
+        </Grid>
+        <Grid item xs={false} sm={1}/>
+        <Grid item xs={12} sm={5} >
+          <DisplayImg
+            src={
+              startingUrl ||
+              "https://via.placeholder.com/200.png?text=Add+Starting+Image"
+            }
+            alt="Starting Mileage Pic"
+            onClick={e=>handleClickOpen(e)}
+            id="startingUrl"
+          />
+       </Grid>
+        
+       <Grid item xs={12} sm={5}>
+            <DisplayImg
+              src={
+                endingUrl ||
+                "https://via.placeholder.com/200.png?text=Add+Ending+Image"
+              }
+              alt="Ending Mileage Pic"
+              onClick={e=>handleClickOpen(e)}
+              id="endingUrl"
+          />
+       </Grid>
+       <Grid item xs={false} sm={1}/> 
+      </Grid>
+       <Dialog className={classes.root} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle className={classes.title} id="form-dialog-title">Add/Update Image</DialogTitle>
+        <DialogContent className={classes.title}>
+          <ImageUploader shiftId={_id}  dispatch={dispatch1} close={handleClose} imageType={image}/>
+         <br/>
+        </DialogContent>
+       
+      </Dialog>
+      </div>
+
+    );
+  } 
+
+/**
+ *  {/* <DisplayMiles
+          gridArea={"startM"}
+          >{`Starting Miles: ${startMiles}`}</DisplayMiles>
+          <DisplayMiles
+          gridArea={"endM"}
+          >{`Ending Miles: ${endMiles}`}</DisplayMiles>
+          
+          <DisplayItem gridArea={"startTimeL"}>
           <DispItemHead>
-            Start Time
-            <DispItemVal>{converDateString(startDateTime)}</DispItemVal>
+          Start Time
+          <DispItemVal>{converDateString(startDateTime)}</DispItemVal>
           </DispItemHead>
         </DisplayItem>
 
@@ -163,10 +202,139 @@ export const ShiftDisplay = ({ shiftObj }) => {
               {closed ? "Closed" : "Open"}
             </DispItemVal>
           </DispItemHead>
-        </DisplayItem>
-      </Container>
-    );
-  } else {
-    return null;
-  }
-};
+        </DisplayItem> 
+
+        
+ * 
+ * 
+ * 
+ * 
+ */
+
+//  const DisplayMiles = styled.div`
+//   margin: auto;
+//   text-align: center;
+//   grid-area: ${(props) => props.gridArea};
+// `;
+// const DispItemHead = styled.div`
+//   background-color: lightgreen;
+//   vertical-align: center;
+//   border-radius: 20px;
+//   border: 0.5px solid grey;
+//   margin: auto;
+//   border-bottom: none;
+//   border-left: none;
+//   border-right: none;
+// `;
+
+// const DispItemVal = styled.div`
+//   /* margin-top: 5px; */
+//   background-color: white;
+//   /* border-radius: 20px;
+//   border: 0.25px solid grey; */
+//   background-color: ${(props) => (props.bgcolor ? "#EB3633" : "white")};
+//   border: 1px solid grey;
+//   z-index: 1;
+// `;
+/* "startPic  startTimeL endTimeL ttlHours"
+    ".  startTimeL endTimeL ttlHours"
+    "startM   . . . "
+    "endPic    ttlM ttltips comp"
+    ".    ttlM ttltips comp"
+    "endM      .  closed ."
+    ; */
+    /* "startPic  startTimeL endTimeL ttlHours"
+    "startM    ttlM ttltips comp"
+    ".   . . . "
+    "endPic    . closed ."
+    "endM      .  . ." */
+
+    // const DisplayItem = styled.div`
+//   margin: 0px auto;
+//   margin-right: 20px;
+//   width: 150px;
+//   text-align: center;
+//   grid-area: ${(props) => props.gridArea};
+//   box-sizing: border-box;
+
+//   overflow: hidden;
+// `;
+
+
+//  <Grid container>
+//         <Grid item>
+          
+//         </Grid>
+//         <CardsContainer
+//           gridArea={"cards"}
+//         >
+
+//         <SimpleCard
+//           data={converDateString(startDateTime, true)}
+//           text={"Shift Start"}
+//           />
+//         <SimpleCard
+//           data={miles}
+//           text={"Miles Driven"}
+//           />
+//         <SimpleCard
+//           data={hours}
+//           text={"Hours Worked"}
+//           />
+//         <SimpleCard
+//           data={tips}
+//           text={"Tips"}
+//           />
+//         <SimpleCard
+//           data={ttlComp}
+//           text={"Total Earnings"}
+//           />
+//           </CardsContainer>
+//           <ImagesContainer
+//             gridArea={"pics"}
+//           >
+
+//           <DisplayImg
+          
+          
+//           src={
+//             startingUrl ||
+//             "https://via.placeholder.com/200.png?text=Add+Starting+Image"
+//           }
+//           alt="Starting Mileage Pic"
+//           />
+//         <DisplayImg
+          
+          
+//           src={
+//             endingUrl ||
+//             "https://via.placeholder.com/200.png?text=Add+Ending+Image"
+//           }
+//           alt="Ending Mileage Pic"
+//           />
+//           </ImagesContainer>
+       
+//       </Grid>
+
+// const Container = styled.div`
+//   margin: 50px auto;
+  
+//   display: grid;
+//   row-gap: 5px;
+//   grid-template-areas:
+//     " cards "
+//     " pics";
+//   grid-template-rows: auto;
+// `;
+
+
+// const CardsContainer = styled.div`
+//   grid-area: ${(props) => props.gridArea};
+//   display: flex;
+
+// `
+// const ImagesContainer = styled.div`
+//   grid-area: ${(props) => props.gridArea};
+//   display: flex;
+//   justify-content: center;
+// `

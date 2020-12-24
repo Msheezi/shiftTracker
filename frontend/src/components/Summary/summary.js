@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { searchResults, keyShifts } from "../../functionhelpers";
-import styled from "styled-components";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { ShiftsPage } from "../ShiftIndex/shiftsMain";
-import { Metrics } from "./summaryMetrics";
+import styled from 'styled-components'
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
+import { ShiftsPage } from '../main/shiftsMain';
+import {Metrics} from './summaryMetrics'
+
 
 const Container = styled.div`
   /* margin-top: 100px; */
@@ -12,7 +13,7 @@ const Container = styled.div`
   grid-template-areas:
     ". header  header ."
     ". shifts  rangeSummary .";
-  grid-template-columns: 1fr 1fr 1fr 0.5fr;
+    grid-template-columns: 10% 1fr 1fr 10%;
 `;
 
 export const Summary = () => {
@@ -30,9 +31,8 @@ export const Summary = () => {
     }
   };
 
-  const handleClose = () => {
-    setDisplayMetrics(true);
-  };
+    
+   
 
   const hideMetrics = () => {
     setDisplayMetrics(false);
@@ -40,9 +40,16 @@ export const Summary = () => {
 
   let keyedShifts = summaryState ? keyShifts(summaryState.shifts) : "";
 
-  let metrics =
-    summaryState && displayMetrics ? (
-      <Metrics shiftTotals={summaryState.shiftTotals} />
+    let keyedShifts = summaryState ? keyShifts(summaryState.shifts) : ""
+    
+    let metrics = summaryState && displayMetrics ? <Metrics shiftTotals={summaryState.shiftTotals} /> : ""
+    let shifts = summaryState ? (
+      <ShiftsPage
+        shifts={keyedShifts}
+        location={true}
+        // handleClose={handleClose}
+        hideMetrics={hideMetrics}
+      />
     ) : (
       ""
     );
@@ -66,18 +73,32 @@ export const Summary = () => {
           selected={Date.parse(startDate)}
         />
 
-        <DatePicker
-          id="end"
-          onChange={(date) => setEndDate(date)}
-          selected={Date.parse(endDate)}
-        />
-        <button onClick={search}>Get Shifts</button>
-      </div>
+    return (
+      <Container>
+        <div style={{ gridArea: "header" }}>
+          {/* <DatePicker
+            id="start"
+            onChange={(date) => setStartDate(date)}
+            selected={Date.parse(startDate)}
+          />
 
-      <div style={{ gridArea: "shifts" }}>{shifts}</div>
-      <div style={{ gridArea: "rangeSummary", marginTop: "55px" }}>
-        <div>{metrics}</div>
-      </div>
-    </Container>
-  );
-};
+          <DatePicker
+            id="end"
+            onChange={(date) => setEndDate(date)}
+            selected={Date.parse(endDate)}
+          /> */}
+          <button onClick={search}>Get Shifts</button>
+        </div>
+      
+        <div
+          
+          style={{ gridArea: "shifts" }}
+        >
+          {shifts}
+        </div>
+        <div style={{ gridArea: "rangeSummary", marginTop: "55px" }}>
+          <div>{metrics}</div>
+        </div>
+      </Container>
+    );
+}

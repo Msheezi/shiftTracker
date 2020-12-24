@@ -25,7 +25,7 @@ const StyledLabel = styled.label`
 `
 
 
-export const ImageUploader = ({shiftId, dispatch}) =>{
+export const ImageUploader = ({shiftId, dispatch, close, imageType}) =>{
     let initialState = { shiftId: shiftId, pictureType: "", file: null };
     const [state, updateState] = useState(initialState)
     const myRef = useRef()
@@ -57,22 +57,16 @@ export const ImageUploader = ({shiftId, dispatch}) =>{
        const formData = new FormData();
        formData.append("file", state.file, state.file.name);
        formData.append("shiftId", shiftId);
-       formData.append("pictureType", state.pictureType);
+       formData.append("pictureType", imageType);
        // formData.append("profilePrimary", this.state.checked)
        uploadPhoto(formData).then((shift) => dispatch({type: "upload", payload: shift.data}) 
           
-         ).then(()=> updateState(initialState))
+         ).then(()=> {
+           updateState(initialState)
+            close()
+          })
        
      };
-
-
-
-     const handleSelect = (e) =>{
-         e.preventDefault()
-         e.persist()
-         
-         updateState(prevState => Object.assign({}, prevState, {pictureType: e.target.value}))
-     }
 
      const handleCancel = e => {
          updateState({ file: null, pictureType: "" });
@@ -88,7 +82,7 @@ export const ImageUploader = ({shiftId, dispatch}) =>{
        >
          <StyledLabel>
            {" "}
-           Upload Mileage Photos:
+          
            <input
              ref={myRef}
              style={{ color: "white", display: "none" }}
@@ -101,14 +95,7 @@ export const ImageUploader = ({shiftId, dispatch}) =>{
          <UploadButton onClick={() => myRef.current.click()}>
            Select File
          </UploadButton>
-         <select style={{textAlign: "center"}}
-           onChange={(e) => handleSelect(e)}
-           defaultValue={{ label: "Select Image Type", value: null }}
-         >
-           <option>Select Image Type</option>
-           <option value="startingUrl">Beginning Miles</option>
-           <option value="endingUrl">Ending Miles</option>
-         </select>
+         
          <UploadButton disabled={disabled} onClick={(e) => handleSubmit(e)}>
            Upload{" "}
          </UploadButton>
