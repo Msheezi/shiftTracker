@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 // import {ShiftTable} from 
-import {ShiftCarousel} from '../ShiftIndex/shiftCarousel'
+import {ShiftCarousel} from '../ShiftDetails/shiftCarousel'
 
 const DetailContainer = styled.div`
   width: 80%;

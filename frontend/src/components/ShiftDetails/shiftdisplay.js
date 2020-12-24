@@ -3,42 +3,53 @@ import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import { converDateString } from "../../functionhelpers";
 import {SimpleCard} from './shiftCard'
-
-const Container = styled.div`
-  margin: 50px auto;
-  
-  display: grid;
-  row-gap: 5px;
-  grid-template-areas:
-    " cards "
-    " pics";
-  grid-template-rows: auto;
-`;
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import {makeStyles} from '@material-ui/core'
+import {ImageUploader} from './imageUpload'
 
 
-const CardsContainer = styled.div`
-  grid-area: ${(props) => props.gridArea};
-  display: flex;
 
-`
-const ImagesContainer = styled.div`
-  grid-area: ${(props) => props.gridArea};
-  display: flex;
-  justify-content: center;
-`
 
 const DisplayImg = styled.img`
   width: 200px;
   height: 200px;
  
-  /* grid-row-end: span 2; */
-  margin-right: 20px;
 `;
 
+const useStyles = makeStyles({
+  root: {
+    alignItems: "center",
+    padding: "8px"
+  }, 
+  title: {
+    textAlign: "center"
+  }
+})
 
-export const ShiftDisplay = ({ shiftObj }) => {
+export const ShiftDisplay = ({ shiftObj, dispatch }) => {
   const [miles, setMiles] = useState(0)
   const [hours, setHours] = useState(0)
+  const [open, setOpen] = useState(false)
+  const [image, setImage] = useState("")
+
+   const classes = useStyles()
+
+  const handleClickOpen = (e) => {
+    let imageType = e.target.id
+    setImage(imageType)
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setImage("")
+    setOpen(false);
+  };
+
+
 
   const {
       startDateTime,
@@ -48,8 +59,10 @@ export const ShiftDisplay = ({ shiftObj }) => {
       startingUrl,
       endingUrl,
       shiftDuration,
+      _id
     } = shiftObj;
 
+    const dispatch1 = dispatch 
 
   useEffect(()=> {
      
@@ -61,58 +74,75 @@ export const ShiftDisplay = ({ shiftObj }) => {
     // console.log(`shiftObj: ${shiftObj}`)
 
     return (
-      <Container>
-        
-        <CardsContainer
-          gridArea={"cards"}
-        >
+      <div>
 
-        <SimpleCard
-          data={converDateString(startDateTime, true)}
-          text={"Shift Start"}
+      <Grid container justify="center" align="center">
+        <Grid item xs={12} >
+            <SimpleCard
+            data={converDateString(startDateTime, true)}
+            text={"Shift Start"}
+            />
+        </Grid>
+        <Grid item xs={12} sm={3}   >
+            <SimpleCard
+              data={miles}
+              text={"Miles Driven"}
+            />
+        </Grid>
+        <Grid item xs={12} sm={3} >
+          <SimpleCard
+            data={hours}
+            text={"Hours Worked"}
           />
-        <SimpleCard
-          data={miles}
-          text={"Miles Driven"}
-          />
-        <SimpleCard
-          data={hours}
-          text={"Hours Worked"}
-          />
-        <SimpleCard
-          data={tips}
-          text={"Tips"}
-          />
-        <SimpleCard
-          data={ttlComp}
-          text={"Total Earnings"}
-          />
-          </CardsContainer>
-          <ImagesContainer
-            gridArea={"pics"}
-          >
-
+        </Grid>
+        <Grid item xs={12} sm={3} >
+          <SimpleCard
+            data={tips}
+            text={"Tips"}
+            />
+        </Grid>
+        <Grid item xs={12} sm={3} >
+          <SimpleCard
+            data={ttlComp}
+            text={"Total Earnings"}
+            />
+        </Grid>
+        <Grid item xs={false} sm={1}/>
+        <Grid item xs={12} sm={5} >
           <DisplayImg
-          
-          
-          src={
-            startingUrl ||
-            "https://via.placeholder.com/200.png?text=Add+Starting+Image"
-          }
-          alt="Starting Mileage Pic"
+            src={
+              startingUrl ||
+              "https://via.placeholder.com/200.png?text=Add+Starting+Image"
+            }
+            alt="Starting Mileage Pic"
+            onClick={e=>handleClickOpen(e)}
+            id="startingUrl"
           />
-        <DisplayImg
-          
-          
-          src={
-            endingUrl ||
-            "https://via.placeholder.com/200.png?text=Add+Ending+Image"
-          }
-          alt="Ending Mileage Pic"
+       </Grid>
+        
+       <Grid item xs={12} sm={5}>
+            <DisplayImg
+              src={
+                endingUrl ||
+                "https://via.placeholder.com/200.png?text=Add+Ending+Image"
+              }
+              alt="Ending Mileage Pic"
+              onClick={e=>handleClickOpen(e)}
+              id="endingUrl"
           />
-          </ImagesContainer>
+       </Grid>
+       <Grid item xs={false} sm={1}/> 
+      </Grid>
+       <Dialog className={classes.root} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle className={classes.title} id="form-dialog-title">Add/Update Image</DialogTitle>
+        <DialogContent className={classes.title}>
+          <ImageUploader shiftId={_id}  dispatch={dispatch1} close={handleClose} imageType={image}/>
+         <br/>
+        </DialogContent>
        
-      </Container>
+      </Dialog>
+      </div>
+
     );
   } 
 
@@ -229,3 +259,82 @@ export const ShiftDisplay = ({ shiftObj }) => {
 
 //   overflow: hidden;
 // `;
+
+
+//  <Grid container>
+//         <Grid item>
+          
+//         </Grid>
+//         <CardsContainer
+//           gridArea={"cards"}
+//         >
+
+//         <SimpleCard
+//           data={converDateString(startDateTime, true)}
+//           text={"Shift Start"}
+//           />
+//         <SimpleCard
+//           data={miles}
+//           text={"Miles Driven"}
+//           />
+//         <SimpleCard
+//           data={hours}
+//           text={"Hours Worked"}
+//           />
+//         <SimpleCard
+//           data={tips}
+//           text={"Tips"}
+//           />
+//         <SimpleCard
+//           data={ttlComp}
+//           text={"Total Earnings"}
+//           />
+//           </CardsContainer>
+//           <ImagesContainer
+//             gridArea={"pics"}
+//           >
+
+//           <DisplayImg
+          
+          
+//           src={
+//             startingUrl ||
+//             "https://via.placeholder.com/200.png?text=Add+Starting+Image"
+//           }
+//           alt="Starting Mileage Pic"
+//           />
+//         <DisplayImg
+          
+          
+//           src={
+//             endingUrl ||
+//             "https://via.placeholder.com/200.png?text=Add+Ending+Image"
+//           }
+//           alt="Ending Mileage Pic"
+//           />
+//           </ImagesContainer>
+       
+//       </Grid>
+
+// const Container = styled.div`
+//   margin: 50px auto;
+  
+//   display: grid;
+//   row-gap: 5px;
+//   grid-template-areas:
+//     " cards "
+//     " pics";
+//   grid-template-rows: auto;
+// `;
+
+
+// const CardsContainer = styled.div`
+//   grid-area: ${(props) => props.gridArea};
+//   display: flex;
+
+// `
+// const ImagesContainer = styled.div`
+//   grid-area: ${(props) => props.gridArea};
+//   display: flex;
+//   justify-content: center;
+// `

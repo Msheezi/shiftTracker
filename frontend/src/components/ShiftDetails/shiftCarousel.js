@@ -1,16 +1,18 @@
 import React from 'react'
-import {ShiftDetail} from '../ShiftDetails/shiftDetail'
+import {ShiftDetail} from './shiftDetail'
+import Grid from '@material-ui/core/Grid'
 import styled from 'styled-components'
 
 const SelectorButton = styled.div`
   color: blue;
   cursor: pointer;
-  height: 80vh;
-  width: 80px;
+  /* height: 80vh; */
+  
   margin: auto;
-  line-height: 80vh;
+  /* line-height: 80vh; */
   text-align: center;
-  font-size: 40pt;
+  align-items: center; 
+  font-size: 1.5rem;
   &:hover {
     background-color: #f0f8fa;
   }
@@ -20,8 +22,8 @@ const Closer = styled.div`
   color: black;
   cursor: pointer;
   height: 20px;
-  grid-area: ${props=> props.gridArea};
-  text-align: center;
+  
+  text-align: right;
   line-height: 20px;
   &:hover {
     background-color: #f0f8fa;
@@ -29,9 +31,7 @@ const Closer = styled.div`
 `;
 
 
-const DataContainer = styled.div`
-  grid-area: ${(props) => props.gridArea};
-`;
+
 
 export const ShiftCarousel = ({selectedShiftIndex, setSelectedShift, shiftKeys})=> {
 
@@ -41,10 +41,62 @@ const transition = (direction, id) => {
   if (direction ==="left" && index > 0 ) setSelectedShift(shiftKeys[index - 1])
      
 }
-       
+       /**
+        * Add a grid container
+        * layout the cards for shift highlights
+        * space for shift detail 
+        */
 
     return (
-        <>
+
+      <Grid container alignItems={"center"}>
+        <Grid item xs={12} >
+
+                <Closer onClick={() => setSelectedShift(null)}>
+                {" "}
+                <i
+                  className="fas fa-reply"
+                 
+                  >
+                  {" "}
+                </i>
+                Shifts
+              </Closer>
+        </Grid>
+          
+        <Grid item xs={1}>
+              <SelectorButton
+                onClick={() => transition("left", selectedShiftIndex)}
+                >
+                <i className="fas fa-angle-left"></i>
+              </SelectorButton>
+        </Grid>
+
+        <Grid item xs={10}>
+              <ShiftDetail
+                _id={selectedShiftIndex}
+                setSelectedShift={setSelectedShift}
+              />
+        </Grid>
+
+        <Grid item xs={1}>
+
+            <SelectorButton
+              onClick={() => transition("right", selectedShiftIndex)}
+              >
+              <i className="fas fa-angle-right"></i>
+            </SelectorButton>
+        </Grid>
+        
+      </Grid>
+    )
+
+
+
+
+}
+
+{/* <>
         <SelectorButton
           gridArea={"navLeft"}
           onClick={() => transition("left", selectedShiftIndex)}
@@ -74,11 +126,4 @@ const transition = (direction, id) => {
           </i>
           Shifts
         </Closer>
-        </>
-    )
-
-
-
-
-}
-
+        </> */}

@@ -2,12 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import {StoreProvider} from './store'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+
 
 ReactDOM.render(
 
   <React.StrictMode>
     <StoreProvider>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <App />
+      </MuiPickersUtilsProvider>
     </StoreProvider>
   </React.StrictMode>,
   document.getElementById('root')

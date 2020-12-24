@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { postShiftAPI, closeShiftAPI } from "../../functionhelpers";
-import { ImageUploader } from "./imageUpload";
+import { postShiftAPI, closeShiftAPI } from "../functionhelpers";
+import { ImageUploader } from "../components/ShiftDetails/imageUpload";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 

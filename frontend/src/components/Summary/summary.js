@@ -1,8 +1,8 @@
 import React, {useEffect, useState, } from 'react'
 import { searchResults, keyShifts } from "../../functionhelpers";
 import styled from 'styled-components'
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
 import { ShiftsPage } from '../main/shiftsMain';
 import {Metrics} from './summaryMetrics'
 
@@ -58,7 +58,7 @@ export const Summary = ()=>{
     return (
       <Container>
         <div style={{ gridArea: "header" }}>
-          <DatePicker
+          {/* <DatePicker
             id="start"
             onChange={(date) => setStartDate(date)}
             selected={Date.parse(startDate)}
@@ -68,7 +68,7 @@ export const Summary = ()=>{
             id="end"
             onChange={(date) => setEndDate(date)}
             selected={Date.parse(endDate)}
-          />
+          /> */}
           <button onClick={search}>Get Shifts</button>
         </div>
       

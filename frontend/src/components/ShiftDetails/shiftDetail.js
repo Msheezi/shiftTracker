@@ -3,21 +3,47 @@ import React, {useState, useEffect, useContext} from 'react'
 import {Store} from '../../store'
 import {  fetchShiftsAPI} from '../../functionhelpers'
 import { ShiftDisplay} from './shiftdisplay'
-import {ShiftEdit} from './shiftDetailUpdater'
+// import {ShiftEdit} from './shiftDetailUpdater'
+import {ShiftEditor} from './shiftDialogForm'
 import styled from 'styled-components'
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import {makeStyles} from '@material-ui/core'
+
 
 const Container = styled.div`
-  width: 80%;
+  /* width: 80%; */
   display: flex;
   flex-direction: column;
 `
-
+const useStyles = makeStyles({
+  root: {
+    alignItems: "center",
+    padding: "8px"
+  }, 
+  title: {
+    textAlign: "center"
+  }
+})
 
 
 export const ShiftDetail =  ({_id, setSelectedShift}) => {
     const shiftId = _id
     const {state,  dispatch} = useContext(Store)
     const [shift, updateShift] = useState(state.shifts[shiftId]);
+    const [open, setOpen] = useState(false);
+
+  const classes = useStyles()
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
     useEffect(()=>{
       updateShift(state.shifts[shiftId])
@@ -29,10 +55,34 @@ export const ShiftDetail =  ({_id, setSelectedShift}) => {
         .catch(err=>console.log(err))
     })
     
+    /**
+     * add a new component to handle updates to the shift details
+     * update images on click to trigger an update dialog for that image
+     * update the following details 
+      - start time
+      - end time
+      - starting miles 
+      - ending miles 
+      - tips
+     */
     return shift ? (
       <Container>
-        <ShiftDisplay shiftObj={shift}/>
-        <ShiftEdit shiftObj={shift} shiftId={shiftId} dispatch={dispatch}/>
+        <ShiftDisplay shiftObj={shift} dispatch={dispatch}/>
+        <div style={{textAlign:"center", margin: "10px"}}>
+
+         <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        Edit Details
+      </Button>
+        </div>
+      <Dialog className={classes.root} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle className={classes.title} id="form-dialog-title">Update Details</DialogTitle>
+        <DialogContent className={classes.title}>
+          <ShiftEditor shiftObj={shift} shiftId={shiftId} dispatch={dispatch} close={handleClose}/>
+         <br/>
+        </DialogContent>
+       
+      </Dialog>
+        
         
       </Container>
     ) : null;
@@ -62,3 +112,4 @@ export const ShiftDetail =  ({_id, setSelectedShift}) => {
 
     //   getShift(shiftId)
     // },[shiftId])
+    // <ShiftEdit shiftObj={shift} shiftId={shiftId} dispatch={dispatch}/>
