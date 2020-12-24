@@ -83,13 +83,19 @@ export const ShiftTable = ({shifts, setSelectedShift}) => {
                 
             })
         const useStyles = makeStyles({
+          root: {
+            maxWidth: "800px",
+            minWidth: "200px", 
+            margin: "0 auto"
+          },
           table: {
             minWidth: 650,
           },
           pageContainer: {
             // width: "100vw",
             maxWidth: "800px",
-            minWidth: "200px"
+            minWidth: "200px", 
+            margin: "0 auto"
           }
         });
 
@@ -100,8 +106,8 @@ export const ShiftTable = ({shifts, setSelectedShift}) => {
 return (
       <div >
 
-        <TableContainer component={Paper}>
-            <Table  aria-label="simple table">
+        <TableContainer className={classes.root} component={Paper}>
+            <Table className={classes.pageContainer} aria-label="simple table">
                 <TableHead>
                 <TableRow>
                     <TableCell >Date</TableCell>
@@ -118,7 +124,6 @@ return (
                   </TableRow>
                 </TableFooter>
             </Table>
-        </TableContainer>
                     <TablePagination
                       component="div"
                       count={count}
@@ -128,6 +133,7 @@ return (
                       onChangeRowsPerPage={handleChangeRowsPerPage}
                       rowsPerPage={rowsPerPage}
                       />
+        </TableContainer>
         </div>
         
     

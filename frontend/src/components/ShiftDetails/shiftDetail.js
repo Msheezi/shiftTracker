@@ -7,12 +7,10 @@ import { ShiftDisplay} from './shiftdisplay'
 import {ShiftEditor} from './shiftDialogForm'
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
-// import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-// import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {makeStyles} from '@material-ui/core'
 
 
 const Container = styled.div`
@@ -20,7 +18,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 `
-
+const useStyles = makeStyles({
+  root: {
+    alignItems: "center",
+    padding: "8px"
+  }, 
+  title: {
+    textAlign: "center"
+  }
+})
 
 
 export const ShiftDetail =  ({_id, setSelectedShift}) => {
@@ -28,6 +34,8 @@ export const ShiftDetail =  ({_id, setSelectedShift}) => {
     const {state,  dispatch} = useContext(Store)
     const [shift, updateShift] = useState(state.shifts[shiftId]);
     const [open, setOpen] = useState(false);
+
+  const classes = useStyles()
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -59,18 +67,18 @@ export const ShiftDetail =  ({_id, setSelectedShift}) => {
      */
     return shift ? (
       <Container>
-        <ShiftDisplay shiftObj={shift}/>
+        <ShiftDisplay shiftObj={shift} dispatch={dispatch}/>
         <div style={{textAlign:"center", margin: "10px"}}>
 
          <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Edit Details
       </Button>
         </div>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Update Details</DialogTitle>
-        <DialogContent>
+      <Dialog className={classes.root} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle className={classes.title} id="form-dialog-title">Update Details</DialogTitle>
+        <DialogContent className={classes.title}>
           <ShiftEditor shiftObj={shift} shiftId={shiftId} dispatch={dispatch} close={handleClose}/>
-         
+         <br/>
         </DialogContent>
        
       </Dialog>
