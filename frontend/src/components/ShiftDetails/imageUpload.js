@@ -79,9 +79,9 @@ export const ImageUploader = ({shiftId, dispatch, close, imageType}) =>{
        
      };
 
-     const handleCancel = e => {
-         updateState({ file: null, pictureType: "" });
-     }
+    //  const handleCancel = e => {
+    //      updateState({ file: null, pictureType: "" });
+    //  }
 
      return (
        <div

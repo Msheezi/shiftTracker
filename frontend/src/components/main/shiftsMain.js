@@ -29,6 +29,17 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
     
   }, [dispatch])
 
+  /**
+   * This should be rewritten to use a filter method
+   * filter method will take from the entry boxes and filter the values based on 
+   * the date ranged entered
+   * 
+   * currently already displaying the filtered shifts
+   * 
+   * Add in a popup component to provide summary metrics for the displayed shifts
+   *  - do I do this on front end or send a backend request to populate the values
+   *    in the popup?
+   */
   useEffect(()=> {
    if (Object.keys(state.shifts).length) {
     let shiftArray = frontEndFetch(state.shifts)

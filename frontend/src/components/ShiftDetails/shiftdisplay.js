@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { converDateString } from "../../functionhelpers";
 import {SimpleCard} from './shiftCard'
 import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -103,7 +103,7 @@ export const ShiftDisplay = ({ shiftObj, dispatch }) => {
         <Grid item xs={12} sm={3} >
           <SimpleCard
             data={ttlComp}
-            text={"Total Earnings"}
+            text={"Gross Earnings"}
             />
         </Grid>
         <Grid item xs={false} sm={1}/>

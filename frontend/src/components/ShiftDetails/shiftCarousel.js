@@ -96,7 +96,7 @@ const transition = (direction, id) => {
 
 }
 
-{/* <>
+/* <>
         <SelectorButton
           gridArea={"navLeft"}
           onClick={() => transition("left", selectedShiftIndex)}
@@ -126,4 +126,4 @@ const transition = (direction, id) => {
           </i>
           Shifts
         </Closer>
-        </> */}
+        </> */

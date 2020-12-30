@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { postShiftAPI, closeShiftAPI } from "../../functionhelpers";
+import { postShiftAPI,  } from "../../functionhelpers";
 import {Grid, Button, makeStyles, TextField} from '@material-ui/core/'
 import { DateTimePicker } from "@material-ui/pickers";
 
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 
 export const ShiftEditor = ({ shiftObj, shiftId, dispatch, close }) => {
   const [shift, updateShift] = useState(shiftObj);
-  const [status, updateStatus] = useState(false);
+  // const [status, updateStatus] = useState(false);
   const [startTime, updateStartTime] = useState(shiftObj.startDateTime);
   const [endTime, updateEndTime] = useState(shiftObj.endDateTime);
 
@@ -42,7 +42,7 @@ export const ShiftEditor = ({ shiftObj, shiftId, dispatch, close }) => {
     shift.endDateTime = Date.parse(endTime);
     //console.log(shift);
     postShift(shiftId, shift).then(() => {
-        updateStatus(true)
+        // updateStatus(true)
         close()
 
     });
@@ -60,7 +60,7 @@ export const ShiftEditor = ({ shiftObj, shiftId, dispatch, close }) => {
   // let displayUpdate = status ? "Operation Successful" : null
 
   return (
-    <Grid className={classes.container} container  spacing="2">
+    <Grid className={classes.container} container  spacing={2}>
         
         
         <Grid item  xs={12}>
