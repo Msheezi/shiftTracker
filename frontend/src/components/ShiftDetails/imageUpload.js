@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react'
-
+import imageCompression from 'browser-image-compression';
 import styled from 'styled-components'
 import {uploadPhoto} from '../../functionhelpers'
 
@@ -32,30 +32,41 @@ export const ImageUploader = ({shiftId, dispatch, close, imageType}) =>{
 
     const disabled = state.photoUrl ? false: true
 
-     const handleFile = (e) => {
+     const handleFile = async (e) => {
        // const file = e.currentTarget.files[0];
        const file = e.target.files[0];
+       const options = {
+         maxSizeMB: 0.5,
+         
+       }
        console.log(e.target)
-       const fileReader = new FileReader();
-       fileReader.onloadend = () => {
+       /**
+        * Add in compression prior to upload
+        * reduce file size and potential storage costs. Set at 0.5MB currently
+        * Do I want to add an image preview?  uncomment and fix the filereader
+        */
+       const compressedFile = await imageCompression(file, options)
+      //  const fileReader = new FileReader();
 
-         updateState(prevState =>
+        updateState(prevState =>
            Object.assign({}, prevState, {
-             file: file,
-             photoUrl: fileReader.result,
+             file: compressedFile,
+            //  photoUrl: fileReader.result, this is here if you want to add in the image preview before upload
+             photoUrl: compressedFile,
            })
          );
-       };
-       if (file) {
-         fileReader.readAsDataURL(file);
-       }
      };
 
      const handleSubmit = (e) => {
        e.preventDefault();
 
+       /**
+        * Add time stamp to prevent overwrite on aws upload
+        * not appending a value to the file name caused awas to overwrite the existing image
+        * apparently iphone file name uploads are always image.jpg?
+        */
        const formData = new FormData();
-       formData.append("file", state.file, state.file.name);
+       formData.append("file", state.file,  Date.now() + state.file.name);
        formData.append("shiftId", shiftId);
        formData.append("pictureType", imageType);
        // formData.append("profilePrimary", this.state.checked)
@@ -104,3 +115,17 @@ export const ImageUploader = ({shiftId, dispatch, close, imageType}) =>{
 
 
 }
+
+//    fileReader.onloadend = () => {
+
+    //      updateState(prevState =>
+    //        Object.assign({}, prevState, {
+    //          file: file,
+    //         //  photoUrl: fileReader.result,
+    //          photoUrl: compressedFile,
+    //        })
+    //      );
+    //    };
+    //    if (file) {
+    //      fileReader.readAsDataURL(file);
+    //    }

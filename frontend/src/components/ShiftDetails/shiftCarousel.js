@@ -25,9 +25,9 @@ const Closer = styled.div`
   
   text-align: right;
   line-height: 20px;
-  &:hover {
+  /* &:hover {
     background-color: #f0f8fa;
-  }
+  } */
 `;
 
 

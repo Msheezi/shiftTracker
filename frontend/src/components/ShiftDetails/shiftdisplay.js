@@ -15,8 +15,7 @@ import {ImageUploader} from './imageUpload'
 
 
 const DisplayImg = styled.img`
-  width: 200px;
-  height: 200px;
+ width: 90%;
  
 `;
 
