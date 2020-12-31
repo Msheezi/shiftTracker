@@ -1,8 +1,9 @@
-import React from 'react'
+import React  from 'react'
 import {ShiftTable} from '../ShiftIndex/shiftsTable'
 import styled from 'styled-components'
 import Grid  from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles';
+
 
 
 const StyledButton = styled.button`
@@ -32,18 +33,66 @@ const useStyles = makeStyles({
         
         padding: "5px"
     }, 
+    searchContainer: {
+      display: "flex",
+      justifyContent: "center",
+      
+    }, 
+    picker: {
+      margin: "5px"
+    }
 
 })
 
 
 
 export const ShiftsIndexPage = ({shifts, setSelectedShift, addNewShift}) => {
+       
+  //  const [searchStartDate, setSearchStartDate] = useState(null)
+  // const [searchEndDate, setSearchEndDate] = useState(null)
+  // const [displayShifts, setDisplayShifts ] = useState([])
+  const classes = useStyles()
 
-        const classes = useStyles()
+
+
+  /**
+   * use effect conditions
+   * if starting date, filter for objects with starting date >= starting date
+   * if ending date, filter for objects with ending date <= ending date
+   * if both, filter for objects with date >=starting date && date <= ending date
+   */
+
+  // useEffect(()=>{
+  //   setDisplayShifts(shifts)
+  // },[shifts])
+
+  // useEffect(()=>{
+  //   let [searchStart, searchEnd] = [new Date(searchStartDate), new Date(searchEndDate)]
+  //     const filteredShifts = shifts.filter(shift => {
+  //         let shiftStart = new Date(shift.startDateTime)
+  //         let shiftEnd = new Date(shift.endDateTime)
+  //       if (searchStartDate && !searchEndDate){
+  //         return shiftStart >= searchStart
+  //       }
+  //       else if (!searchStartDate && searchEndDate){
+  //         return shiftEnd <= searchEnd
+  //       }
+  //       else if (searchStartDate && searchEndDate){
+  //         return (shiftStart >= searchStart && shiftEnd <= searchEnd)
+  //       }
+  //       else return shifts
+        
+  //     })
+  //     setDisplayShifts(filteredShifts)
+
+  // }, [searchStartDate, searchEndDate, shifts])
+
+
 
     return (
 
         <Grid className={classes.container} container>
+     
             <Grid item xs={1} sm={2}/>
             <Grid item xs={12} sm={8}>
                 <ShiftTable 
@@ -92,3 +141,19 @@ export const ShiftsIndexPage = ({shifts, setSelectedShift, addNewShift}) => {
 
 
 
+     /* <Grid className={classes.searchContainer} item xs={12} >
+            <DatePicker className={classes.picker}
+              label={"Starting Date"}
+              value={searchStartDate} 
+              onChange={setSearchStartDate}
+              disableToolbar
+              clearable
+            />
+            <DatePicker className={classes.picker}
+                label={"Ending Date"}
+                value={searchEndDate} 
+                onChange={setSearchEndDate}
+                disableToolbar
+                clearable
+                />
+          </Grid> */

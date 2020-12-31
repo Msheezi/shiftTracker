@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Store } from "../../store";
 import {ShiftsDetailsPage} from './shiftsDetailsPage'
 import {ShiftsIndexPage } from './shiftsIndexPage'
+    import {DatePicker} from '@material-ui/pickers'
+
 
 import {
   frontEndFetch,
@@ -15,11 +17,11 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
   const { state, dispatch } = useContext(Store);
   const [selectedShiftIndex, setSelectedShift] = useState(null);
   const [stateShifts, setStateShifts] = useState([])
-  let shiftKeys = Object.keys(state.shifts);
+  const [searchStartDate, setSearchStartDate] = useState(null)
+  const [searchEndDate, setSearchEndDate] = useState(null)
+  const [displayShifts, setDisplayShifts ] = useState([])
+  const [shiftKeys, setShiftKeys] = useState()
 
-  // let searchValues;
-  // do the search values on the front end. apply filter to state shifts based on date range, don't make it a 
-  //back end call
   useEffect(()=> {
     const fetchShifts = async ()=>{
       let {data} = await fetchShiftsAPI()
@@ -47,6 +49,33 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
    }
   },[state])
 
+useEffect(()=>{
+  if (stateShifts){
+
+    let [searchStart, searchEnd] = [new Date(searchStartDate), new Date(searchEndDate)]
+    const filteredShifts = stateShifts.filter(shift => {
+      let shiftStart = new Date(shift.startDateTime)
+      let shiftEnd = new Date(shift.endDateTime)
+      if (searchStartDate && !searchEndDate){
+        return shiftStart >= searchStart
+      }
+      else if (!searchStartDate && searchEndDate){
+        return shiftEnd <= searchEnd
+      }
+      else if (searchStartDate && searchEndDate){
+        return (shiftStart >= searchStart && shiftEnd <= searchEnd)
+      }
+      else return stateShifts
+      
+    })
+    setDisplayShifts(filteredShifts)
+    let newKeys = filteredShifts.map(({_id}) => _id);
+    setShiftKeys(newKeys)
+  }
+
+  }, [searchStartDate, searchEndDate, shifts, stateShifts])
+
+
 ;
 
 
@@ -69,11 +98,32 @@ export const ShiftsPage = ({ shifts, location, handleClose, hideMetrics }) => {
      } else {
        
        return (
-         // "hello" container grid here with layout
-         <ShiftsIndexPage
-          shifts={stateShifts}
-          setSelectedShift={setSelectedShift} 
-          addNewShift={addNewShift}/>
+        <div>
+            <div style={{display: "flex", justifyContent: "center"}}>
+                <DatePicker 
+                style={{margin: "5px"}}
+                label={"Starting Date"}
+                value={searchStartDate} 
+                onChange={setSearchStartDate}
+                disableToolbar
+                clearable
+                />
+                <DatePicker 
+                style={{margin: "5px"}}
+                label={"Ending Date"}
+                value={searchEndDate} 
+                onChange={setSearchEndDate}
+                disableToolbar
+                clearable
+                />
+            </div>
+         
+            <ShiftsIndexPage
+            shifts={displayShifts}
+            setSelectedShift={setSelectedShift} 
+            addNewShift={addNewShift}/>
+        </div>
+         
         
        )
      }
