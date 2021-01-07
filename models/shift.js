@@ -27,11 +27,11 @@ const ShiftSchema = new Schema({
   },
   startMiles: {
     type: Number,
-    default: 0,
+    default: null,
   },
   endMiles: {
     type: Number,
-    default: 0,
+    default: null,
   },
   ttlMiles: {
     type: Number,

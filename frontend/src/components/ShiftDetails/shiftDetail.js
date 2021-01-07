@@ -45,6 +45,13 @@ export const ShiftDetail =  ({_id, setSelectedShift}) => {
     setOpen(false);
   };
 
+  const handleDelete = () => {
+    /**
+     * dispatch shift_id to delete
+     * clear selected shift ID on success
+     */
+  }
+
     useEffect(()=>{
       updateShift(state.shifts[shiftId])
     }, [state.shifts, shiftId])
@@ -72,6 +79,12 @@ export const ShiftDetail =  ({_id, setSelectedShift}) => {
 
          <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Edit Details
+      </Button>
+        </div>
+        <div style={{textAlign:"center", margin: "10px"}}>
+
+         <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
+        Delete Shift
       </Button>
         </div>
       <Dialog className={classes.root} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

@@ -2,6 +2,7 @@ html, body {
   padding: 0px;
   margin: 0px;
   font: Roboto;
+  /* background-image: url("%PUBLIC_URL%/pic.jpg"); */
 }
 
 

@@ -1,5 +1,6 @@
 import React from "react";
 
+
 import "./css/App.css";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import { ShiftsPage } from "./components/main/shiftsMain";
@@ -12,7 +13,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div style={{ marginTop: "80px" }}>
+      <div style={{ marginTop: "80px", }}>
         <Switch>
           <Route path="/shifts">
             <ShiftsPage />
