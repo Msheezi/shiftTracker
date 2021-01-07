@@ -35,6 +35,14 @@ const reducer = (state, action) => {
         newState.shifts[_id] = action.payload;
         return newState;
 
+      case "delete":
+        const shiftId  = action.payload
+        
+        newState = {...state}
+        delete newState.shifts[shiftId]
+        return newState
+
+
       default:
         return state;
     }

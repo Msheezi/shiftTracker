@@ -61,3 +61,7 @@ export const uploadPhoto = (pictureObj) => {
 export const searchResults = (start, end)=> {
     return axios.get(`shifts/search?start=${start}&end=${end}`)
 }
+
+export const deleteShift = (shiftId) => {
+    return axios.delete(`shifts/delete/${shiftId}`)
+}

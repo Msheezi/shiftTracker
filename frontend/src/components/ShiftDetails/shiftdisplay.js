@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 import styled from "styled-components";
-import { converDateString } from "../../functionhelpers";
+import { converDateString, deleteShift } from "../../functionhelpers";
 import {SimpleCard} from './shiftCard'
 import Grid from '@material-ui/core/Grid'
 // import Button from '@material-ui/core/Button';
@@ -48,6 +48,7 @@ export const ShiftDisplay = ({ shiftObj, dispatch }) => {
     setOpen(false);
   };
 
+ 
 
 
   const {

@@ -168,7 +168,16 @@ router.patch("/close/:id", async (req, res) => {
   
 });
 
-
+router.delete("/delete/:id", async (req, res)=>{
+  let shiftId = req.params.id
+  try {
+    await Shift.deleteOne({_id: shiftId})
+    res.json(shiftId)
+  }
+  catch(err){
+    res.json(err)
+  }
+})
 
 
 

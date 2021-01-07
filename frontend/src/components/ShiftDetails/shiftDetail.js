@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 
 import {Store} from '../../store'
-import {  fetchShiftsAPI} from '../../functionhelpers'
+import {  fetchShiftsAPI, deleteShift} from '../../functionhelpers'
 import { ShiftDisplay} from './shiftdisplay'
 // import {ShiftEdit} from './shiftDetailUpdater'
 import {ShiftEditor} from './shiftDialogForm'
@@ -34,6 +34,7 @@ export const ShiftDetail =  ({_id, setSelectedShift}) => {
     const {state,  dispatch} = useContext(Store)
     const [shift, updateShift] = useState(state.shifts[shiftId]);
     const [open, setOpen] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
 
   const classes = useStyles()
 
@@ -44,12 +45,26 @@ export const ShiftDetail =  ({_id, setSelectedShift}) => {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleDeleteOpen = () => {
+    setOpenDelete(true);
+  };
 
-  const handleDelete = () => {
+  const handleDeleteClose = () => {
+    setOpenDelete(false);
+  };
+
+  const handleDelete = async (_id) => {
     /**
      * dispatch shift_id to delete
      * clear selected shift ID on success
      */
+
+    let {data} = await deleteShift(_id)
+    dispatch({type:"delete", payload: data})
+    setOpenDelete(false)
+    setSelectedShift(null)
+    
+  
   }
 
     useEffect(()=>{
@@ -83,7 +98,7 @@ export const ShiftDetail =  ({_id, setSelectedShift}) => {
         </div>
         <div style={{textAlign:"center", margin: "10px"}}>
 
-         <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
+         <Button variant="outlined" color="secondary" onClick={handleDeleteOpen}>
         Delete Shift
       </Button>
         </div>
@@ -93,6 +108,19 @@ export const ShiftDetail =  ({_id, setSelectedShift}) => {
           <ShiftEditor shiftObj={shift} shiftId={shiftId} dispatch={dispatch} close={handleClose}/>
          <br/>
         </DialogContent>
+
+        
+       
+      </Dialog>
+      <Dialog className={classes.root} open={openDelete} onClose={handleDeleteClose} aria-labelledby="form-dialog-title">
+        <DialogTitle className={classes.title} id="form-dialog-title">Delete Shift?</DialogTitle>
+        <DialogContent className={classes.title}>
+          <Button onClick={handleDeleteClose} color="primary">Cancel</Button>
+          <Button onClick={()=>handleDelete(_id)} color="secondary">Delete</Button>
+         <br/>
+        </DialogContent>
+
+
        
       </Dialog>
         
