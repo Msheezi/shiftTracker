@@ -1,9 +1,10 @@
-import React  from 'react'
+import React, {useState}  from 'react'
 import {ShiftTable} from '../ShiftIndex/shiftsTable'
 import styled from 'styled-components'
 import Grid  from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles';
-
+import {Dialog, DialogContent, DialogTitle} from '@material-ui/core'
+import {Metrics} from '../ShiftIndex/metrics'
 
 
 const StyledButton = styled.button`
@@ -48,6 +49,8 @@ const useStyles = makeStyles({
 
 export const ShiftsIndexPage = ({shifts, setSelectedShift, addNewShift}) => {
        
+   const [open, setOpen] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
   //  const [searchStartDate, setSearchStartDate] = useState(null)
   // const [searchEndDate, setSearchEndDate] = useState(null)
   // const [displayShifts, setDisplayShifts ] = useState([])
@@ -87,7 +90,13 @@ export const ShiftsIndexPage = ({shifts, setSelectedShift, addNewShift}) => {
 
   // }, [searchStartDate, searchEndDate, shifts])
 
-
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  
 
     return (
 
@@ -105,11 +114,18 @@ export const ShiftsIndexPage = ({shifts, setSelectedShift, addNewShift}) => {
                     <StyledButton onClick={(e) => addNewShift()} >
                         Add Shift
                     </StyledButton>
-                    <StyledButton>Metrics </StyledButton>
+                    <StyledButton onClick={handleOpen}>Metrics </StyledButton>
                 
               </Grid>
             <Grid item xs={false} sm={1}/>
-          </Grid>
+              <Dialog className={classes.root} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+               <DialogTitle className={classes.title} id="form-dialog-title">Summary Details</DialogTitle>
+        <DialogContent className={classes.title}>
+          <Metrics shifts={shifts}/>
+        </DialogContent>
+         </Dialog>
+        </Grid>
+        
           
 
 
