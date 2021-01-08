@@ -22,7 +22,7 @@ export const Metrics = ({shifts})=> {
     
 
 
-    console.log(totals)
+    
 
     return (
         <div>Shift Totals
